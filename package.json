@@ -1,0 +1,57 @@
+{
+  "name": "Star Shining Brightly",
+  "version": "0.0.1",
+  "description": "Hello MELD demo app (4)",
+  "author": "David Lewis and Mark Saccamano (and the Beethoven in the House project)",
+  "license": "BSD-3-Clause",
+  "main": "index.js",
+  "scripts": {
+    "start": "PORT=8080 react-scripts start",
+    "build": "babel src --out-dir lib",
+    "build-dev": "babel src --out-dir lib --source-maps inline"
+  },
+  "dependencies": {
+    "@solid/react": "^1.9.0",
+    "axios": "^0.21.1",
+    "immutability-helper": "^3.1.1",
+    "jsum": "^0.1.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-redux": "^7.2.2",
+    "react-scripts": "^4.0.1",
+    "redux": "^4.0.5",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
+    "meld-clients-core": "oerc-music/meld-clients-core",
+    "selectable-score": "trompamusic/selectable-score",
+    "solid-auth-client": "^2.5.5"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.12.0",
+    "@babel/preset-react": "^7.12.13"
+  },
+  "old-dependencies": {
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-media-player": "^0.7.9",
+    "react-redux": "^7.2.0",
+    "browserslist": "^4.11.0",
+    "fibers": "^4.0.2",
+    "meld-clients-core": "oerc-music/meld-clients-core",
+    ".": "."
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

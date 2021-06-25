@@ -1,0 +1,220 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux' ;
+import { bindActionCreators } from 'redux';
+import { registerTraversal, traverse, setTraversalObjectives, checkTraversalObjectives } from 'meld-clients-core/lib/actions/index';
+import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
+import { fetchGraph } from 'meld-clients-core/lib/actions/index';
+import SelectableScore from 'selectable-score/lib/selectable-score';
+import NextPageButton from 'selectable-score/lib/next-page-button.js';
+import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
+import SubmitButton from 'selectable-score/lib/submit-button.js';
+
+const MAX_TRAVERSERS = 2;
+
+// selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
+//const selectorString = ".measure";
+//const selectorString = ".notehead";
+const selectorStrings = { note: ".notehead, .stem, .verse", measure: ".measure" };
+
+pref.bith = "https://example.com/";
+
+
+export default class App extends Component { 
+  constructor(props) { 
+    super(props);
+    this.state = {
+			mode: 'work',
+			work: false,
+			targetting: 'note',
+			selector: '.notehead, .stem, .verse',
+      selection: {},
+      uri: this.props.uri
+    };
+    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+		this.usefulIdForChildElement = this.usefulIdForChildElement.bind(this);
+		this.props.setTraversalObjectives([
+			{
+				"@type": pref.frbr + "Work"
+			},
+			{
+				"@type": pref.oa + "Annotation"
+			},
+			{
+				"@type": pref.bith + "MusicalIdea"
+			},
+			{
+				"@type": pref.bith + "MusicalMaterial"
+			}
+		]);
+	}
+	// Life cycle methods
+	componentDidMount(){
+    // See: https://reactjs.org/docs/react-component.html#componentdidmount
+    if(this.props.graphURI){
+      this.props.registerTraversal(this.props.graphURI, {numHops: 4, noProp: "unused"});
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    // See: https://reactjs.org/docs/react-component.html#componentdidupdate
+    if(prevProps && "graph" in prevProps) {
+      if ( this.graphComponentDidUpdate(this.props, prevProps, prevState ) ) {
+				this.graphHasChanged();
+      }
+    }
+	}
+
+	// methods called during initialisation and graph loading
+	graphHasChanged(){
+		// 1. convert this.graph.outcomes[0] into this.state.worklist
+	}
+	
+  graphComponentDidUpdate(props, prevProps, prevState) {
+		// Boiler plate traversal code (should move to m-c-c)
+		// Check whether the graph has updated and trigger further traversal as necessary.
+		// Called by this.componentDidUpdate
+    var prevPool = prevProps.traversalPool;
+    var thisPool = props.traversalPool;
+    var updated  = false;
+    if (prevPool.running === 1 && thisPool.running ===0){
+      // check our traversal objectives if the graph has updated
+      props.checkTraversalObjectives(
+        props.graph.graph, props.graph.objectives);
+      updated = true;
+    } else if ( Object.keys(thisPool.pool).length && thisPool.running < MAX_TRAVERSERS) {
+      // Initiate next traverser in pool...
+      var uri = Object.keys(thisPool.pool)[0];
+      props.traverse(uri, thisPool.pool[uri]);
+      if (prevProps.graph.outcomesHash !== props.graph.outcomesHash) {
+        updated = true;
+      }
+    } else if ( props.traversalPool.running===0 ) {
+      if(prevProps.graph.outcomesHash !== props.graph.outcomesHash) {
+        updated = true;
+      }
+    }
+    return updated;
+  }
+
+	// UI methods
+	
+	usefulIdForChildElement(element) {
+		console.log(element);
+		if(element.classList.contains(this.state.targetting)){
+			return element.id;
+		} else if(!element.parentNode) {
+			return false;
+		} else {
+			return this.usefulIdForChildElement(element.parentNode);
+		}
+	}
+  handleNoteSelectionChange(key, newSelection) {
+		// We need to replace this.state.selection[key] with the notes that contain newSelection
+		const selectionIds = selection.map(this.usefulIdForChildElement);
+		const pane = document.getElementById(key);
+		const notes = Array.from(pane.getElementsByClassName('note'));
+		const newSelection = ...this.state.selection;
+		notes.forEach(thing => thing.classList.remove('selected'));
+		newSelection[key] = selectionIds.map(e => document.getElementById(e).classList.add('selected'));
+    this.setState({ selection: newSelection });
+  }
+
+  handleScoreUpdate(scoreElement) { 
+    console.log("Received updated score DOM element: ", scoreElement)
+  }
+	handleChooseWork(work){
+		this.setState({'mode': 'version', 'work': work });
+	}
+
+  handleSubmit(args) { 
+    /* do any app-specific actions and return the object (e.g. a Web Annotation) 
+     * to be submitted to the user POD */
+    console.log("Received args: ", args);
+    return {
+      "@context": "http://www.w3.org/ns/anno.jsonld",
+      "target": this.state.selection.map( (elem) => this.state.uri + "#" + elem.getAttribute("id") ),
+      "motivation": "highlighting"
+    }
+  }
+	render(){
+		switch(this.state.mode){
+			case 'version':
+				return this.renderVersions();
+			case 'score':
+				return this.renderSingleScore();
+			case 'compare':
+				return this.renderTiledScores();
+			case 'work':
+			default:
+				return this.renderWorks();
+		}
+	}
+	renderWorkInList(work){
+		// Each work is drawn separately to the works list
+		return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
+	}
+	renderVersionInList(version){
+		// Each verison is drawn separately to the versions list
+		return <div className="versionListing" onClick={ this.handleChooseVersion.bind(this, version) }>{ version.title}</div> ;
+	}
+	renderWorks(){
+		return (
+			<div className="works">
+				{ this.state.worklist.map(this.renderWorkInList) }
+			</div>
+		);
+	}
+	renderVersions(){
+		return (
+			<div className="work">
+				<div className="workInfo">this.renderWorkAsHeader</div>
+				<div className="versions">
+					{ this.state.work.versions.map(this.renderVersionInList) }
+				</div>
+			</div>
+		);
+	}
+	renderTiledScores(){
+	}
+  renderSingleScore() {
+    return(
+      <div>
+        <p>Current selection: { this.state.selection.length > 0
+          ? <span> { this.state.selection.map( (elem) => elem.getAttribute("id") ).join(", ") } </span>
+          : <span>Nothing selected</span>
+        }</p>
+
+        { /* pass anything as buttonContent that you'd like to function as a clickable next page button */ }
+        <NextPageButton 
+          buttonContent = { <span>Next</span> }
+          uri = { this.state.uri }
+        />
+
+        { /* pass anything as buttonContent that you'd like to function as a clickable prev page button */ }
+        <PrevPageButton 
+          buttonContent = { <span>Prev</span> }
+          uri = { this.state.uri }
+        />
+
+        <SubmitButton
+          buttonContent = "Submit to Solid POD"
+          submitUri = { this.props.submitUri }
+          submitHandler = { this.handleSubmit}
+          submitHandlerArgs = { { "test": "test" } }
+        />
+
+        <SelectableScore 
+          uri={ this.state.uri } 
+          options={ this.props.vrvOptions } 
+          onSelectionChange={ this.handleSelectionChange } 
+          selectorString = { selectorStrings[this.state.targetting] }
+          onScoreUpdate = { this.handleScoreUpdate }
+        />
+      </div>
+    )
+  }
+}
+
+  
+
