@@ -1,0 +1,41 @@
+[
+  {
+    "@id": "http://localhost:8080/Hello_Meld.mei",
+    "@type": [
+      "http://purl.org/vocab/frbr/core#Manifestation",
+      "https://meld.linkedmusic.org/terms/MEIManifestation"
+    ]
+  },
+  {
+    "@id": "http://localhost:8080/helloMeld",
+    "@type": [
+      "http://purl.org/vocab/frbr/core#Work"
+    ],
+    "http://purl.org/vocab/frbr/core#realization": [
+      {
+        "@id": "http://localhost:8080/helloMeldExpression"
+      }
+    ]
+  },
+  {
+    "@id": "http://localhost:8080/Hello_Meld.mp3",
+    "@type": [
+      "http://purl.org/vocab/frbr/core#Manifestation",
+      "https://meld.linkedmusic.org/terms/AudioManifestation"
+    ]
+  },
+  {
+    "@id": "http://localhost:8080/helloMeldExpression",
+    "@type": [
+      "http://purl.org/vocab/frbr/core#Expression"
+    ],
+    "http://purl.org/vocab/frbr/core#embodiment": [
+      {
+        "@id": "http://localhost:8080/Hello_Meld.mei"
+      },
+      {
+        "@id": "http://localhost:8080/Hello_Meld.mp3"
+      }
+    ]
+  }
+]
