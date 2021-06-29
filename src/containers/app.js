@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux' ;
 import { bindActionCreators } from 'redux';
+import update from 'immutability-helper';
 import { registerTraversal, traverse, setTraversalObjectives, checkTraversalObjectives } from 'meld-clients-core/lib/actions/index';
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 import { fetchGraph } from 'meld-clients-core/lib/actions/index';
@@ -17,22 +18,41 @@ const MAX_TRAVERSERS = 2;
 const selectorStrings = { note: ".notehead, .stem, .verse", measure: ".measure" };
 
 pref.bith = "https://example.com/";
+pref.bithTerms = "https://example.com/Terms/";
+
+const basicVrvOptions = {
+  scale: 45,
+	header: "none",
+  adjustPageHeight: 1,
+  pageHeight: 800,
+  pageWidth: 2200,
+  footer: "none",
+  unit: 6
+};
 
 
-export default class App extends Component { 
+class App extends Component { 
   constructor(props) { 
     super(props);
     this.state = {
-			mode: 'work',
+			//			mode: 'work',
+			mode: 'compare',			
 			work: false,
 			targetting: 'note',
-			selector: '.notehead, .stem, .verse',
+			multiSelect: false,
+			// selector: '.notehead, .stem, .verse',
       selection: {},
+			annotations: [],
       uri: this.props.uri
     };
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+		this.selectMeasures = this.selectMeasures.bind(this);
+		this.selectNotes = this.selectNotes.bind(this);
 		this.usefulIdForChildElement = this.usefulIdForChildElement.bind(this);
+		this.makeMusicalMaterialFromSelection = this.makeMusicalMaterialFromSelection.bind(this);
+		this.makeSelectionJSONLDFromSelection = this.makeSelectionJSONLDFromSelection.bind(this);
+		this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
 		this.props.setTraversalObjectives([
 			{
 				"@type": pref.frbr + "Work"
@@ -98,28 +118,69 @@ export default class App extends Component {
   }
 
 	// UI methods
+
+	selectMeasures(){
+		this.setState({targetting: 'measure'});
+	}
+	selectNotes(){
+		this.setState({targetting: 'note'});
+	}
 	
 	usefulIdForChildElement(element) {
 		console.log(element);
 		if(element.classList.contains(this.state.targetting)){
 			return element.id;
-		} else if(!element.parentNode) {
+		} else if(this.state.targetting==='note' && element.classList.contains('chord')){
+			// Ugly exception – chords have a stem that applies to all notes
+			return Array.from(element.getElementsByClassName('note')).map(x => x.id);
+		} else if(!element.parentNode.parentNode) {
 			return false;
 		} else {
 			return this.usefulIdForChildElement(element.parentNode);
 		}
 	}
-  handleNoteSelectionChange(key, newSelection) {
+  handleNoteSelectionChange(key, selection) {
 		// We need to replace this.state.selection[key] with the notes that contain newSelection
-		const selectionIds = selection.map(this.usefulIdForChildElement);
-		const pane = document.getElementById(key);
-		const notes = Array.from(pane.getElementsByClassName('note'));
-		const newSelection = ...this.state.selection;
-		notes.forEach(thing => thing.classList.remove('selected'));
-		newSelection[key] = selectionIds.map(e => document.getElementById(e).classList.add('selected'));
-    this.setState({ selection: newSelection });
+		const selectionIds = selection.map(this.usefulIdForChildElement).flat();
+		this.handleSelectionChange(key, selectionIds);
   }
-
+  handleMeasureSelectionChange(key, selection) {
+		// We need to replace this.state.selection[key] with the notes that contain newSelection
+		const selectionIds = selection.map(x => x.id);
+		this.handleSelectionChange(key, selectionIds);
+  }
+	handleSelectionChange(key, selectionIds){
+		const pane = document.getElementById(key);
+		const selectedElements = Array.from(pane.getElementsByClassName('selected'));
+		const newSelection = {...this.state.selection};
+		selectedElements.forEach(thing => thing.classList.remove('selected'));
+		selectionIds.forEach(e => document.getElementById(e).classList.add('selected'));
+		newSelection[key] = selectionIds;
+    this.setState({ selection: newSelection,
+										multiSelect: (Object.keys(newSelection).length > 1
+																	&& Object.values(newSelection).filter(x => x.length).length > 1) });
+	}
+	addElementToSelectionObject(object, resourceURI, element) {
+		if(!((pref.frbr+"part") in object)) object[pref.frbr+"part"] = [];
+		object[pref.frbr+"part"].push(resourceURI+"#"+element);
+		return object;
+	}
+	makeSelectionJSONLDFromSelection(uri){
+		const selectionObject = {"@type": pref.bithTerms+"Selection"};
+		this.state.selection[uri].forEach(this.addElementToSelectionObject.bind(this, selectionObject, uri));
+		return selectionObject;
+	}
+	makeExtractFromSelection(uri){
+		const extractObject = {"@type": pref.bithTerms+"Extract"};
+		extractObject[pref.frbr+"member"] = [this.makeSelectionJSONLDFromSelection(uri)];
+		return extractObject;
+	}
+	makeMusicalMaterialFromSelection(){
+		const uris = Object.keys(this.state.selection);
+		let mm = {"@type": pref.bithTerms+"MusicalMaterial"};
+		mm[pref.frbr+"embodiment"] = uris.map(this.makeExtractFromSelection);
+		this.setState(update(this.state, {annotations: {$push: [mm]}}));
+	}
   handleScoreUpdate(scoreElement) { 
     console.log("Received updated score DOM element: ", scoreElement)
   }
@@ -175,7 +236,59 @@ export default class App extends Component {
 			</div>
 		);
 	}
+	selectionRadioButton(target, callback){
+		return <input type="radio" name="target" checked={this.state.targetting===target}
+									className={this.state.targetting===target ? "checked" : "unchecked" }
+									onChange={callback}
+									value={target} id={target} /> ;										
+	}
+	annotationButtons(){
+		if(this.state.multiSelect){
+			return (
+				<button className="musicalMaterial annotationButton"
+						 onClick={ this.makeMusicalMaterialFromSelection } >
+					Parallel passages
+				</button>
+			);
+		}
+	}
 	renderTiledScores(){
+		// MEI URIs hardwired for testing
+		const upperURI = "https://meld.linkedmusic.org/companion/mei/F1.mei";
+		const lowerURI = "https://meld.linkedmusic.org/companion/mei/F2.mei";
+		const selectionHandler = this.state.targetting==='note' ?
+					this.handleNoteSelectionChange :
+					this.handleMeasureSelectionChange ;
+		return(
+			<main>
+				<h4>Select:</h4>
+				<div className="target switch-field">
+					{ this.selectionRadioButton('measure', this.selectMeasures) }
+					<label htmlFor="measure">Measures</label>
+					{ this.selectionRadioButton('note', this.selectNotes) }
+					<label htmlFor="note">Notes</label>
+				</div>
+				{this.annotationButtons()}
+				<div className="upper music pane" id="pane1">
+					<PrevPageButton uri={upperURI} buttonContent={<span>⇦</span>} />
+					<NextPageButton uri={upperURI} buttonContent={<span>⇨</span>} />
+					<SelectableScore uri={upperURI}
+													 vrvOptions = { basicVrvOptions }
+													 onSelectionChange = { selectionHandler.bind(this, upperURI) }
+													 selectorString = { selectorStrings[this.state.targetting] }
+													 onScoreUpdate = { this.handleScoreUpdate } />
+				</div>
+				<div className="lower music pane" id="pane2">
+					<PrevPageButton uri={lowerURI} buttonContent={<span>⇦</span>} />
+					<NextPageButton uri={lowerURI} buttonContent={<span>⇨</span>} />
+					<SelectableScore uri={lowerURI}
+													 vrvOptions = { basicVrvOptions }
+													 onSelectionChange = { selectionHandler.bind(this, lowerURI) } 
+													 selectorString = { selectorStrings[this.state.targetting] }
+													 onScoreUpdate = { this.handleScoreUpdate } />
+				</div>
+			</main>	
+		);
 	}
   renderSingleScore() {
     return(
@@ -216,5 +329,15 @@ export default class App extends Component {
   }
 }
 
-  
+function mapStateToProps({ graph , score, traversalPool}) {
+    return { graph , score, traversalPool };
+}
+
+function mapDispatchToProps(dispatch) { 
+    return bindActionCreators({ registerTraversal, traverse,
+                                setTraversalObjectives, checkTraversalObjectives, fetchGraph },
+                              dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

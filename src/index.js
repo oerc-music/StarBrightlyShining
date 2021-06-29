@@ -1,7 +1,7 @@
 import React  from 'react';
 import ReactDOM from 'react-dom';
 
-import StoreWrapper from './containers/StoreWrapper';
+import StoreWrapper from './containers/storeWrapper';
 
 // Parameters for SelectableScore component
 // ****************************************

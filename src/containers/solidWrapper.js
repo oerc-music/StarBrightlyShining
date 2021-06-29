@@ -26,11 +26,12 @@ export default function SolidWrapper(props) {
             </div>
         </LoggedOut>
         <LoggedIn>
-          <p><LogoutButton>Log out</LogoutButton> You are logged in as <Value src="user.name"/></p>
           { typeof userPOD !== "undefined"
-						? <App submitUri={ `${userPOD}public/` } {...this.props} />
+						? <App submitUri={ `${userPOD}public/` } {...props} />
            : <div>Loading... </div>
           }
+          <footer>You are logged in as <Value src="user.name"/>
+					        <LogoutButton>Log out</LogoutButton> </footer>
         </LoggedIn>
       </div>
     )
