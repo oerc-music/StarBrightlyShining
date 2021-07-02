@@ -5,6 +5,7 @@ import update from 'immutability-helper';
 import { registerTraversal, traverse, setTraversalObjectives, checkTraversalObjectives } from 'meld-clients-core/lib/actions/index';
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 import { fetchGraph } from 'meld-clients-core/lib/actions/index';
+import VersionPane from './versionPane';
 import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
@@ -177,7 +178,9 @@ class App extends Component {
 	}
 	makeMusicalMaterialFromSelection(){
 		const uris = Object.keys(this.state.selection);
+		const now = new Date();
 		let mm = {"@type": pref.bithTerms+"MusicalMaterial"};
+		mm[pref.dct+"created"] = now.toISOString();
 		mm[pref.frbr+"embodiment"] = uris.map(this.makeExtractFromSelection);
 		this.setState(update(this.state, {annotations: {$push: [mm]}}));
 	}
@@ -269,24 +272,21 @@ class App extends Component {
 					<label htmlFor="note">Notes</label>
 				</div>
 				{this.annotationButtons()}
-				<div className="upper music pane" id="pane1">
-					<PrevPageButton uri={upperURI} buttonContent={<span>⇦</span>} />
-					<NextPageButton uri={upperURI} buttonContent={<span>⇨</span>} />
-					<SelectableScore uri={upperURI}
-													 vrvOptions = { basicVrvOptions }
-													 onSelectionChange = { selectionHandler.bind(this, upperURI) }
-													 selectorString = { selectorStrings[this.state.targetting] }
-													 onScoreUpdate = { this.handleScoreUpdate } />
-				</div>
-				<div className="lower music pane" id="pane2">
-					<PrevPageButton uri={lowerURI} buttonContent={<span>⇦</span>} />
-					<NextPageButton uri={lowerURI} buttonContent={<span>⇨</span>} />
-					<SelectableScore uri={lowerURI}
-													 vrvOptions = { basicVrvOptions }
-													 onSelectionChange = { selectionHandler.bind(this, lowerURI) } 
-													 selectorString = { selectorStrings[this.state.targetting] }
-													 onScoreUpdate = { this.handleScoreUpdate } />
-				</div>
+				<VersionPane extraClasses="upper"
+										 id="pane1"
+										 uri={ upperURI }
+										 title="Star Shining Brightly"
+										 vrvOptions={ basicVrvOptions }
+										 selectionHandler={ selectionHandler.bind(this, upperURI) }
+										 selectorString={ selectorStrings[this.state.targetting] }
+										 handleScoreUpdate={ this.handleScoreUpdate } />
+				<VersionPane extraClasses="lower"
+										 id="pane1"
+										 uri={ lowerURI }
+										 vrvOptions={ basicVrvOptions }
+										 selectionHandler={ selectionHandler.bind(this, lowerURI) }
+										 selectorString={ selectorStrings[this.state.targetting] }
+										 handleScoreUpdate={ this.handleScoreUpdate } />
 			</main>	
 		);
 	}
