@@ -32,12 +32,12 @@ const basicVrvOptions = {
 };
 
 
-class App extends Component { 
-  constructor(props) { 
+class App extends Component {
+  constructor(props) {
     super(props);
     this.state = {
 			//			mode: 'work',
-			mode: 'compare',			
+			mode: 'compare',
 			work: false,
 			targetting: 'note',
 			multiSelect: false,
@@ -90,7 +90,7 @@ class App extends Component {
 	graphHasChanged(){
 		// 1. convert this.graph.outcomes[0] into this.state.worklist
 	}
-	
+
   graphComponentDidUpdate(props, prevProps, prevState) {
 		// Boiler plate traversal code (should move to m-c-c)
 		// Check whether the graph has updated and trigger further traversal as necessary.
@@ -126,7 +126,7 @@ class App extends Component {
 	selectNotes(){
 		this.setState({targetting: 'note'});
 	}
-	
+
 	usefulIdForChildElement(element) {
 		console.log(element);
 		if(element.classList.contains(this.state.targetting)){
@@ -184,15 +184,15 @@ class App extends Component {
 		mm[pref.frbr+"embodiment"] = uris.map(this.makeExtractFromSelection);
 		this.setState(update(this.state, {annotations: {$push: [mm]}}));
 	}
-  handleScoreUpdate(scoreElement) { 
+  handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement)
   }
 	handleChooseWork(work){
 		this.setState({'mode': 'version', 'work': work });
 	}
 
-  handleSubmit(args) { 
-    /* do any app-specific actions and return the object (e.g. a Web Annotation) 
+  handleSubmit(args) {
+    /* do any app-specific actions and return the object (e.g. a Web Annotation)
      * to be submitted to the user POD */
     console.log("Received args: ", args);
     return {
@@ -243,7 +243,7 @@ class App extends Component {
 		return <input type="radio" name="target" checked={this.state.targetting===target}
 									className={this.state.targetting===target ? "checked" : "unchecked" }
 									onChange={callback}
-									value={target} id={target} /> ;										
+									value={target} id={target} /> ;
 	}
 	annotationButtons(){
 		if(this.state.multiSelect){
@@ -275,19 +275,30 @@ class App extends Component {
 				<VersionPane extraClasses="upper"
 										 id="pane1"
 										 uri={ upperURI }
-										 title="Star Shining Brightly"
+										 shortTitle="Star Brightly Shining"
+                               arranger="Josiah Pittman"
+                               genre="Piano-vocal"
+                               publisher="Augener & Co."
+                               date="1859"
+                               place="London"
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
 										 handleScoreUpdate={ this.handleScoreUpdate } />
 				<VersionPane extraClasses="lower"
 										 id="pane1"
+                               shortTitle="Perischer Nachtgesang"
+                               arranger="Friedrich Silcher"
+                               genre="Choral music"
+                               publisher="Hallberger"
+                               date="1846"
+                               place="Stuttgart"
 										 uri={ lowerURI }
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, lowerURI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
 										 handleScoreUpdate={ this.handleScoreUpdate } />
-			</main>	
+			</main>
 		);
 	}
   renderSingleScore() {
@@ -299,13 +310,13 @@ class App extends Component {
         }</p>
 
         { /* pass anything as buttonContent that you'd like to function as a clickable next page button */ }
-        <NextPageButton 
+        <NextPageButton
           buttonContent = { <span>Next</span> }
           uri = { this.state.uri }
         />
 
         { /* pass anything as buttonContent that you'd like to function as a clickable prev page button */ }
-        <PrevPageButton 
+        <PrevPageButton
           buttonContent = { <span>Prev</span> }
           uri = { this.state.uri }
         />
@@ -317,10 +328,10 @@ class App extends Component {
           submitHandlerArgs = { { "test": "test" } }
         />
 
-        <SelectableScore 
-          uri={ this.state.uri } 
-          options={ this.props.vrvOptions } 
-          onSelectionChange={ this.handleSelectionChange } 
+        <SelectableScore
+          uri={ this.state.uri }
+          options={ this.props.vrvOptions }
+          onSelectionChange={ this.handleSelectionChange }
           selectorString = { selectorStrings[this.state.targetting] }
           onScoreUpdate = { this.handleScoreUpdate }
         />
@@ -333,11 +344,10 @@ function mapStateToProps({ graph , score, traversalPool}) {
     return { graph , score, traversalPool };
 }
 
-function mapDispatchToProps(dispatch) { 
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({ registerTraversal, traverse,
                                 setTraversalObjectives, checkTraversalObjectives, fetchGraph },
                               dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-

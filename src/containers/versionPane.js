@@ -4,7 +4,7 @@ import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 
-export default class VersionPane extends Component { 
+export default class VersionPane extends Component {
   constructor(props) {
 		super(props);
 	}
@@ -19,10 +19,14 @@ export default class VersionPane extends Component {
 												 selectorString = { this.props.selectorString }
 												 onScoreUpdate = { this.props.handleScoreUpdate } />
 				<div className="sidebar">
-					Title: {this.props.title}
+					<b>Title:</b> {this.props.shortTitle}<br/>
+               <b>Genre:</b> {this.props.genre}<br/>
+               <b>Arranger:</b> {this.props.arranger}<br/>
+               <b>Publisher:</b> {this.props.publisher}<br/>
+               <b>Date:</b> {this.props.date}<br/>
+               <b>Place:</b> {this.props.place}<br/>
 				</div>
 			</div>
-
 		);
 	}
 }
