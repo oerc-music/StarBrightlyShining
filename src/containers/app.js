@@ -43,6 +43,8 @@ class App extends Component {
 			multiSelect: false,
 			// selector: '.notehead, .stem, .verse',
       selection: {},
+			width: 1200,
+			height: 800,
 			annotations: [],
       uri: this.props.uri
     };
@@ -75,6 +77,11 @@ class App extends Component {
     if(this.props.graphURI){
       this.props.registerTraversal(this.props.graphURI, {numHops: 4, noProp: "unused"});
     }
+		window.addEventListener("resize", this.updateDimensions.bind(this));
+  }
+  updateDimensions() {
+		this.setState({width: document.documentElement.clientWidth,
+									 height: document.documentElement.clientHeight});
   }
 
   componentDidUpdate(prevProps, prevState){
@@ -262,6 +269,8 @@ class App extends Component {
 		const selectionHandler = this.state.targetting==='note' ?
 					this.handleNoteSelectionChange :
 					this.handleMeasureSelectionChange ;
+		const narrowWindow = this.state.width < 800;
+		console.log(narrowWindow);
 		return(
 			<main>
 				<h4>Select:</h4>
@@ -274,6 +283,8 @@ class App extends Component {
 				{this.annotationButtons()}
 				<VersionPane extraClasses="upper"
 										 id="pane1"
+										 narrowPane={ narrowWindow }
+										 width={ this.state.width }
 										 uri={ upperURI }
 										 shortTitle="Star Brightly Shining"
                                arranger="Josiah Pittman"
@@ -286,6 +297,7 @@ class App extends Component {
 										 selectorString={ selectorStrings[this.state.targetting] }
 										 handleScoreUpdate={ this.handleScoreUpdate } />
 				<VersionPane extraClasses="lower"
+										 width={ this.state.width }
 										 id="pane1"
                                shortTitle="Perischer Nachtgesang"
                                arranger="Friedrich Silcher"
