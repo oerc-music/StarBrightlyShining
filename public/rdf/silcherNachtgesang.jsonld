@@ -1,48 +1,48 @@
 {
   "@graph" : [ {
-    "@id" : "example:SilcherVocalArrOfAllegrettoOp92",
+    "@id" : "example:SilcherChoralArrOfAllegrettoOp92",
     "@type" : "vivo:Score",
-    "publisher" : "dnb:1064327222",
-    "title" : "Gesang des Peri's",
-    "alternative" : "Silcher vocal arrangement",
-    "shortTitle" : "Gesang des Peri's",
+    "publisher" : "dnb:1032930969",
+    "title" : "Perischer Nachtgesang",
+    "alternative" : "Silcher choral arrangement",
+    "shortTitle" : "Perischer Nachtgesang",
     "P60163" : "geonames:2825297",
     "P60242" : "dnb:300016417",
-    "arranger" : "wd:Q700090",
-    "dateOfPublication" : "1871",
-    "mediumOfPerformance" : [ "loc:mp2013015791", "loc:mp2013015550" ],
-    "genre" : "wd:Q7190079",
-    "P217" : "C SILCH / 5"
+    "arranger" : "dnb:1124865284",
+    "dateOfPublication" : "1846",
+    "mediumOfPerformance" : "loc:mp2013015469",
+    "genre" : "wd:Q1076513",
+    "P217" : "HCB Nc 4 / 1846 Schil"
   } ],
   "@id" : "urn:x-arq:DefaultGraphNode",
   "@context" : {
-    "alternative" : "http://purl.org/dc/terms/alternative",
-    "arranger" : {
-      "@id" : "https://d-nb.info/standards/elementset/gnd#arranger",
-      "@type" : "@id"
-    },
-    "mediumOfPerformance" : {
-      "@id" : "https://d-nb.info/standards/elementset/gnd#mediumOfPerformance",
-      "@type" : "@id"
-    },
-    "title" : "http://purl.org/dc/elements/1.1/title",
-    "genre" : {
-      "@id" : "https://dbpedia.org/ontology/genre",
-      "@type" : "@id"
-    },
     "P217" : "https://www.wikidata.org/wiki/P217",
+    "dateOfPublication" : "https://d-nb.info/standards/elementset/gnd#dateOfPublication",
     "P60163" : {
       "@id" : "http://rdaregistry.info/Elements/u/P60163",
       "@type" : "@id"
     },
-    "shortTitle" : "http://purl.org/ontology/bibo/shortTitle",
-    "dateOfPublication" : "https://d-nb.info/standards/elementset/gnd#dateOfPublication",
     "P60242" : {
       "@id" : "http://rdaregistry.info/Elements/u/P60242",
       "@type" : "@id"
     },
+    "genre" : {
+      "@id" : "https://dbpedia.org/ontology/genre",
+      "@type" : "@id"
+    },
     "publisher" : {
       "@id" : "http://purl.org/dc/elements/1.1/publisher",
+      "@type" : "@id"
+    },
+    "alternative" : "http://purl.org/dc/terms/alternative",
+    "shortTitle" : "http://purl.org/ontology/bibo/shortTitle",
+    "title" : "http://purl.org/dc/elements/1.1/title",
+    "mediumOfPerformance" : {
+      "@id" : "https://d-nb.info/standards/elementset/gnd#mediumOfPerformance",
+      "@type" : "@id"
+    },
+    "arranger" : {
+      "@id" : "https://d-nb.info/standards/elementset/gnd#arranger",
       "@type" : "@id"
     },
     "schema" : "http://schema.org/",
