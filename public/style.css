@@ -119,3 +119,41 @@ button.logout {
 	font-size: 80%;
 	margin-left: 8px;
 }
+.pane aside{
+	display: inline-block;
+	height: 100%;
+	overflow: hidden;
+	font-size: 100%;
+}
+aside.noDetails {
+	width: 0px;
+	/* transition: 0.5s; */
+	color: white;
+	font-size: 1%;
+}
+aside.metadata {
+	width: 20%;
+	transition: 0.5s;
+}
+aside dl {
+	margin: 0;
+}
+aside dd, aside dt, .music.pane .main {
+	display: inline-block;
+}
+aside dd {
+	font-weight: bold;
+}
+.music.pane {
+	overflow: hidden;
+	max-height: 350px;
+}
+.music.pane .main.noDetails {
+	width: 100%;
+	transition: 3s;
+}
+.music.pane .main.metadata {
+	width: 80%;
+	transition: 0.5s;
+}
+
