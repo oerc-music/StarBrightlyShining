@@ -11,7 +11,7 @@ import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 
-const MAX_TRAVERSERS = 2;
+const MAX_TRAVERSERS = 5;
 
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
 //const selectorString = ".measure";
@@ -20,6 +20,9 @@ const selectorStrings = { note: ".notehead, .stem, .verse", measure: ".measure" 
 
 pref.bith = "https://example.com/";
 pref.bithTerms = "https://example.com/Terms/";
+pref.bibo = "http://purl.org/ontology/bibo/";
+pref.gndo = "https://d-nb.info/standards/elementset/gnd#";
+pref.dce = "http://purl.org/dc/elements/1.1/";
 
 const basicVrvOptions = {
   scale: 45,
@@ -58,7 +61,8 @@ class App extends Component {
 		this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
 		this.props.setTraversalObjectives([
 			{
-				"@type": pref.frbr + "Work"
+				"@embed": "@always",
+				"http://rdaregistry.info/Elements/u/P60242": {}
 			},
 			{
 				"@type": pref.oa + "Annotation"
@@ -75,7 +79,7 @@ class App extends Component {
 	componentDidMount(){
     // See: https://reactjs.org/docs/react-component.html#componentdidmount
     if(this.props.graphURI){
-      this.props.registerTraversal(this.props.graphURI, {numHops: 4, noProp: "unused"});
+      this.props.registerTraversal(this.props.graphURI, {numHops: 4});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
   }
@@ -92,9 +96,29 @@ class App extends Component {
       }
     }
 	}
-
+	transformArrangement(vivoScore){
+		// Take graph of arrangement and make more intuitive local object
+		let obj = {};
+		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
+		obj.genre = vivoScore; // TODO
+		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
+		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
+		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
+		obj.place = vivoScore[pref.rdau+"P60163"];
+		console.log("Processed a ", vivoScore, " into a ", obj);
+		return obj;
+	}
 	// methods called during initialisation and graph loading
 	graphHasChanged(){
+		let arrangements = {};
+		let works = {};
+		// 0. Get arrangements
+		if(this.props.graph && this.props.graph.outcomes
+			 && this.props.graph.outcomes[0]
+			 && this.props.graph.outcomes[0]['@graph']
+			 && this.props.graph.outcomes[0]['@graph'].length){
+			arrangements = this.props.graph.outcomes[0]['@graph'].map(this.transformArrangement);
+		}
 		// 1. convert this.graph.outcomes[0] into this.state.worklist
 	}
 

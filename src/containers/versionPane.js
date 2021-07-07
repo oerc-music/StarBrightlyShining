@@ -38,11 +38,18 @@ export default class VersionPane extends Component {
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
-					<PrevPageButton uri={this.props.uri} buttonContent={<span>⇦</span>} />
-					<NextPageButton uri={this.props.uri} buttonContent={<span>⇨</span>} />
-					<button className="showDetails" onClick={this.toggleDetails}>
-						{ this.detailsButtonText() }
-					</button>
+					<div className="controllbar">
+						<div className="leftControls">
+							<PrevPageButton uri={this.props.uri} buttonContent={<span>⇦</span>} />
+							<NextPageButton uri={this.props.uri} buttonContent={<span>⇨</span>} />
+						</div>
+						<div className="middle"/>
+						<div className="rightControls">
+							<button className="showDetails" onClick={this.toggleDetails}>
+								{ this.detailsButtonText() }
+							</button>
+						</div>
+					</div>
 					<SelectableScore uri={this.props.uri}
 													 vrvOptions = { vrvOptions }
 													 onSelectionChange = { this.props.selectionHandler }
@@ -51,7 +58,7 @@ export default class VersionPane extends Component {
 				</div>
 				<aside className={this.state.showDetails}>
 					<dl>
-						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
+						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div> 
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
 						<div><dt>Arranger:</dt><dd>{this.props.arranger}</dd></div>
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
