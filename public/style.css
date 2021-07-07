@@ -123,7 +123,7 @@ button.logout {
 	display: inline-block;
 	height: 100%;
 	overflow: hidden;
-	font-size: 100%;
+	font-size: 80%;
 }
 aside.noDetails {
 	width: 0px;
@@ -135,25 +135,60 @@ aside.metadata {
 	width: 20%;
 	transition: 0.5s;
 }
-aside dl {
+aside dl div {
+	display: flex;
+	flex-flow: row wrap;
 	margin: 0;
 }
-aside dd, aside dt, .music.pane .main {
-	display: inline-block;
-}
-aside dd {
+dt {
+	flex-basis: 20%;
 	font-weight: bold;
+	text-align: right;
 }
+dd{
+	flex-basis: 70%;
+	flex-grow: 1;
+	margin: 2px 8px;
+}
+/* aside dl { */
+/* 	margin: 0; */
+/* } */
+/* aside dd, aside dt, .music.pane .main { */
+/* 	display: inline-block; */
+/* } */
+/* aside dd { */
+/* 	font-weight: bold; */
+/* } */
 .music.pane {
 	overflow: hidden;
 	max-height: 350px;
+	display: flex;
 }
 .music.pane .main.noDetails {
 	width: 100%;
-	transition: 3s;
+	transition: 0;
 }
 .music.pane .main.metadata {
 	width: 80%;
 	transition: 0.5s;
 }
 
+.pane .controllbar {
+	display: grid;
+	grid-template-columns: 1fr 1fr 200px;
+}
+.metadata .controllbar {
+	width: 98%;
+}
+.noDetails .controllbar {
+	width: 98%;
+}
+.controllbar .rightControls {
+	display: inline-block;
+	padding: 0 8px;
+}
+.showDetails {
+}
+.scorepane {
+	margin-top: 0;
+}
