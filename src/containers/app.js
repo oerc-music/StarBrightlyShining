@@ -108,6 +108,7 @@ class App extends Component {
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
+		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 		obj.place = vivoScore[pref.rdau+"P60163"];
     obj.catNumber = vivoScore[pref.wd+"P217"];
 		console.log("Processed a ", vivoScore, " into a ", obj);
@@ -294,7 +295,7 @@ class App extends Component {
 	}
 	renderTiledScores(){
 		// MEI URIs hardwired for testing
-		const upperURI = "https://meld.linkedmusic.org/companion/mei/F1.mei";
+		const upperURI = this.state.arrangements.length ? this.state.arrangements[0].MEI : "https://meld.linkedmusic.org/companion/mei/F1.mei";
 //    const upperURI = "https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei>";
 		const lowerURI = "https://meld.linkedmusic.org/companion/mei/F2.mei";
 		const selectionHandler = this.state.targetting==='note' ?
