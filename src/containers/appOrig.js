@@ -23,9 +23,6 @@ pref.bithTerms = "https://example.com/Terms/";
 pref.bibo = "http://purl.org/ontology/bibo/";
 pref.gndo = "https://d-nb.info/standards/elementset/gnd#";
 pref.dce = "http://purl.org/dc/elements/1.1/";
-pref.dbpedia = "https://dbpedia.org/ontology/";
-pref.rdau = "http://rdaregistry.info/Elements/u/";
-pref.wd = "https://www.wikidata.org/wiki/Property:";
 
 const basicVrvOptions = {
   scale: 45,
@@ -52,8 +49,7 @@ class App extends Component {
 			width: 1200,
 			height: 800,
 			annotations: [],
-      uri: this.props.uri,
-      arrangements: false
+      uri: this.props.uri
     };
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -104,12 +100,11 @@ class App extends Component {
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
-		obj.genre = vivoScore[pref.dbpedia+"genre"];
+		obj.genre = vivoScore; // TODO
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.place = vivoScore[pref.rdau+"P60163"];
-    obj.catNumber = vivoScore[pref.wd+"P217"];
 		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
@@ -125,7 +120,6 @@ class App extends Component {
 			arrangements = this.props.graph.outcomes[0]['@graph'].map(this.transformArrangement);
 		}
 		// 1. convert this.graph.outcomes[0] into this.state.worklist
-    this.setState({arrangements: arrangements});
 	}
 
   graphComponentDidUpdate(props, prevProps, prevState) {
@@ -295,7 +289,6 @@ class App extends Component {
 	renderTiledScores(){
 		// MEI URIs hardwired for testing
 		const upperURI = "https://meld.linkedmusic.org/companion/mei/F1.mei";
-//    const upperURI = "https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei>";
 		const lowerURI = "https://meld.linkedmusic.org/companion/mei/F2.mei";
 		const selectionHandler = this.state.targetting==='note' ?
 					this.handleNoteSelectionChange :
@@ -317,16 +310,12 @@ class App extends Component {
 										 narrowPane={ narrowWindow }
 										 width={ this.state.width }
 										 uri={ upperURI }
-										 //  shortTitle="Star Brightly Shining"
-                     shortTitle={ this.state.arrangements.length ?
-                                  this.state.arrangements[0].shortTitle :
-                                    "loading"}
+										 shortTitle="Star Brightly Shining"
                                arranger="Josiah Pittman"
                                genre="Piano-vocal"
                                publisher="Augener & Co."
                                date="1859"
                                place="London"
-
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
