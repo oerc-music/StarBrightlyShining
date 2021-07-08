@@ -83,7 +83,7 @@ class App extends Component {
 	componentDidMount(){
     // See: https://reactjs.org/docs/react-component.html#componentdidmount
     if(this.props.graphURI){
-      this.props.registerTraversal(this.props.graphURI, {numHops: 4});
+      this.props.registerTraversal(this.props.graphURI, {numHops: 3});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
   }
