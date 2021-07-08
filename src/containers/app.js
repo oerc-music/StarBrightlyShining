@@ -104,13 +104,13 @@ class App extends Component {
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
-		obj.genre = vivoScore[pref.dbpedia+"genre"];
+		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 		obj.place = vivoScore[pref.rdau+"P60163"];
-    obj.catNumber = vivoScore[pref.wd+"P217"];
+    obj.catNumber = vivoScore[pref.wdt+"P217"];
 		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
@@ -325,8 +325,11 @@ class App extends Component {
                                arranger="Josiah Pittman"
                                genre="Piano-vocal"
                                publisher="Augener & Co."
-                               date="1859"
+                               date={ this.state.arrangements.length ?
+                                      this.state.arrangements[0].date :
+                                              "loading"}
                                place="London"
+                               catNumber="abc123"
 
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
