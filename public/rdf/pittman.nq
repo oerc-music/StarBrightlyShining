@@ -1,4 +1,4 @@
-<h<http://example.org/PittmanArrOfAllegrettoOp92> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Score> .
+<http://example.org/PittmanArrOfAllegrettoOp92> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Score> .
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/title> "No. 7. The Epiphany 'Star Brightly Shining, Where Dost Thou Lead Us?'" .
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://purl.org/ontology/bibo/shortTitle> "Star Brightly Shining" .
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://purl.org/dc/terms/alternative> "Pittman arrangement" .
