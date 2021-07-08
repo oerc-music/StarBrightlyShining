@@ -110,7 +110,7 @@ class App extends Component {
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 		obj.place = vivoScore[pref.rdau+"P60163"];
-    obj.catNumber = vivoScore[pref.wdt+"P217"];
+    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
 		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
@@ -329,7 +329,9 @@ class App extends Component {
                                       this.state.arrangements[0].date :
                                               "loading"}
                                place="London"
-                               catNumber="abc123"
+                               catNumber={ this.state.arrangements.length ?
+                                      this.state.arrangements[0].catNumber :
+                                              "loading"}
 
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
