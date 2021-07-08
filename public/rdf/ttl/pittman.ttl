@@ -9,10 +9,11 @@
 @prefix dnb: <http://d-nb.info/gnd/> .
 @prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
 @prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
-@prefix wd: <https://www.wikidata.org/wiki/Property:> .
+@prefix wdt: <https://www.wikidata.org/wiki/Property:> .
+@prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
 @prefix geonames: <http://www.geonames.org/> .
 @prefix dbpedia: <https://dbpedia.org/ontology/> .
-@prefix purl: <http://purl.org/vocab/frbr/core#> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
 
 example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	dc:title "No. 7. The Epiphany 'Star Brightly Shining, Where Dost Thou Lead Us?'";
@@ -22,8 +23,8 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	gndo:arranger dnb:1124865284;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
-	wd:P217 "D-BNba, C92_48";
+	wdt:P217 "D-BNba, C92_48";
 	dc:publisher dnb:1072942461;
 	rdau:P60163 geonames:2643743;
 	gndo:dateOfPublication "1859";
-	purl:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
+	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
