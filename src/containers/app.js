@@ -25,7 +25,7 @@ pref.gndo = "https://d-nb.info/standards/elementset/gnd#";
 pref.dce = "http://purl.org/dc/elements/1.1/";
 pref.dbpedia = "https://dbpedia.org/ontology/";
 pref.rdau = "http://rdaregistry.info/Elements/u/";
-pref.wd = "https://www.wikidata.org/wiki/Property:";
+pref.wdt = "https://www.wikidata.org/wiki/Property:";
 
 const basicVrvOptions = {
   scale: 45,
@@ -110,7 +110,8 @@ class App extends Component {
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 		obj.place = vivoScore[pref.rdau+"P60163"];
-    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
+//    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
+    obj.catNumber = vivoScore[pref.wdt+"P217"];
 		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
@@ -330,8 +331,8 @@ class App extends Component {
                                               "loading"}
                                place="London"
                                catNumber={ this.state.arrangements.length ?
-                                      this.state.arrangements[0].catNumber :
-                                              "loading"}
+                                          this.state.arrangements[0].catNumber :
+                                             "loading"}
 
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
