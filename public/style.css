@@ -192,3 +192,21 @@ dd{
 .scorepane {
 	margin-top: 0;
 }
+/* versionListing pane */
+.versionListing dl div {
+	display: inline-flex;
+}
+.versionListing:nth-child(2n+1){
+	background-color: #e4e4e4;
+	display: flex;
+	flex-wrap: wrap;
+}
+.versionListing{
+	margin: 4px 0;
+	padding: 4px;
+}
+.versionListing dd, .versionListing dt {
+	margin: 2px 0;
+	padding: 2px 4px;
+	white-space: nowrap;
+}
