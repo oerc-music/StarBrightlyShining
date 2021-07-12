@@ -9,7 +9,7 @@
 @prefix dnb: <http://d-nb.info/gnd/> .
 @prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
 @prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
-@prefix wdt: <https://www.wikidata.org/wiki/Property:> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
 @prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
 @prefix geonames: <http://www.geonames.org/> .
 @prefix dbpedia: <https://dbpedia.org/ontology/> .
@@ -19,8 +19,8 @@ example:SilcherChoralArrOfAllegrettoOp92 a vivo:Score;
 	dc:title "Perischer Nachtgesang";
 	bibo:shortTitle "Perischer Nachtgesang";
 	dcterms:alternative "Silcher choral arrangement";
-	rdau:P60242 dnb:300016417;
-	gndo:arranger dnb:1124865284;
+	rdau:P60242 dnb:118614339;
+	gndo:arranger dnb:118614339;
 	gndo:mediumOfPerformance loc:mp2013015469;
 	dbpedia:genre wd:Q1076513;
 	wdt:P217 "HCB Nc 4 / 1846 Schil";

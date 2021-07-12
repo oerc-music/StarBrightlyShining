@@ -9,11 +9,12 @@
 @prefix dnb: <http://d-nb.info/gnd/> .
 @prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
 @prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
-@prefix wdt: <https://www.wikidata.org/wiki/Property:> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
 @prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
 @prefix geonames: <http://www.geonames.org/> .
 @prefix dbpedia: <https://dbpedia.org/ontology/> .
 @prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	dc:title "No. 7. The Epiphany 'Star Brightly Shining, Where Dost Thou Lead Us?'";
@@ -25,6 +26,15 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	dbpedia:genre wd:Q7190079;
 	wdt:P217 "D-BNba, C92_48";
 	dc:publisher dnb:1072942461;
-	rdau:P60163 geonames:2643743;
+	rdau:P60163 wd:Q84;
 	gndo:dateOfPublication "1859";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
+
+dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
+	rdau:P60426 dnb:118508288 .
+
+dnb:118508288 rdfs:label "Ludwig van Beethoven" .
+
+dnb:1124865284 rdfs:label "Josiah Pittman" .
+
+dnb:1072942461 rdfs:label "Augener & Co." .

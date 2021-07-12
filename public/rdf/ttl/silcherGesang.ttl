@@ -9,7 +9,7 @@
 @prefix dnb: <http://d-nb.info/gnd/> .
 @prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
 @prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
-@prefix wdt: <https://www.wikidata.org/wiki/Property:> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
 @prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
 @prefix geonames: <http://www.geonames.org/> .
 @prefix dbpedia: <https://dbpedia.org/ontology/> .
@@ -19,7 +19,7 @@ example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
 	dc:title "Gesang des Peri's";
 	bibo:shortTitle "Gesang des Peri's";
 	dcterms:alternative "Silcher vocal arrangement";
-	rdau:P60242 dnb:300016417;
+	rdau:P60242 dnb:118614339;
 	gndo:arranger wd:Q700090;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
