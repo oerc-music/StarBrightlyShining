@@ -48,6 +48,7 @@ class App extends Component {
 			mode: 'version',
 			versions: [false, false],
 			work: false,
+			worklist: [],
 			targetting: 'note',
 			multiSelect: false,
 			// selector: '.notehead, .stem, .verse',
@@ -72,12 +73,6 @@ class App extends Component {
 			{
 				"@embed": "@always",
 				"http://rdaregistry.info/Elements/u/P60242": {}
-			},
-			{
-				"@type": pref.oa + "Annotation"
-			},
-			{
-				"@type": pref.bith + "MusicalIdea"
 			},
 			{
 				"@type": pref.bith + "MusicalMaterial"
@@ -117,22 +112,36 @@ class App extends Component {
 		obj.place = vivoScore[pref.rdau+"P60163"];
 //    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
     obj.catNumber = vivoScore[pref.wdt+"P217"];
+		obj.work = vivoScore[pref.rdau+"P60242"];
 		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
 	// methods called during initialisation and graph loading
+	addWork(worklist, arrangement){
+		if(!arrangement.work || !'@id' in arrangement.work) return workList;
+		const wID = arrangement.work['@id'];
+		if(worklist.find(x => x['@id']===wID)){
+			return worklist;
+		} else {
+			let wl2 = worklist.slice();
+			wl2.push(arrangement.work);
+			return wl2;
+		}
+	}
 	graphHasChanged(){
-		let arrangements = {};
-		let works = {};
+		let arrangements = [];
+		let worklist = [];
 		// 0. Get arrangements
 		if(this.props.graph && this.props.graph.outcomes
 			 && this.props.graph.outcomes[0]
 			 && this.props.graph.outcomes[0]['@graph']
 			 && this.props.graph.outcomes[0]['@graph'].length){
 			arrangements = this.props.graph.outcomes[0]['@graph'].map(this.transformArrangement);
+			// Extract all unique works from the arrangements list
+			worklist = arrangements.reduce(this.addWork, []);
 		}
 		// 1. convert this.graph.outcomes[0] into this.state.worklist
-    this.setState({arrangements: arrangements});
+    this.setState({arrangements: arrangements, worklist: worklist});
 	}
 
   graphComponentDidUpdate(props, prevProps, prevState) {
