@@ -26,7 +26,7 @@ pref.gndo = "https://d-nb.info/standards/elementset/gnd#";
 pref.dce = "http://purl.org/dc/elements/1.1/";
 pref.dbpedia = "https://dbpedia.org/ontology/";
 pref.rdau = "http://rdaregistry.info/Elements/u/";
-pref.wdt = "https://www.wikidata.org/wiki/Property:";
+pref.wdt = "https://www.wikidata.org/prop/direct/";
 
 const basicVrvOptions = {
   scale: 45,
@@ -382,6 +382,7 @@ class App extends Component {
                      publisher="Hallberger"
                      date="1846"
                      place="Stuttgart"
+                     catNumber={ lower.catNumber}
 										 uri={ lower.MEI }
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, lowerURI) }

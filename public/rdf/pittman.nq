@@ -7,7 +7,7 @@
 <http://example.org/PittmanArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015550> .
 <http://example.org/PittmanArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015791> .
 <http://example.org/PittmanArrOfAllegrettoOp92> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q7190079> .
-<http://example.org/PittmanArrOfAllegrettoOp92> <http://www.wikidata.org/prop/direct/P217> "D-BNba, C92_48" .
+<http://example.org/PittmanArrOfAllegrettoOp92> <https://www.wikidata.org/prop/direct/P217> "D-BNba, C92_48" .
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1072942461> .
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q84> .
 <http://example.org/PittmanArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1859" .

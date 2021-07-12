@@ -6,7 +6,7 @@
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#arranger> <http://d-nb.info/gnd/118614339> .
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015469> .
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q1076513> .
-<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://www.wikidata.org/prop/direct/P217> "HCB Nc 4 / 1846 Schil" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://www.wikidata.org/prop/direct/P217> "HCB Nc 4 / 1846 Schil" .
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1073019942> .
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1022> .
 <http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1846" .
