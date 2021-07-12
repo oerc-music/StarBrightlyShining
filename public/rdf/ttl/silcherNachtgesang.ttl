@@ -17,8 +17,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 example:SilcherChoralArrOfAllegrettoOp92 a vivo:Score;
-	dc:title "Perischer Nachtgesang";
-	bibo:shortTitle "Perischer Nachtgesang";
+	dc:title "Persischer Nachtgesang";
+	bibo:shortTitle "Persischer Nachtgesang";
 	dcterms:alternative "Silcher choral arrangement";
 	rdau:P60242 dnb:300016417;
 	gndo:arranger dnb:118614339;
