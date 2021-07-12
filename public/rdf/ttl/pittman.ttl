@@ -30,11 +30,13 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	gndo:dateOfPublication "1859";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
 
-dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
-	rdau:P60426 dnb:118508288 .
-
-dnb:118508288 rdfs:label "Ludwig van Beethoven" .
-
 dnb:1124865284 rdfs:label "Josiah Pittman" .
 
 dnb:1072942461 rdfs:label "Augener & Co." .
+
+dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
+	rdau:P60426 dnb:118508288 ;
+	gndo:opusNumericDesignationOfMusicalWork "92" ;
+	gndo:dateOfPublication "1816" .
+
+dnb:118508288 rdfs:label "Ludwig van Beethoven" .
