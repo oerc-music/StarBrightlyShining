@@ -6,6 +6,7 @@ import { registerTraversal, traverse, setTraversalObjectives, checkTraversalObje
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 import { fetchGraph } from 'meld-clients-core/lib/actions/index';
 import VersionPane from './versionPane';
+import VersionListing from './versionListing';
 import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
@@ -43,7 +44,9 @@ class App extends Component {
     super(props);
     this.state = {
 			//			mode: 'work',
-			mode: 'compare',
+			//			mode: 'compare',
+			mode: 'version',
+			versions: [false, false],
 			work: false,
 			targetting: 'note',
 			multiSelect: false,
@@ -63,6 +66,8 @@ class App extends Component {
 		this.makeMusicalMaterialFromSelection = this.makeMusicalMaterialFromSelection.bind(this);
 		this.makeSelectionJSONLDFromSelection = this.makeSelectionJSONLDFromSelection.bind(this);
 		this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
+		this.renderVersionInList = this.renderVersionInList.bind(this);
+		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
 		this.props.setTraversalObjectives([
 			{
 				"@embed": "@always",
@@ -227,9 +232,20 @@ class App extends Component {
     console.log("Received updated score DOM element: ", scoreElement)
   }
 	handleChooseWork(work){
-		this.setState({'mode': 'version', 'work': work });
+		this.setState({mode: 'version', work: work });
 	}
-
+	handleChooseVersion(version){
+		this.setState({mode: 'score', versions: [version, false]});
+	}
+	handleReplaceVersion(version, replacePos){
+		// Swap out one of the versions
+		let versions = this.state.versions.slice();
+		versions[replacePos] = version;
+		this.setState({mode: 'compare', versions: versions});
+	}
+	handleAddVersionPane(){
+		this.setState({mode: 'addVersion'});
+	}
   handleSubmit(args) {
     /* do any app-specific actions and return the object (e.g. a Web Annotation)
      * to be submitted to the user POD */
@@ -243,6 +259,8 @@ class App extends Component {
 	render(){
 		switch(this.state.mode){
 			case 'version':
+				return this.renderVersions();
+			case 'addVersion':
 				return this.renderVersions();
 			case 'score':
 				return this.renderSingleScore();
@@ -259,7 +277,10 @@ class App extends Component {
 	}
 	renderVersionInList(version){
 		// Each verison is drawn separately to the versions list
-		return <div className="versionListing" onClick={ this.handleChooseVersion.bind(this, version) }>{ version.title}</div> ;
+		const handler = this.state.mode==="version" ? this.handleChooseVersion.bind(this, version)
+					: this.handleReplaceVersion.bind(this, version, 1)
+		return <VersionListing className="versionListing" key={version.shortTitle}
+													 clickHandler={ handler } {...version}/>;
 	}
 	renderWorks(){
 		return (
@@ -268,12 +289,22 @@ class App extends Component {
 			</div>
 		);
 	}
+	renderWorkAsHeader(work){
+		if(!work){
+			return <div/>;
+		} else {
+			return <div/>;
+		}
+	}
 	renderVersions(){
+		if(!this.state.arrangements.length) return <div>Loading...</div>;
 		return (
 			<div className="work">
-				<div className="workInfo">this.renderWorkAsHeader</div>
+				<div className="workInfo">{this.renderWorkAsHeader(this.work)}</div>
 				<div className="versions">
-					{ this.state.work.versions.map(this.renderVersionInList) }
+					{ this.work ?
+						this.state.arrangements.filter(x=> x.work===this.work).map(this.renderVersionInList) :
+						this.state.arrangements.map(this.renderVersionInList) }
 				</div>
 			</div>
 		);
@@ -296,14 +327,16 @@ class App extends Component {
 	}
 	renderTiledScores(){
 		// MEI URIs hardwired for testing
+		if(!this.state.versions[0] && this.state.versions[1]) return <div>Loading...</div>;
 		const upperURI = this.state.arrangements.length ? this.state.arrangements[0].MEI : "https://meld.linkedmusic.org/companion/mei/F1.mei";
 //    const upperURI = "https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei>";
 		const lowerURI = "https://meld.linkedmusic.org/companion/mei/F2.mei";
+		const upper = this.state.versions[0];
+		const lower = this.state.versions[1];
 		const selectionHandler = this.state.targetting==='note' ?
 					this.handleNoteSelectionChange :
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
-		console.log(narrowWindow);
 		return(
 			<main>
 				<h4>Select:</h4>
@@ -318,22 +351,15 @@ class App extends Component {
 										 id="pane1"
 										 narrowPane={ narrowWindow }
 										 width={ this.state.width }
-										 uri={ upperURI }
+										 uri={ upper.MEI }
 										 //  shortTitle="Star Brightly Shining"
-                     shortTitle={ this.state.arrangements.length ?
-                                  this.state.arrangements[0].shortTitle :
-                                    "loading"}
-                               arranger="Josiah Pittman"
-                               genre="Piano-vocal"
-                               publisher="Augener & Co."
-                               date={ this.state.arrangements.length ?
-                                      this.state.arrangements[0].date :
-                                              "loading"}
-                               place="London"
-                               catNumber={ this.state.arrangements.length ?
-                                          this.state.arrangements[0].catNumber :
-                                             "loading"}
-
+                     shortTitle={ upper.shortTitle}
+                     arranger="Josiah Pittman"
+                     genre="Piano-vocal"
+                     publisher="Augener & Co."
+                     date={ upper.date}
+                     place="London"
+                     catNumber={ upper.catNumber}
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, upperURI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
@@ -341,13 +367,13 @@ class App extends Component {
 				<VersionPane extraClasses="lower"
 										 width={ this.state.width }
 										 id="pane1"
-                               shortTitle="Perischer Nachtgesang"
-                               arranger="Friedrich Silcher"
-                               genre="Choral music"
-                               publisher="Hallberger"
-                               date="1846"
-                               place="Stuttgart"
-										 uri={ lowerURI }
+                     shortTitle={lower.shortTitle}
+                     arranger="Friedrich Silcher"
+                     genre="Choral music"
+                     publisher="Hallberger"
+                     date="1846"
+                     place="Stuttgart"
+										 uri={ lower.MEI }
 										 vrvOptions={ basicVrvOptions }
 										 selectionHandler={ selectionHandler.bind(this, lowerURI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
@@ -374,16 +400,12 @@ class App extends Component {
           buttonContent = { <span>Prev</span> }
           uri = { this.state.uri }
         />
-
-        <SubmitButton
-          buttonContent = "Submit to Solid POD"
-          submitUri = { this.props.submitUri }
-          submitHandler = { this.handleSubmit}
-          submitHandlerArgs = { { "test": "test" } }
-        />
+				<button className="addPane" onClick={this.handleAddVersionPane}>
+					+
+				</button>
 
         <SelectableScore
-          uri={ this.state.uri }
+          uri={ this.state.versions[0].MEI }
           options={ this.props.vrvOptions }
           onSelectionChange={ this.handleSelectionChange }
           selectorString = { selectorStrings[this.state.targetting] }
