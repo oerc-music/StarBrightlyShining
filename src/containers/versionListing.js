@@ -8,7 +8,7 @@ export default class VersionListing extends Component {
 	}
 	render(){
 		return (
-			<div className="versionListing" onClick={this.props.clickHandler}>
+			<div className="listing" onClick={this.props.clickHandler}>
 				<dl>
 					<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
 					<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>

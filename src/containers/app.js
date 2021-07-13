@@ -7,6 +7,7 @@ import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 import { fetchGraph } from 'meld-clients-core/lib/actions/index';
 import VersionPane from './versionPane';
 import VersionListing from './versionListing';
+import WorkListing from './workListing';
 import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
@@ -43,9 +44,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-			//			mode: 'work',
+			mode: 'work',
 			//			mode: 'compare',
-			mode: 'version',
+			// mode: 'version',
 			versions: [false, false],
 			work: false,
 			worklist: [],
@@ -68,6 +69,7 @@ class App extends Component {
 		this.makeSelectionJSONLDFromSelection = this.makeSelectionJSONLDFromSelection.bind(this);
 		this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
 		this.renderVersionInList = this.renderVersionInList.bind(this);
+		this.renderWorkInList = this.renderWorkInList.bind(this);
 		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
 		this.props.setTraversalObjectives([
 			{
@@ -280,15 +282,27 @@ class App extends Component {
 				return this.renderWorks();
 		}
 	}
-	renderWorkInList(work){
-		// Each work is drawn separately to the works list
-		return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
-	}
+	// renderWorkInList(work){
+	// 	// Each work is drawn separately to the works list
+	// 	return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
+	// }
+
+  renderWorkInList(work){
+      const handler = this.handleChooseWork.bind(this, work) ;
+      return <WorkListing key={work['@id']}
+
+                          shortTitle={work[pref.rdfs+"label"]}
+//                        composer={work[pref.rdau+"P60426"]}
+                          opus={work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}
+                          date={work[pref.gndo+"dateOfPublication"]}
+                          clickHandler={ handler } />;
+  }
+
 	renderVersionInList(version){
 		// Each verison is drawn separately to the versions list
 		const handler = this.state.mode==="version" ? this.handleChooseVersion.bind(this, version)
 					: this.handleReplaceVersion.bind(this, version, 1)
-		return <VersionListing className="versionListing" key={version.shortTitle}
+		return <VersionListing key={version.shortTitle}
 													 clickHandler={ handler } {...version}/>;
 	}
 	renderWorks(){
@@ -298,6 +312,7 @@ class App extends Component {
 			</div>
 		);
 	}
+
 	renderWorkAsHeader(work){
 		if(!work){
 			return <div/>;

@@ -1,4 +1,4 @@
-body { 
+body {
   font-family: optima, sans-serif;
   user-select: none;
 }
@@ -24,10 +24,10 @@ body {
 	font-weight: bold;
 }
 .selectable-score-nextPageButton {
-  border-radius: 0 4px 4px 0;	
+  border-radius: 0 4px 4px 0;
 }
 .selectable-score-prevPageButton {
-  border-radius: 4px 0 0 4px;	
+  border-radius: 4px 0 0 4px;
 }
 
 .selectable-score-postButton.disabled
@@ -193,19 +193,19 @@ dd{
 	margin-top: 0;
 }
 /* versionListing pane */
-.versionListing dl div {
+.listing dl div {
 	display: inline-flex;
 }
-.versionListing:nth-child(2n+1){
+.listing:nth-child(2n+1){
 	background-color: #e4e4e4;
 	display: flex;
 	flex-wrap: wrap;
 }
-.versionListing{
+.listing{
 	margin: 4px 0;
 	padding: 4px;
 }
-.versionListing dd, .versionListing dt {
+.listing dd, .listing dt {
 	margin: 2px 0;
 	padding: 2px 4px;
 	white-space: nowrap;
