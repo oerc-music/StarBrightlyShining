@@ -85,7 +85,9 @@ class App extends Component {
 	componentDidMount(){
     // See: https://reactjs.org/docs/react-component.html#componentdidmount
     if(this.props.graphURI){
-      this.props.registerTraversal(this.props.graphURI, {numHops: 3});
+      this.props.registerTraversal(this.props.graphURI,
+																	 {numHops: 3,
+																		ignoreObjectPrefix: ["http://d-nb.info/gnd/", "http://rdaregistry.info/"]});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
   }
@@ -324,10 +326,10 @@ class App extends Component {
 		if(!this.state.arrangements.length) return <div>Loading...</div>;
 		return (
 			<div className="work">
-				<div className="workInfo">{this.renderWorkAsHeader(this.work)}</div>
+				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
 				<div className="versions">
-					{ this.work ?
-						this.state.arrangements.filter(x=> x.work===this.work).map(this.renderVersionInList) :
+					{ this.state.work ?
+						this.state.arrangements.filter(x=> x.work===this.state.work).map(this.renderVersionInList) :
 						this.state.arrangements.map(this.renderVersionInList) }
 				</div>
 			</div>
