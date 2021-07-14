@@ -1,0 +1,20 @@
+<http://example.org/TrioArrOp93> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Score> .
+<http://example.org/TrioArrOp93> <http://purl.org/dc/elements/1.1/title> "Grosse Sinfonie in F dur / F\u00FCr das Piano-Forte, Violin und Violonzello eingerichtet" .
+<http://example.org/TrioArrOp93> <http://purl.org/ontology/bibo/shortTitle> "8th Symphony, for Piano Trio" .
+<http://example.org/TrioArrOp93> <http://purl.org/dc/terms/alternative> "Steiner Piano Trio version, op. 93" .
+<http://example.org/TrioArrOp93> <http://rdaregistry.info/Elements/u/P60242> <http://d-nb.info/gnd/1000941639> .
+<http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#arranger> <https://www.wikidata.org/wiki/Special:EntityData/Q1038615> .
+<http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015550> .
+<http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015782> .
+<http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015120> .
+<http://example.org/TrioArrOp93> <https://www.wikidata.org/wiki/Special:EntityData/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q1414262> .
+<http://example.org/TrioArrOp93> <https://www.wikidata.org/wiki/Special:EntityData/P217> "D-BNba C93/23" .
+<http://example.org/TrioArrOp93> <http://purl.org/dc/elements/1.1/publisher> "S.A. Steiner" .
+<http://example.org/TrioArrOp93> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1741> .
+<http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
+<https://www.wikidata.org/wiki/Special:EntityData/Q1038615> <http://www.w3.org/2000/01/rdf-schema#label> "Carl Haslinger" .
+<http://d-nb.info/gnd/1000941639> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonie Nr. 8 : F-Dur ; op. 93 / Ludwig van Beethoven" .
+<http://d-nb.info/gnd/1000941639> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
+<http://d-nb.info/gnd/1000941639> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "93" .
+<http://d-nb.info/gnd/1000941639> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1812" .
+<http://d-nb.info/gnd/118508288> <http://www.w3.org/2000/01/rdf-schema#label> "Ludwig van Beethoven" .

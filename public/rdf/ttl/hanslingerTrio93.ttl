@@ -1,0 +1,40 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdau: <http://rdaregistry.info/Elements/u/> .
+@prefix example: <http://example.org/> .
+@prefix bibl: <http://purl.org/ontology/bibo/> .
+@prefix dnb: <http://d-nb.info/gnd/> .
+@prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
+@prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
+@prefix wdt: <https://www.wikidata.org/prop/direct/> .
+@prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
+@prefix geonames: <http://www.geonames.org/> .
+@prefix dbpedia: <https://dbpedia.org/ontology/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+example:TrioArrOp93 a vivo:Score;
+dc:title "Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Violonzello eingerichtet";
+	bibo:shortTitle "8th Symphony, for Piano Trio";
+	dcterms:alternative "Steiner Piano Trio version, op. 93";
+	rdau:P60242 dnb:1000941639;
+	gndo:arranger wd:Q1038615;
+	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015782, loc:mp2013015120;
+	wd:genre wd:Q1414262;
+	wd:P217 "D-BNba C93/23";
+	dc:publisher "S.A. Steiner";
+	rdau:P60163 wd:Q1741;
+	gndo:dateOfPublication "1816" .
+
+wd:Q1038615 rdfs:label "Carl Haslinger" .
+
+dnb:1000941639 rdfs:label "Sinfonie Nr. 8 : F-Dur ; op. 93 / Ludwig van Beethoven" ;
+	rdau:P60426 dnb:118508288 ;
+	gndo:opusNumericDesignationOfMusicalWork "93" ;
+	gndo:dateOfPublication "1812" .
+
+
+dnb:118508288 rdfs:label "Ludwig van Beethoven" .

@@ -292,7 +292,7 @@ class App extends Component {
       return <WorkListing key={work['@id']}
 
                           shortTitle={work[pref.rdfs+"label"]}
-//                        composer={work[pref.rdau+"P60426"]}
+                          composer={work[pref.rdau+"P60426"][pref.rdfs+"label"]}
                           opus={work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}
                           date={work[pref.gndo+"dateOfPublication"]}
                           clickHandler={ handler } />;
