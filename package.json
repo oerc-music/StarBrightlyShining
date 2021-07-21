@@ -1,7 +1,7 @@
 {
-  "name": "StarShiningBrightly",
+  "name": "StarBrightlyShining",
   "version": "0.0.1",
-  "description": "Hello MELD demo app (4)",
+  "description": "Prototype app for exploring arrangements",
   "license": "BSD-3-Clause",
   "author": "David Lewis and Mark Saccamano (and the Beethoven in the House project)",
   "main": "index.js",
