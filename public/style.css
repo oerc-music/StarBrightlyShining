@@ -10,7 +10,7 @@ body {
 	stroke: #467E25;
 }
 
-.selectable-score-nextPageButton ,
+.selectable-score-nextPageButton , .scoreScrollButton ,
 .selectable-score-prevPageButton ,
 .selectable-score-postButton , .annotationButton
 {
@@ -29,7 +29,14 @@ body {
 .selectable-score-prevPageButton {
   border-radius: 4px 0 0 4px;
 }
-
+.metadata .scrollableScore {
+	width: 80%;
+	overflow-x: scroll;
+}
+.noDetails .scrollableScore {
+	width: 95%;
+	overflow-x: scroll;
+}
 .selectable-score-postButton.disabled
 {
 	text-color: lightgray;
@@ -209,4 +216,14 @@ dd{
 	margin: 2px 0;
 	padding: 2px 4px;
 	white-space: nowrap;
+}
+.materialLine {
+	stroke-width: 5px;
+	stroke-linecap: round;
+}
+.materialLine.line-0{
+	stroke: #467E25;
+}
+.materialLine.line-1{
+	stroke: #8E4625;
 }

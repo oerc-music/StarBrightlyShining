@@ -58,6 +58,7 @@ class App extends Component {
 			height: 800,
 			annotations: [],
       uri: this.props.uri,
+			selectedAnnotation: false, 
       arrangements: false
     };
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -71,6 +72,7 @@ class App extends Component {
 		this.renderVersionInList = this.renderVersionInList.bind(this);
 		this.renderWorkInList = this.renderWorkInList.bind(this);
 		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
+		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
 		this.props.setTraversalObjectives([
 			{
 				"@embed": "@always",
@@ -87,6 +89,12 @@ class App extends Component {
     if(this.props.graphURI){
       this.props.registerTraversal(this.props.graphURI,
 																	 {numHops: 3,
+																		followPropertyUri: [pref.bibo+"shortTitle", pref.dbpedia+"genre", "@id", "@type", "@value",
+																												pref.gndo+"arranger", pref.gndo+"opusNumericDesignationOfMusicalWork",
+																												pref.dce+"publisher", pref.gndo+"dateOfPublication",
+																												pref.frbr+"embodiment", pref.rdau+"P60163", pref.rdau+"O60242",
+																												pref.wdt+"P217",pref.rdfs+"label"
+																		],
 																		ignoreObjectPrefix: ["http://d-nb.info/gnd/", "http://rdaregistry.info/"]});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
@@ -117,7 +125,7 @@ class App extends Component {
 //    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
     obj.catNumber = vivoScore[pref.wdt+"P217"];
 		obj.work = vivoScore[pref.rdau+"P60242"];
-		console.log("Processed a ", vivoScore, " into a ", obj);
+//		console.log("Processed a ", vivoScore, " into a ", obj);
 		return obj;
 	}
 	// methods called during initialisation and graph loading
@@ -185,7 +193,6 @@ class App extends Component {
 	}
 
 	usefulIdForChildElement(element) {
-		console.log(element);
 		if(element.classList.contains(this.state.targetting)){
 			return element.id;
 		} else if(this.state.targetting==='note' && element.classList.contains('chord')){
@@ -209,6 +216,10 @@ class App extends Component {
   }
 	handleSelectionChange(key, selectionIds){
 		const pane = document.getElementById(key);
+		if(!pane){
+			console.log("FAILED TO FIND", key, selectionIds);
+			return;
+		}
 		const selectedElements = Array.from(pane.getElementsByClassName('selected'));
 		const newSelection = {...this.state.selection};
 		selectedElements.forEach(thing => thing.classList.remove('selected'));
@@ -217,6 +228,9 @@ class App extends Component {
     this.setState({ selection: newSelection,
 										multiSelect: (Object.keys(newSelection).length > 1
 																	&& Object.values(newSelection).filter(x => x.length).length > 1) });
+	}
+	handleSelectAnnotation(annotation){
+		this.setState({selectedAnnotation: annotation});
 	}
 	addElementToSelectionObject(object, resourceURI, element) {
 		if(!((pref.frbr+"part") in object)) object[pref.frbr+"part"] = [];
@@ -329,7 +343,7 @@ class App extends Component {
 				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
 				<div className="versions">
 					{ this.state.work ?
-						this.state.arrangements.filter(x=> x.work===this.state.work).map(this.renderVersionInList) :
+						this.state.arrangements.filter(x=> x.work['@id']===this.state.work['@id']).map(this.renderVersionInList) :
 						this.state.arrangements.map(this.renderVersionInList) }
 				</div>
 			</div>
@@ -387,8 +401,11 @@ class App extends Component {
                      place="London"
                      catNumber={ upper.catNumber}
 										 vrvOptions={ basicVrvOptions }
-										 selectionHandler={ selectionHandler.bind(this, upperURI) }
+										 annotations= {this.state.annotations}
+										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
+										 handleSelectAnnotation={ this.handleSelectAnnotation }
+										 selectedAnnotation={this.state.selectedAnnotation}
 										 handleScoreUpdate={ this.handleScoreUpdate } />
 				<VersionPane extraClasses="lower"
 										 width={ this.state.width }
@@ -401,8 +418,11 @@ class App extends Component {
                      place="Stuttgart"
                      catNumber={ lower.catNumber}
 										 uri={ lower.MEI }
+										 annotations= {this.state.annotations}
 										 vrvOptions={ basicVrvOptions }
-										 selectionHandler={ selectionHandler.bind(this, lowerURI) }
+										 handleSelectAnnotation={ this.handleSelectAnnotation }
+										 selectedAnnotation={this.state.selectedAnnotation}
+										 selectionHandler={ selectionHandler.bind(this, lower.MEI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
 										 handleScoreUpdate={ this.handleScoreUpdate } />
 			</main>
