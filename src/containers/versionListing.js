@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 
 export default class VersionListing extends Component {
   constructor(props) {
