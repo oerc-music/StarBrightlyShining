@@ -227,3 +227,17 @@ dd{
 .materialLine.line-1{
 	stroke: #8E4625;
 }
+
+.backButton {
+
+  font-size: 14px;
+  line-height: 1;
+  text-align: left;
+  padding: 8px 16px;
+  margin-right: -1px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: black;
+  background-color: azure;
+  font-weight: bold;
+  /* overflow: hidden; */
+}
