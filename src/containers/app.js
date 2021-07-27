@@ -28,6 +28,7 @@ pref.dce = "http://purl.org/dc/elements/1.1/";
 pref.dbpedia = "https://dbpedia.org/ontology/";
 pref.rdau = "http://rdaregistry.info/Elements/u/";
 pref.wdt = "https://www.wikidata.org/prop/direct/";
+pref.schema = "http://schema.org/";
 
 const basicVrvOptions = {
   scale: 45,
@@ -58,7 +59,7 @@ class App extends Component {
 			height: 800,
 			annotations: [],
       uri: this.props.uri,
-			selectedAnnotation: false, 
+			selectedAnnotation: false,
       arrangements: false
     };
     this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -73,6 +74,8 @@ class App extends Component {
 		this.renderWorkInList = this.renderWorkInList.bind(this);
 		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
 		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
+    this.handleChangeWork = this.handleChangeWork.bind(this);
+    this.transformArrangement = this.transformArrangement.bind(this);
 		this.props.setTraversalObjectives([
 			{
 				"@embed": "@always",
@@ -88,14 +91,14 @@ class App extends Component {
     // See: https://reactjs.org/docs/react-component.html#componentdidmount
     if(this.props.graphURI){
       this.props.registerTraversal(this.props.graphURI,
-																	 {numHops: 3,
-																		followPropertyUri: [pref.bibo+"shortTitle", pref.dbpedia+"genre", "@id", "@type", "@value",
-																												pref.gndo+"arranger", pref.gndo+"opusNumericDesignationOfMusicalWork",
-																												pref.dce+"publisher", pref.gndo+"dateOfPublication",
-																												pref.frbr+"embodiment", pref.rdau+"P60163", pref.rdau+"O60242",
-																												pref.wdt+"P217",pref.rdfs+"label"
-																		],
-																		ignoreObjectPrefix: ["http://d-nb.info/gnd/", "http://rdaregistry.info/"]});
+					 {numHops: 3,
+						followPropertyUri: [pref.bibo+"shortTitle", pref.dbpedia+"genre", "@id", "@type", "@value",
+																pref.gndo+"arranger", pref.gndo+"opusNumericDesignationOfMusicalWork",
+																pref.dce+"publisher", pref.gndo+"dateOfPublication",
+																pref.frbr+"embodiment", pref.rdau+"P60163", pref.rdau+"O60242",
+																pref.wdt+"P217",pref.rdfs+"label"
+						],
+						ignoreObjectPrefix: ["http://d-nb.info/gnd/", "http://rdaregistry.info/"]});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
   }
@@ -112,11 +115,28 @@ class App extends Component {
       }
     }
 	}
+
+  // labelForGenre(genre, language){
+  //     if (!genre || !(pref.schema+"about" in genre)) return "";
+  //      const name = genre [pref.schema+"about"][prefix.schema+"name"];
+  //     if ( Array.isArray(name) && name.length > 1 ){
+  //       return name.find(x => x["@language"] === language)["@value"];
+  //
+  //     } else if ( Array.isArray(name)){
+  //       return name[0]["@value"];
+  //     } else {
+  //       console.log ("genre is not what we expected", name);
+  //       return "";
+  //     }
+  // }
 	transformArrangement(vivoScore){
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
-		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
+
+		// obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
+    // obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
+
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
@@ -258,9 +278,14 @@ class App extends Component {
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement)
   }
+
 	handleChooseWork(work){
 		this.setState({mode: 'version', work: work });
-	}
+  }
+  handleChangeWork(){
+    this.setState({mode: 'work', work: false});
+  }
+
 	handleChooseVersion(version){
 		this.setState({mode: 'score', versions: [version, false]});
 	}
@@ -331,9 +356,9 @@ class App extends Component {
 
 	renderWorkAsHeader(work){
 		if(!work){
-			return <div/>;
+			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else {
-			return <div/>;
+			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		}
 	}
 	renderVersions(){
@@ -378,14 +403,21 @@ class App extends Component {
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
 		return(
+
 			<main>
+
+
+				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
 				<h4>Select:</h4>
+
+
 				<div className="target switch-field">
 					{ this.selectionRadioButton('measure', this.selectMeasures) }
 					<label htmlFor="measure">Measures</label>
 					{ this.selectionRadioButton('note', this.selectNotes) }
 					<label htmlFor="note">Notes</label>
 				</div>
+
 				{this.annotationButtons()}
 				<VersionPane extraClasses="upper"
 										 id="pane1"
