@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { convertCoords }
-from 'meld-clients-core/lib/library/boxesForMeasures';
+ import { convertCoords } from 'meld-clients-core/lib/library/boxesForMeasures';
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 
 function xmin(positions){
@@ -44,7 +43,7 @@ export default class ExtractVisualiser extends Component {
 		console.log(positions);
 		return [xmin(positions), xmax(positions)];
 	}
-	
+
 	render(){
 		if(this.props.toDraw && this.props.toDraw.length){
 			// const toDraw = this.props.musicalMaterial.map(this.xRanges);
