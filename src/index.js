@@ -6,11 +6,11 @@ import StoreWrapper from './containers/storeWrapper';
 // Parameters for SelectableScore component
 // ****************************************
 
-// MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment 
-const MEI_URI = "Hello_MELD.mei" 
+// MEI_URI: Can be a full URI, e.g. obtained from the TROMPA Contributor Environment
+const MEI_URI = "Hello_MELD.mei"
 
 // vrvOptions: If not supplied to <SelectableScore>, will default to predefined options
-const vrvOptions = {  
+const vrvOptions = {
   breaks: 'line',
   scale: 45,
   adjustPageHeight: 1,
@@ -30,4 +30,3 @@ ReactDOM.render(
   </div>
   , document.querySelector('.container')
 );
-
