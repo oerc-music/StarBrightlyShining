@@ -115,7 +115,7 @@ class App extends Component {
       }
     }
 	}
-
+  //
   // labelForGenre(genre, language){
   //     if (!genre || !(pref.schema+"about" in genre)) return "";
   //      const name = genre [pref.schema+"about"][prefix.schema+"name"];
@@ -129,13 +129,14 @@ class App extends Component {
   //       return "";
   //     }
   // }
+
 	transformArrangement(vivoScore){
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
-		// obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-    // obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
+		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
+//  obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
 
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL

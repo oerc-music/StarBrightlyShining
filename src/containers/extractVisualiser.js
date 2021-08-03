@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
- import { convertCoords } from 'meld-clients-core/lib/library/boxesForMeasures';
+import { convertCoords } from 'meld-clients-core/lib/library/boxesForMeasures';
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 
 function xmin(positions){
