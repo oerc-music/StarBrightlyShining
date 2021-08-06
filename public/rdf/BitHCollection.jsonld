@@ -19,7 +19,8 @@
 			{"@id": "http://localhost:8080/rdf/pittman.nq"} ,
 			{"@id": "http://localhost:8080/rdf/silcherGesang.nq"} ,
 			{"@id": "http://localhost:8080/rdf/silcherNachtgesang.nq"},
-			{"@id": "http://localhost:8080/rdf/hanslingerTrio93.nq"}
+			{"@id": "http://localhost:8080/rdf/hanslingerTrio93.nq"},
+			{"@id": "http://localhost:8080/rdf/hanslingerPianoArrOp93.nq"}
 		]
 	}
 }
