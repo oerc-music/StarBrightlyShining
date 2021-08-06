@@ -20,7 +20,7 @@ example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
 	dc:title "Gesang des Peri's";
 	bibo:shortTitle "Gesang des Peri's";
 	dcterms:alternative "Silcher vocal arrangement";
-  rdau:P60242 dnb:300016417;
+   rdau:P60242 dnb:300016417;
 	gndo:arranger dnb:118614339;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
