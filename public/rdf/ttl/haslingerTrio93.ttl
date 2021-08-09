@@ -27,7 +27,7 @@ dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Viol
 	wd:P217 "D-BNba C93/23";
 	dc:publisher dnb:1123836310;
 	rdau:P60163 wd:Q1741;
-	gndo:dateOfPublication "1816" ;
+	gndo:dateOfPublication "1817" ;
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.188-197.mei> .
 
 wd:Q1038615 rdfs:label "Carl Haslinger" .
