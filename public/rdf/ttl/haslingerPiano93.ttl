@@ -25,7 +25,7 @@ dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte eingerichtet";
 	gndo:arranger wd:Q1038615;
 	gndo:mediumOfPerformance loc:mp2013015550;
 	wd:genre wd:Q1414262;
-	wd:P217 "D-BNba C93/23";
+	wdt:P217 "D-BNba C93/3";
 	dc:publisher dnb:1123836310;
 	rdau:P60163 wd:Q1741;
 	gndo:dateOfPublication "1817" ;
