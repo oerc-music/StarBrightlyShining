@@ -75,6 +75,7 @@ class App extends Component {
 		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
 		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
     this.handleChangeWork = this.handleChangeWork.bind(this);
+    this.handleChangeVersion = this.handleChangeVersion.bind(this);
     this.transformArrangement = this.transformArrangement.bind(this);
 		this.props.setTraversalObjectives([
 			{
@@ -285,7 +286,10 @@ class App extends Component {
   handleChangeWork(){
     this.setState({mode: 'work', work: false});
   }
-
+// needs to have current work selection
+  handleChangeVersion(){
+    this.setState({mode: 'addVersion', work: false});
+  }
 	handleChooseVersion(version){
 		this.setState({mode: 'score', versions: [version, false]});
 	}
@@ -358,7 +362,14 @@ class App extends Component {
 		if(!work){
 			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else {
-			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
+			return <div className="workHeader">
+                <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+                <div className="backButton2" onClick={this.handleChangeVersion}>Go Back - Change Version</div>
+
+                <div className="workTitle">
+                <h2>Title of Work</h2></div>
+
+            </div>;
 		}
 	}
 	renderVersions(){
@@ -404,10 +415,8 @@ class App extends Component {
 
 			<main>
 
-
 				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
 				<h4>Select:</h4>
-
 
 				<div className="target switch-field">
 					{ this.selectionRadioButton('measure', this.selectMeasures) }
@@ -461,6 +470,7 @@ class App extends Component {
   renderSingleScore() {
     return(
       <div>
+				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
         <p>Current selection: { this.state.selection.length > 0
           ? <span> { this.state.selection.map( (elem) => elem.getAttribute("id") ).join(", ") } </span>
           : <span>Nothing selected</span>
