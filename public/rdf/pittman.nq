@@ -19,3 +19,4 @@
 <http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "92" .
 <http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
 <http://d-nb.info/gnd/118508288> <http://www.w3.org/2000/01/rdf-schema#label> "Ludwig van Beethoven" .
+<https://www.wikidata.org/wiki/Special:EntityData/Q7190079> <http://www.w3.org/2000/01/rdf-schema#label> "genre name" .

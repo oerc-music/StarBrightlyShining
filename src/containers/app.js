@@ -91,6 +91,7 @@ class App extends Component {
 	componentDidMount(){
     // See: https://reactjs.org/docs/react-component.html#componentdidmount
     if(this.props.graphURI){
+      // this.props.registerTraversal(this.props.graphURI, {numHops: 3});
       this.props.registerTraversal(this.props.graphURI,
 					 {numHops: 3,
 						followPropertyUri: [pref.bibo+"shortTitle", pref.dbpedia+"genre", "@id", "@type", "@value",
@@ -131,6 +132,19 @@ class App extends Component {
   //     }
   // }
 
+  labelForPlace(place, language){
+    if (!place || !(pref.schema+"about" in place)) return "";
+    const name = place [pref.schema+"about"][pref.schema+"name"];
+    if ( Array.isArray(name) && name.length > 1 ){
+      return name.find(x => ["@language"]) === language["@value"];
+    } else if ( Array.isArray(name)){
+      return name[0]["@value"];
+    } else {
+      console.log("msg3: place is not what we expected", name);
+      return "";
+    }
+  }
+
 	transformArrangement(vivoScore){
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
@@ -142,7 +156,8 @@ class App extends Component {
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
-		obj.place = vivoScore[pref.rdau+"P60163"];
+		obj.place = vivoScore[pref.rdau+"P60163"][pref.schema+"about"][pref.schema+"name"][0]['@value'];
+//    obj.place = this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en");
 //    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
     obj.catNumber = vivoScore[pref.wdt+"P217"];
 		obj.work = vivoScore[pref.rdau+"P60242"];
@@ -286,7 +301,6 @@ class App extends Component {
   handleChangeWork(){
     this.setState({mode: 'work', work: false});
   }
-// needs to have current work selection
   handleChangeVersion(work){
     this.setState({mode: 'addVersion'});
   }
@@ -335,12 +349,11 @@ class App extends Component {
   renderWorkInList(work){
       const handler = this.handleChooseWork.bind(this, work) ;
       return <WorkListing key={work['@id']}
-
-                          shortTitle={work[pref.rdfs+"label"]}
-                          composer={work[pref.rdau+"P60426"][pref.rdfs+"label"]}
-                          opus={work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}
-                          date={work[pref.gndo+"dateOfPublication"]}
-                          clickHandler={ handler } />;
+                shortTitle={work[pref.rdfs+"label"]}
+                composer={work[pref.rdau+"P60426"][pref.rdfs+"label"]}
+                opus={work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}
+                date={work[pref.gndo+"dateOfPublication"]}
+                clickHandler={ handler } />
   }
 
 	renderVersionInList(version){
@@ -359,19 +372,21 @@ class App extends Component {
 		);
 	}
 
+// need to pass in work title
 	renderWorkAsHeader(work){
 		if(!work){
 			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
-		} else {
+		} else if(this.state.mode==="version"){
+      return <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+    } else {
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="backButton2" onClick={this.handleChangeVersion}>Go Back - Change Version</div>
 
-                <div className="workTitle">
-                <h2>Title of Work</h2>
-                </div>
-
-            </div>;
+                    <div className="workTitle">
+                    <h2>Title of Work</h2>
+                    </div>
+             </div>;
 		}
 	}
 	renderVersions(){
@@ -418,8 +433,8 @@ class App extends Component {
 			<main>
 
 				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
-				<h4>Select:</h4>
 
+				<h4>Select:</h4>
 				<div className="target switch-field">
 					{ this.selectionRadioButton('measure', this.selectMeasures) }
 					<label htmlFor="measure">Measures</label>
@@ -428,6 +443,7 @@ class App extends Component {
 				</div>
 
 				{this.annotationButtons()}
+
 				<VersionPane extraClasses="upper"
 										 id="pane1"
 										 narrowPane={ narrowWindow }
