@@ -348,7 +348,8 @@ class App extends Component {
 		const handler = this.state.mode==="version" ? this.handleChooseVersion.bind(this, version)
 					: this.handleReplaceVersion.bind(this, version, 1)
 		return <VersionListing key={version.shortTitle}
-													 clickHandler={ handler } {...version}/>;
+													 clickHandler={ handler }
+                           {...version}/>;
 	}
 	renderWorks(){
 		return (
@@ -367,7 +368,8 @@ class App extends Component {
                 <div className="backButton2" onClick={this.handleChangeVersion}>Go Back - Change Version</div>
 
                 <div className="workTitle">
-                <h2>Title of Work</h2></div>
+                <h2>Title of Work</h2>
+                </div>
 
             </div>;
 		}

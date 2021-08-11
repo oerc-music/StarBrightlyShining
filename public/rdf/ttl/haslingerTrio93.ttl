@@ -23,7 +23,7 @@ dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Viol
 	rdau:P60242 dnb:300016425;
 	gndo:arranger wd:Q1038615;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015782, loc:mp2013015120;
-	wd:genre wd:Q1414262;
+	dbpedia:genre wd:Q1414262;
 	wdt:P217 "D-BNba C93/23";
 	dc:publisher dnb:1123836310;
 	rdau:P60163 wd:Q1741;
