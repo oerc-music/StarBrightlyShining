@@ -287,8 +287,8 @@ class App extends Component {
     this.setState({mode: 'work', work: false});
   }
 // needs to have current work selection
-  handleChangeVersion(){
-    this.setState({mode: 'addVersion', work: false});
+  handleChangeVersion(work){
+    this.setState({mode: 'addVersion'});
   }
 	handleChooseVersion(version){
 		this.setState({mode: 'score', versions: [version, false]});
