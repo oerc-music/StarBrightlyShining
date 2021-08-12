@@ -247,6 +247,19 @@ dd{
   	display:inline-block;
   	white-space: nowrap;
     padding: 1px 6px;
+    margin-left: 8px;
+  	margin-right: 2px;
+  	font-weight: bold;
+}
+.replaceButton {
+  	font-family:  optima, sans-serif;
+  	background-color: #F3CED6;
+    border-radius: 4px;
+  	border: 1px solid #00000040;
+  	display:inline-block;
+  	white-space: nowrap;
+    padding: 1px 6px;
+	  margin-left: 8px;
   	margin-right: 2px;
   	font-weight: bold;
 }

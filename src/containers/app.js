@@ -420,6 +420,8 @@ class App extends Component {
 	}
 	renderTiledScores(){
 		// MEI URIs hardwired for testing
+//    <div className="replaceButton" onClick={this.handleReplaceVersion(this.state.versions, 0)}>Replace version</div>
+
 		if(!this.state.versions[0] && this.state.versions[1]) return <div>Loading...</div>;
 
 		const upper = this.state.versions[0];
@@ -428,6 +430,7 @@ class App extends Component {
 					this.handleNoteSelectionChange :
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
+		console.log(this.state.versions[0], this.state.versions[1]);
 		return(
 
 			<main>
@@ -441,6 +444,9 @@ class App extends Component {
 					{ this.selectionRadioButton('note', this.selectNotes) }
 					<label htmlFor="note">Notes</label>
 				</div>
+
+        <div className="replaceButton" onClick={this.handleReplaceVersion}>Replace version</div>
+
 
 				{this.annotationButtons()}
 
