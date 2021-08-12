@@ -453,7 +453,7 @@ class App extends Component {
                      shortTitle={ upper.shortTitle}
                      arranger="Josiah Pittman"
                      genre="Piano-vocal"
-                     publisher="Augener & Co."
+                     publisher={"Augener & Co."}
                      date={ upper.date}
                      place={ upper.place}
                      catNumber={ upper.catNumber}
@@ -471,7 +471,7 @@ class App extends Component {
                      arranger="Friedrich Silcher"
                      genre="Choral music"
                      publisher="Hallberger"
-                     date="1846"
+                     date={ lower.date}
                      place={ lower.place}
                      catNumber={ lower.catNumber}
 										 uri={ lower.MEI }
