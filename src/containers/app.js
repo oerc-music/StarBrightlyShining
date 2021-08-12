@@ -455,7 +455,7 @@ class App extends Component {
                      genre="Piano-vocal"
                      publisher="Augener & Co."
                      date={ upper.date}
-                     place="London"
+                     place={ upper.place}
                      catNumber={ upper.catNumber}
 										 vrvOptions={ basicVrvOptions }
 										 annotations= {this.state.annotations}
@@ -472,7 +472,7 @@ class App extends Component {
                      genre="Choral music"
                      publisher="Hallberger"
                      date="1846"
-                     place="Stuttgart"
+                     place={ lower.place}
                      catNumber={ lower.catNumber}
 										 uri={ lower.MEI }
 										 annotations= {this.state.annotations}

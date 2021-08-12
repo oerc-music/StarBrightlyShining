@@ -13,7 +13,7 @@ export default class VersionListing extends Component {
 				<dl>
 					<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
           <div><dt>Arrangement of:</dt><dd>{this.props.work[pref.rdfs+"label"]}</dd></div>
-					<div><dt>Genre:</dt><dd>{typeof(this.props.genre)}</dd></div>
+					<div><dt>Genre:</dt><dd>{this.props.genre[pref.wd+"Q7190079"]}</dd></div>
 					<div><dt>Arranger:</dt><dd>{typeof(this.props.arranger[pref.rdfs+"label"])==='string' ?
 																			this.props.arranger[pref.rdfs+"label"] : ''}</dd></div>
 					<div><dt>Publisher:</dt><dd>{typeof(this.props.publisher[pref.rdfs+"label"])==='string' ?
