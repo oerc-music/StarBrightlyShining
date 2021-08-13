@@ -5,7 +5,7 @@
 <http://example.org/HaslingerPianoArrOp93> <http://rdaregistry.info/Elements/u/P60242> <http://d-nb.info/gnd/300016425> .
 <http://example.org/HaslingerPianoArrOp93> <https://d-nb.info/standards/elementset/gnd#arranger> <https://www.wikidata.org/wiki/Special:EntityData/Q1038615> .
 <http://example.org/HaslingerPianoArrOp93> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015550> .
-<http://example.org/HaslingerPianoArrOp93> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q1414262> .
+<http://example.org/HaslingerPianoArrOp93> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q17640610> .
 <http://example.org/HaslingerPianoArrOp93> <https://www.wikidata.org/prop/direct/P217> "D-BNba C93/3" .
 <http://example.org/HaslingerPianoArrOp93> <http://purl.org/dc/elements/1.1/publisher> "S.A. Steiner" .
 <http://example.org/HaslingerPianoArrOp93> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1741> .
