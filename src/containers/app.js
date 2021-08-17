@@ -118,41 +118,60 @@ class App extends Component {
     }
 	}
 
-  // labelForGenre(genre, language){
-  //     if (!genre || !(pref.schema+"about" in genre)) return "";
-  //      const name = genre [pref.schema+"about"][prefix.schema+"name"];
-  //     if ( Array.isArray(name) && name.length > 1 ){
-  //       return name.find(x => x["@language"] === language)["@value"];
-  //
-  //     } else if ( Array.isArray(name)){
-  //       return name[0]["@value"];
-  //     } else {
-  //       console.log ("genre is not what we expected", name);
-  //       return "";
-  //     }
-  // }
+  labelForGenre(genre, language){
+      if (!genre || !(pref.schema+"about" in genre)) return "";
+       const name = genre [pref.schema+"about"][pref.schema+"name"];
+      if ( Array.isArray(name) && name.length > 1 ){
+        return name.find(x => x["@language"] === language)["@value"];
 
-  labelForPlace(place, language){
-    if (!place || !(pref.schema+"about" in place)) return "";
-    const name = place [pref.schema+"about"][pref.schema+"name"];
-    if ( Array.isArray(name) && name.length > 1 ){
-      return name.find(x => ["@language"]) === language["@value"];
-    } else if ( Array.isArray(name)){
-      return name[0]["@value"];
-    } else {
-      console.log("msg3: place is not what we expected", name);
-      return "";
-    }
+      } else if ( Array.isArray(name)){
+        return name[0]["@value"];
+      } else {
+        console.log ("genre is not what we expected", name);
+        return "";
+      }
   }
+
+  // labelForPlace(place, language){
+  //   if (!place || !(pref.schema+"about" in place)) return "";
+  //   const name = place [pref.schema+"about"][pref.schema+"name"];
+  //   if ( Array.isArray(name) && name.length > 1 ){
+  //     return name.find(x => ["@language"]) === language["@value"];
+  //   } else if ( Array.isArray(name)){
+  //     return name[0]["@value"];
+  //   } else {
+  //     console.log("msg3: place is not what we expected", name);
+  //     return "";
+  //   }
+  // }
 
 
 	transformArrangement(vivoScore){
+
+    console.log('\n\n----ALARM:vivoScore-----\n\n')
+    console.log(vivoScore)
+
+    console.log('labelForGenre: ' + typeof this.labelForGenre)
+    let genre
+
+    try {
+      genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
+    } catch(err) {
+      console.log('The function messed things up: ' + err)
+      genre = 'ERRORED'
+    }
+
+    console.log('Genre: ' + genre)
+
+
+    console.log('\n\n----END----\n\n')
+
 		// Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 //		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-//    obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
-    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"][0]['@value'];
+    obj.genre = genre
+//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"][0]['@value'];
 		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
