@@ -373,6 +373,9 @@ class App extends Component {
 
 // need to pass in work title
 	renderWorkAsHeader(work){
+
+
+
 		if(!work){
 			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else if(this.state.mode==="version"){
@@ -383,7 +386,7 @@ class App extends Component {
                 <div className="backButton2" onClick={this.handleChangeVersion}>Go Back - Change Version</div>
 
                     <div className="workTitle">
-                    <h2>Title of Work</h2>
+                    <h2>Title of Work: {work[pref.rdfs+"label"]}</h2>
                     </div>
              </div>;
 		}
