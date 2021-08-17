@@ -24,6 +24,7 @@ export default class VersionPane extends Component {
 		this.toggleDetails = this.toggleDetails.bind(this);
 		this.scrollForward = this.scrollForward.bind(this);
 		this.scrollBackward = this.scrollBackward.bind(this);
+		this.replaceVersion = this.replaceVersion.bind(this);
 		this.xRanges = this.xRanges.bind(this);
 	}
 	xRanges(material) {
@@ -76,13 +77,33 @@ export default class VersionPane extends Component {
 			: Math.min(0.8 * this.props.width, 1000);
 		return Math.max(20, 45 - ((1000-targetWidth) / 20));
 	}
+
+	replaceVersion() {
+		const position = (this.props.extraClasses === 'upper') ? 0 : 1
+		console.log('I need to switch position ' + position)
+		try {
+			this.props.handleReplaceVersion(false, position)
+		} catch(err) {
+			console.log('screw, we broke it: ' + err)
+			console.log('this in versionPane:')
+			console.log(this)
+			console.log(this.props.handleReplaceVersion)
+		}
+
+
+
+}
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
+
+
+
 					<div className="controllbar">
+
 						<div className="leftControls">
 							<div className="scoreScrollButton" onClick={this.scrollBackward}><span>⇦</span></div>
 							<div className="scoreScrollButton" onClick={this.scrollForward}><span>⇨</span></div>
@@ -94,6 +115,9 @@ export default class VersionPane extends Component {
 							</button>
 						</div>
 					</div>
+
+    			<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
+
 					<div className="scrollableScore" ref={this.scrollPane}>
 						<SelectableScore uri={this.props.uri}
 														 vrvOptions = { vrvOptions }

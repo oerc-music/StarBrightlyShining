@@ -75,7 +75,6 @@ class App extends Component {
 		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
 		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
     this.handleChangeWork = this.handleChangeWork.bind(this);
-    this.handleChangeVersion = this.handleChangeVersion.bind(this);
     this.transformArrangement = this.transformArrangement.bind(this);
 		this.props.setTraversalObjectives([
 			{
@@ -300,18 +299,24 @@ class App extends Component {
   handleChangeWork(){
     this.setState({mode: 'work', work: false});
   }
-  handleChangeVersion(work){
-    this.setState({mode: 'addVersion'});
-  }
+
 	handleChooseVersion(version){
 		this.setState({mode: 'score', versions: [version, false]});
 	}
 	handleReplaceVersion(version, replacePos){
+
+    console.log('HELLO From the outside')
+    console.log('version: ' + version + ', replacePos: ' + replacePos)
+    console.log('this in app:')
+    console.log(this)
+    console.log(this.state)
+
 		// Swap out one of the versions
 		let versions = this.state.versions.slice();
 		versions[replacePos] = version;
 		this.setState({mode: 'compare', versions: versions});
 	}
+
 	handleAddVersionPane(){
 		this.setState({mode: 'addVersion'});
 	}
@@ -383,7 +388,6 @@ class App extends Component {
     } else {
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
-                <div className="backButton2" onClick={this.handleChangeVersion}>Go Back - Change Version</div>
 
                     <div className="workTitle">
                     <h2>Title of Work: {work[pref.rdfs+"label"]}</h2>
@@ -421,8 +425,6 @@ class App extends Component {
 		}
 	}
 	renderTiledScores(){
-		// MEI URIs hardwired for testing
-//    <div className="replaceButton" onClick={this.handleReplaceVersion(this.state.versions, 0)}>Replace version</div>
 
 		if(!this.state.versions[0] && this.state.versions[1]) return <div>Loading...</div>;
 
@@ -447,8 +449,6 @@ class App extends Component {
 					<label htmlFor="note">Notes</label>
 				</div>
 
-        <div className="replaceButton" onClick={this.handleReplaceVersion}>Replace version</div>
-
 
 				{this.annotationButtons()}
 
@@ -457,7 +457,6 @@ class App extends Component {
 										 narrowPane={ narrowWindow }
 										 width={ this.state.width }
 										 uri={ upper.MEI }
-										 //  shortTitle="Star Brightly Shining"
                      shortTitle={ upper.shortTitle}
                      arranger="Josiah Pittman"
                      genre={ upper.genre}
@@ -471,7 +470,8 @@ class App extends Component {
 										 selectorString={ selectorStrings[this.state.targetting] }
 										 handleSelectAnnotation={ this.handleSelectAnnotation }
 										 selectedAnnotation={this.state.selectedAnnotation}
-										 handleScoreUpdate={ this.handleScoreUpdate } />
+										 handleScoreUpdate={ this.handleScoreUpdate }
+                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 				<VersionPane extraClasses="lower"
 										 width={ this.state.width }
 										 id="pane1"
@@ -489,7 +489,8 @@ class App extends Component {
 										 selectedAnnotation={this.state.selectedAnnotation}
 										 selectionHandler={ selectionHandler.bind(this, lower.MEI) }
 										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleScoreUpdate={ this.handleScoreUpdate } />
+										 handleScoreUpdate={ this.handleScoreUpdate }
+                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 			</main>
 		);
 	}

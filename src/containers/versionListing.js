@@ -9,7 +9,10 @@ export default class VersionListing extends Component {
 	}
 	render(){
 		return (
+
+
 			<div className="listing" onClick={this.props.clickHandler}>
+
 				<dl>
 					<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
           <div><dt>Arrangement of:</dt><dd>{this.props.work[pref.rdfs+"label"]}</dd></div>
@@ -23,7 +26,8 @@ export default class VersionListing extends Component {
 																	 this.props.place : ''}</dd></div>
           <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
           <div><dt>Opus:</dt><dd>{typeof(this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"])==='string' ?
-																			 this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"]: ''}</dd></div>				</dl>
+																			 this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"]: ''}</dd></div>
+        </dl>
 			</div>
 		);
 	}
