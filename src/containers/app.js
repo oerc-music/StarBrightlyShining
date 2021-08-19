@@ -29,6 +29,7 @@ pref.dbpedia = "https://dbpedia.org/ontology/";
 pref.rdau = "http://rdaregistry.info/Elements/u/";
 pref.wdt = "https://www.wikidata.org/prop/direct/";
 pref.schema = "http://schema.org/";
+pref.locn = "http://id.loc.gov/authorities/names/";
 
 const basicVrvOptions = {
   scale: 45,
@@ -151,8 +152,8 @@ class App extends Component {
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 //		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
     obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
-		obj.arranger = vivoScore[pref.gndo+'arranger']; // Change so we have name, not URL
-		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
+		obj.arranger = vivoScore[pref.gndo+"arranger"]; // Change so we have name, not URL
+		obj.publisher = vivoScore[pref.dce+"publisher"][pref.rdfs+"label"]; // Change so we have name, not URL
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
     obj.place = this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en");
@@ -314,7 +315,8 @@ class App extends Component {
 		// Swap out one of the versions
 		let versions = this.state.versions.slice();
 		versions[replacePos] = version;
-		this.setState({mode: 'compare', versions: versions});
+
+		this.setState({mode: 'compare', versions});
 	}
 
 	handleAddVersionPane(){
@@ -331,6 +333,11 @@ class App extends Component {
     }
   }
 	render(){
+
+    console.log('\n\nCALLING FOR RENDER: ' + this.state.mode)
+    console.log(this.state)
+    console.log('\n\n\n')
+
 		switch(this.state.mode){
 			case 'version':
 				return this.renderVersions();
@@ -339,12 +346,18 @@ class App extends Component {
 			case 'score':
 				return this.renderSingleScore();
 			case 'compare':
-				return this.renderTiledScores();
+        return this.renderTiledScores();
 			case 'work':
 			default:
-				return this.renderWorks();
-		}
-	}
+        if (this.state.worklist.length > 0) {
+          console.log('going to work(s)')
+				  return this.renderWorks();
+        } else {
+          console.log('going to load')
+          return this.renderLoadingIndicator();
+        }
+		  }
+	 }
 	// renderWorkInList(work){
 	// 	// Each work is drawn separately to the works list
 	// 	return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
@@ -376,11 +389,15 @@ class App extends Component {
 		);
 	}
 
-// need to pass in work title
+  renderLoadingIndicator(){
+    return (
+    <div>
+      <div className="loadingIndicator">Loading</div>
+    </div>
+    )
+  }
+
 	renderWorkAsHeader(work){
-
-
-
 		if(!work){
 			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else if(this.state.mode==="version"){
@@ -495,6 +512,13 @@ class App extends Component {
 		);
 	}
   renderSingleScore() {
+    const upper = this.state.versions[0];
+		const lower = this.state.versions[1];
+		const selectionHandler = this.state.targetting==='note' ?
+					this.handleNoteSelectionChange :
+					this.handleMeasureSelectionChange ;
+		const narrowWindow = this.state.width < 800;
+		console.log(this.state.versions[0], this.state.versions[1]);
     return(
       <div>
 				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
@@ -503,28 +527,40 @@ class App extends Component {
           : <span>Nothing selected</span>
         }</p>
 
-        { /* pass anything as buttonContent that you'd like to function as a clickable next page button */ }
-        <NextPageButton
-          buttonContent = { <span>Next</span> }
-          uri = { this.state.uri }
-        />
+        <VersionPane extraClasses="upper"
+										 id="pane1"
+										 narrowPane={ narrowWindow }
+										 width={ this.state.width }
+										 uri={ upper.MEI }
+                     shortTitle={ upper.shortTitle}
+                     arranger="Josiah Pittman"
+                     genre={ upper.genre}
+                     publisher={"Augener & Co."}
+                     date={ upper.date}
+                     place={ upper.place}
+                     catNumber={ upper.catNumber}
+										 vrvOptions={ basicVrvOptions }
+										 annotations= {this.state.annotations}
+										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+										 selectorString={ selectorStrings[this.state.targetting] }
+										 handleSelectAnnotation={ this.handleSelectAnnotation }
+										 selectedAnnotation={this.state.selectedAnnotation}
+										 handleScoreUpdate={ this.handleScoreUpdate }
+                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+          { /*
+          <SelectableScore
+            uri={ this.state.versions[0].MEI }
+            options={ this.props.vrvOptions }
+            onSelectionChange={ this.handleSelectionChange }
+            selectorString = { selectorStrings[this.state.targetting] }
+            onScoreUpdate = { this.handleScoreUpdate }
+          />
+          */ }
+          <div><h3>Choose work to compare</h3></div>
+   				<button className="addPane" onClick={this.handleAddVersionPane}>
+   					+
+   				</button>
 
-        { /* pass anything as buttonContent that you'd like to function as a clickable prev page button */ }
-        <PrevPageButton
-          buttonContent = { <span>Prev</span> }
-          uri = { this.state.uri }
-        />
-				<button className="addPane" onClick={this.handleAddVersionPane}>
-					+
-				</button>
-
-        <SelectableScore
-          uri={ this.state.versions[0].MEI }
-          options={ this.props.vrvOptions }
-          onSelectionChange={ this.handleSelectionChange }
-          selectorString = { selectorStrings[this.state.targetting] }
-          onScoreUpdate = { this.handleScoreUpdate }
-        />
       </div>
     )
   }

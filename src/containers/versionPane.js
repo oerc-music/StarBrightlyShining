@@ -26,6 +26,7 @@ export default class VersionPane extends Component {
 		this.scrollBackward = this.scrollBackward.bind(this);
 		this.replaceVersion = this.replaceVersion.bind(this);
 		this.xRanges = this.xRanges.bind(this);
+
 	}
 	xRanges(material) {
 		let xPositions = [];
@@ -80,6 +81,10 @@ export default class VersionPane extends Component {
 
 	replaceVersion() {
 		const position = (this.props.extraClasses === 'upper') ? 0 : 1
+
+		console.log('\n\n\n---------got here--------- ' + position)
+
+
 		console.log('I need to switch position ' + position)
 		try {
 			this.props.handleReplaceVersion(false, position)
@@ -90,9 +95,7 @@ export default class VersionPane extends Component {
 			console.log(this.props.handleReplaceVersion)
 		}
 
-
-
-}
+	}
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
