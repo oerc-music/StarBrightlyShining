@@ -12,6 +12,7 @@ import SelectableScore from 'selectable-score/lib/selectable-score';
 import NextPageButton from 'selectable-score/lib/next-page-button.js';
 import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
+import LoadingIndicator from './loadingIndicator.js';
 
 const MAX_TRAVERSERS = 5;
 
@@ -354,7 +355,8 @@ class App extends Component {
 				  return this.renderWorks();
         } else {
           console.log('going to load')
-          return this.renderLoadingIndicator();
+/*          return this.renderLoadingIndicator(); */
+            return <LoadingIndicator/>
         }
 		  }
 	 }
@@ -389,13 +391,13 @@ class App extends Component {
 		);
 	}
 
-  renderLoadingIndicator(){
-    return (
-    <div>
-      <div className="loadingIndicator">Loading</div>
-    </div>
-    )
-  }
+  // renderLoadingIndicator(){
+  //   return (
+  //   <div>
+  //     <div className="loadingIndicator">Loading</div>
+  //   </div>
+  //   )
+  // }
 
 	renderWorkAsHeader(work){
 		if(!work){
@@ -556,7 +558,7 @@ class App extends Component {
             onScoreUpdate = { this.handleScoreUpdate }
           />
           */ }
-          <div><h3>Choose work to compare</h3></div>
+          <div><h3>Choose version to compare</h3></div>
    				<button className="addPane" onClick={this.handleAddVersionPane}>
    					+
    				</button>
