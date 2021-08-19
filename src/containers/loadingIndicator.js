@@ -6,7 +6,7 @@ export default class LoadingIndicator extends Component {
     return (
       <div>
         <img className="loadingIndicator" src="img/loading.gif"/>
-        {'   '}New Loading Indicator
+        New Loading Indicator
       </div>
     )
   }

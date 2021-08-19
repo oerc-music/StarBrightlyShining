@@ -265,3 +265,9 @@ dd{
   	font-weight: normal;
     float: left;
 }
+.loadingIndicator {
+    display:inline-block;
+    vertical-align: middle;
+    padding: 8px;
+
+}
