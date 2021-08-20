@@ -1,0 +1,63 @@
+{
+  "@graph" : [ {
+    "@id" : "example:SilcherVocalArrOfAllegrettoOp92",
+    "@type" : "vivo:Score",
+    "publisher" : "dnb:1064327222",
+    "title" : "Gesang des Peri's",
+    "alternative" : "Silcher vocal arrangement",
+    "shortTitle" : "Gesang des Peri's",
+    "P60163" : "geonames:2825297",
+    "P60242" : "dnb:300016417",
+    "arranger" : "wd:Q700090",
+    "dateOfPublication" : "1871",
+    "mediumOfPerformance" : [ "loc:mp2013015791", "loc:mp2013015550" ],
+    "genre" : "wd:Q7190079",
+    "P217" : "C SILCH / 5"
+  } ],
+  "@id" : "urn:x-arq:DefaultGraphNode",
+  "@context" : {
+    "alternative" : "http://purl.org/dc/terms/alternative",
+    "arranger" : {
+      "@id" : "https://d-nb.info/standards/elementset/gnd#arranger",
+      "@type" : "@id"
+    },
+    "mediumOfPerformance" : {
+      "@id" : "https://d-nb.info/standards/elementset/gnd#mediumOfPerformance",
+      "@type" : "@id"
+    },
+    "title" : "http://purl.org/dc/elements/1.1/title",
+    "genre" : {
+      "@id" : "https://dbpedia.org/ontology/genre",
+      "@type" : "@id"
+    },
+    "P217" : "https://www.wikidata.org/wiki/P217",
+    "P60163" : {
+      "@id" : "http://rdaregistry.info/Elements/u/P60163",
+      "@type" : "@id"
+    },
+    "shortTitle" : "http://purl.org/ontology/bibo/shortTitle",
+    "dateOfPublication" : "https://d-nb.info/standards/elementset/gnd#dateOfPublication",
+    "P60242" : {
+      "@id" : "http://rdaregistry.info/Elements/u/P60242",
+      "@type" : "@id"
+    },
+    "publisher" : {
+      "@id" : "http://purl.org/dc/elements/1.1/publisher",
+      "@type" : "@id"
+    },
+    "schema" : "http://schema.org/",
+    "loc" : "https://id.loc.gov/authorities/performanceMediums/",
+    "gndo" : "https://d-nb.info/standards/elementset/gnd#",
+    "geonames" : "http://www.geonames.org/",
+    "dbpedia" : "https://dbpedia.org/ontology/",
+    "wd" : "https://www.wikidata.org/wiki/",
+    "example" : "http://example.org/",
+    "rdau" : "http://rdaregistry.info/Elements/u/",
+    "dcterms" : "http://purl.org/dc/terms/",
+    "dnb" : "http://d-nb.info/gnd/",
+    "bibo" : "http://purl.org/ontology/bibo/",
+    "vivo" : "http://vivoweb.org/ontology/core#",
+    "dc" : "http://purl.org/dc/elements/1.1/",
+    "bibl" : "http://purl.org/ontology/bibo/"
+  }
+}

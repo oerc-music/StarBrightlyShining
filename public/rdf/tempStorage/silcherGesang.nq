@@ -1,0 +1,21 @@
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Score> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/title> "Gesang des Peri's" .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/ontology/bibo/shortTitle> "Gesang des Peri's" .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/dc/terms/alternative> "Silcher vocal arrangement" .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60242> <http://d-nb.info/gnd/300016417> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#arranger> <http://d-nb.info/gnd/118614339> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015550> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015791> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q7190079> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://www.wikidata.org/prop/direct/P217> "C SILCH / 5" .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1064327222> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1022> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1871" .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvZumsteeg%20-%20D-BNba%20C%20SILCH_5/D-BNbaC_SILCH_5.mei> .
+<http://d-nb.info/gnd/118614339> <http://www.w3.org/2000/01/rdf-schema#label> "Friedrich Silcher" .
+<http://d-nb.info/gnd/1064327222> <http://www.w3.org/2000/01/rdf-schema#label> "G. A. Zumsteeg" .
+<http://d-nb.info/gnd/300016417> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 7, op. 92 (A-Dur)" .
+<http://d-nb.info/gnd/300016417> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
+<http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "92" .
+<http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
+<http://d-nb.info/gnd/118508288> <http://www.w3.org/2000/01/rdf-schema#label> "Ludwig van Beethoven" .

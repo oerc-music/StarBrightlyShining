@@ -1,0 +1,20 @@
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://vivoweb.org/ontology/core#Score> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/title> "Persischer Nachtgesang" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/ontology/bibo/shortTitle> "Persischer Nachtgesang" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/dc/terms/alternative> "Silcher choral arrangement" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60242> <http://d-nb.info/gnd/300016417> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#arranger> <http://d-nb.info/gnd/118614339> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#mediumOfPerformance> <https://id.loc.gov/authorities/performanceMediums/mp2013015469> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://dbpedia.org/ontology/genre> <https://www.wikidata.org/wiki/Special:EntityData/Q1076513> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://www.wikidata.org/prop/direct/P217> "HCB Nc 4 / 1846 Schil" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1073019942> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1022> .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1846" .
+<http://example.org/SilcherChoralArrOfAllegrettoOp92> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei> .
+<http://d-nb.info/gnd/118614339> <http://www.w3.org/2000/01/rdf-schema#label> "Friedrich Silcher" .
+<http://d-nb.info/gnd/1073019942> <http://www.w3.org/2000/01/rdf-schema#label> "Eduard Hallberger" .
+<http://d-nb.info/gnd/300016417> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 7, op. 92 (A-Dur)" .
+<http://d-nb.info/gnd/300016417> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
+<http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "92" .
+<http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
+<http://d-nb.info/gnd/118508288> <http://www.w3.org/2000/01/rdf-schema#label> "Ludwig van Beethoven" .
