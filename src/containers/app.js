@@ -127,7 +127,6 @@ class App extends Component {
       } else if ( Array.isArray(name)){
         return name[0]["@value"];
       } else {
-        console.log ("genre is not what we expected", name);
         return "";
       }
   }
@@ -140,7 +139,6 @@ class App extends Component {
       } else if ( Array.isArray(name)){
         return name[0]["@value"];
       } else {
-        console.log("PLACE is not what we expected", name);
         return "";
       }
     }
@@ -153,7 +151,6 @@ class App extends Component {
       } else if ( Array.isArray(name)){
         return name[0]["@value"];
       } else {
-        console.log("the ARRANGER data is not what we expected", name);
         return "";
       }
     }
@@ -177,7 +174,6 @@ class App extends Component {
                 this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
 
 // not all the publishers listed on wikidata. So stick to dnb for now
-
     obj.publisher = pref.dce+"publisher" in vivoScore ?
                 vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
 
@@ -189,7 +185,7 @@ class App extends Component {
 
     obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
 
-//		obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
+//	obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 		obj.work = vivoScore[pref.rdau+"P60242"];
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
@@ -420,10 +416,9 @@ class App extends Component {
     } else {
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
-
-                    <div className="workTitle">
-                    <h2>Title of Work: {work[pref.rdfs+"label"]}</h2>
-                    </div>
+                <div className="workTitle">
+                  <h2>Title of Work: {work[pref.rdfs+"label"]}</h2>
+                </div>
              </div>;
 		}
 	}
@@ -533,7 +528,9 @@ class App extends Component {
 					this.handleNoteSelectionChange :
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
-		console.log(this.state.versions[0], this.state.versions[1]);
+/*         return name.find(x => x["@language"] === language)["@value"]; */
+    console.log("------- renderSingleScore just Upper: -->", this.state.versions[0]);
+
     return(
       <div>
 				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
