@@ -28,7 +28,7 @@ export default class VersionListing extends Component {
 									 this.props.arranger : ''}</dd></div>
 
 
-					<div><dt>Publisher:</dt><dd>{this.props.publisher[pref.wd+"Q20311223"]}</dd></div>
+					<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 
 
 

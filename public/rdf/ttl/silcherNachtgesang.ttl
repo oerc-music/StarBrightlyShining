@@ -30,8 +30,6 @@ example:SilcherChoralArrOfAllegrettoOp92 a vivo:Score;
 	gndo:dateOfPublication "1846";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei> .
 
-wd:Q700090 rdfs:label "Friedrich Silcher" .
-
 dnb:1073019942 rdfs:label "Eduard Hallberger" .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;

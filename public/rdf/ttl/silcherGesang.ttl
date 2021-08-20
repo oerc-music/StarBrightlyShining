@@ -30,8 +30,6 @@ example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
 	gndo:dateOfPublication "1871";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvZumsteeg%20-%20D-BNba%20C%20SILCH_5/D-BNbaC_SILCH_5.mei> .
 
-wd:Q700090 rdfs:label "Friedrich Silcher" .
-
 dnb:1064327222 rdfs:label "G. A. Zumsteeg" .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;

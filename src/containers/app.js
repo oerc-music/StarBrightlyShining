@@ -124,7 +124,6 @@ class App extends Component {
        const name = genre [pref.schema+"about"][pref.schema+"name"];
       if ( Array.isArray(name) && name.length > 1 ){
         return name.find(x => x["@language"] === language)["@value"];
-
       } else if ( Array.isArray(name)){
         return name[0]["@value"];
       } else {
@@ -165,28 +164,38 @@ class App extends Component {
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
 //		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-    obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
+//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
 //    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
 
-//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
+    obj.genre = pref.dbpedia+"genre" in vivoScore ?
+                this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
 
-    obj.arranger = this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en");
+    obj.arranger = pref.gndo+"arranger" in vivoScore ?
+                this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
 
-		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
+    obj.place = pref.rdau+"P60163" in vivoScore ?
+                this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
+
+// not all the publishers listed on wikidata. So stick to dnb for now
+//		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
+
+    obj.publisher = pref.dce+"publisher" in vivoScore ?
+                vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
 
 
+		obj.date = pref.gndo+"dateOfPublication" in vivoScore ? vivoScore[pref.gndo+"dateOfPublication"] : false;
 
-		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
-    obj.place = this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en");
-//    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
-    obj.catNumber = vivoScore[pref.wdt+"P217"];
+
+    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
+
 		obj.work = vivoScore[pref.rdau+"P60242"];
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
 
 		return obj;
 	}
+
 	// methods called during initialisation and graph loading
 	addWork(worklist, arrangement){
 		if(!arrangement.work || !'@id' in arrangement.work) return workList;

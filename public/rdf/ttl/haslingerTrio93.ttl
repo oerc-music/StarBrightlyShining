@@ -30,8 +30,6 @@ example:TrioArrOp93 a vivo:Score;
 	gndo:dateOfPublication "1817" ;
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.188-197.mei> .
 
-wd:Q1038615 rdfs:label "Carl Haslinger" .
-
 dnb:1123836310 rdfs:label "S.A. Steiner & Comp." .
 
 dnb:300016425 rdfs:label "Sinfonien, Nr. 8, op. 93 (F-Dur)" ;
