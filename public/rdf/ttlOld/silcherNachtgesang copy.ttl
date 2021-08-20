@@ -1,0 +1,42 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdau: <http://rdaregistry.info/Elements/u/> .
+@prefix example: <http://example.org/> .
+@prefix bibl: <http://purl.org/ontology/bibo/> .
+@prefix dnb: <http://d-nb.info/gnd/> .
+@prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
+@prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
+@prefix wdt: <https://www.wikidata.org/prop/direct/> .
+@prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
+@prefix geonames: <http://www.geonames.org/> .
+@prefix dbpedia: <https://dbpedia.org/ontology/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+example:SilcherChoralArrOfAllegrettoOp92 a vivo:Score;
+	dc:title "Persischer Nachtgesang";
+	bibo:shortTitle "Persischer Nachtgesang";
+	dcterms:alternative "Silcher choral arrangement";
+	rdau:P60242 dnb:300016417;
+	gndo:arranger dnb:118614339;
+	gndo:mediumOfPerformance loc:mp2013015469;
+	dbpedia:genre wd:Q1076513;
+	wdt:P217 "HCB Nc 4 / 1846 Schil";
+	dc:publisher dnb:1073019942;
+	rdau:P60163 wd:Q1022;
+	gndo:dateOfPublication "1846";
+	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/ChorHallberger%20-%20D-BNba%20Nc%204_1846%20Schil/D-BNbaNc4_1846_Schil.mei> .
+
+dnb:118614339 rdfs:label "Friedrich Silcher" .
+
+dnb:1073019942 rdfs:label "Eduard Hallberger" .
+
+dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
+	rdau:P60426 dnb:118508288 ;
+	gndo:opusNumericDesignationOfMusicalWork "92" ;
+	gndo:dateOfPublication "1816" .
+
+dnb:118508288 rdfs:label "Ludwig van Beethoven" .

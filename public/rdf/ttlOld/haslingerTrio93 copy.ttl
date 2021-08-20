@@ -1,0 +1,43 @@
+@prefix schema: <http://schema.org/> .
+@prefix bibo: <http://purl.org/ontology/bibo/> .
+@prefix vivo: <http://vivoweb.org/ontology/core#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdau: <http://rdaregistry.info/Elements/u/> .
+@prefix example: <http://example.org/> .
+@prefix bibl: <http://purl.org/ontology/bibo/> .
+@prefix dnb: <http://d-nb.info/gnd/> .
+@prefix gndo: <https://d-nb.info/standards/elementset/gnd#> .
+@prefix loc: <https://id.loc.gov/authorities/performanceMediums/> .
+@prefix wdt: <https://www.wikidata.org/prop/direct/> .
+@prefix wd: <https://www.wikidata.org/wiki/Special:EntityData/> .
+@prefix geonames: <http://www.geonames.org/> .
+@prefix dbpedia: <https://dbpedia.org/ontology/> .
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+example:TrioArrOp93 a vivo:Score;
+dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Violonzello eingerichtet";
+	bibo:shortTitle "8th Symphony for Piano Trio";
+	dcterms:alternative "Steiner Piano Trio version, op. 93";
+	rdau:P60242 dnb:300016425;
+	gndo:arranger wd:Q1038615;
+	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015782, loc:mp2013015120;
+	dbpedia:genre wd:Q1414262;
+	wdt:P217 "D-BNba C93/23";
+	dc:publisher dnb:1123836310;
+	rdau:P60163 wd:Q1741;
+	gndo:dateOfPublication "1817" ;
+	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.188-197.mei> .
+
+wd:Q1038615 rdfs:label "Carl Haslinger" .
+
+dnb:1123836310 rdfs:label "S.A. Steiner & Comp." .
+
+dnb:300016425 rdfs:label "Sinfonien, Nr. 8, op. 93 (F-Dur)" ;
+	rdau:P60426 dnb:118508288 ;
+	gndo:opusNumericDesignationOfMusicalWork "93" ;
+	gndo:dateOfPublication "1812" .
+
+
+dnb:118508288 rdfs:label "Ludwig van Beethoven" .
