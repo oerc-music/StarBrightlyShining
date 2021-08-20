@@ -15,27 +15,32 @@ export default class VersionListing extends Component {
 
 				<dl>
 					<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
-          <div><dt>Arrangement of:</dt><dd>{this.props.work[pref.rdfs+"label"]}</dd></div>
+
+          <div><dt>Arrangement of:</dt><dd>{typeof(this.props.work[pref.rdfs+"label"])==='string' ?
+                   this.props.work[pref.rdfs+"label"] : ''}</dd></div>
 
 
-					<div><dt>Genre:</dt><dd>{this.props.genre[pref.wd+"Q7190079"]}</dd></div>
+					<div><dt>Genre:</dt><dd>{typeof(this.props.genre)==='string' ?
+                   this.props.genre : ''}</dd></div>
 
 
-					<div><dt>Arranger:</dt><dd>{typeof(this.props.arranger[pref.rdfs+"label"])==='string' ?
-																			this.props.arranger[pref.rdfs+"label"] : ''}</dd></div>
+					<div><dt>Arranger:</dt><dd>{typeof(this.props.arranger)==='string' ?
+									 this.props.arranger : ''}</dd></div>
+
+
 					<div><dt>Publisher:</dt><dd>{this.props.publisher[pref.wd+"Q20311223"]}</dd></div>
 
 
 
 					<div><dt>Place:</dt><dd>{typeof(this.props.place)==='string' ?
-																	 this.props.place : ''}</dd></div>
+									 this.props.place : ''}</dd></div>
 
 					<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 
           <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
 
           <div><dt>Opus:</dt><dd>{typeof(this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"])==='string' ?
-																			 this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"]: ''}</dd></div>
+									 this.props.work[pref.gndo+"opusNumericDesignationOfMusicalWork"]: ''}</dd></div>
         </dl>
 			</div>
 		);

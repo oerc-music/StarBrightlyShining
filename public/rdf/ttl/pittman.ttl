@@ -21,7 +21,7 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	bibo:shortTitle "Star Brightly Shining";
 	dcterms:alternative "Pittman arrangement";
 	rdau:P60242 dnb:300016417;
-	gndo:arranger dnb:1124865284;
+	gndo:arranger wd:Q18756924;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
 	wdt:P217 "D-BNba, C92_48";
@@ -30,7 +30,7 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	gndo:dateOfPublication "1859";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
 
-dnb:1124865284 rdfs:label "Josiah Pittman" .
+wd:Q18756924 rdfs:label "Josiah Pittman" .
 
 dnb:1072942461 rdfs:label "Augener & Co." .
 

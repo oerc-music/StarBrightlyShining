@@ -141,11 +141,23 @@ class App extends Component {
       } else if ( Array.isArray(name)){
         return name[0]["@value"];
       } else {
-        console.log("msg3: place is not what we expected", name);
+        console.log("PLACE is not what we expected", name);
         return "";
       }
     }
 
+    labelForArranger(arranger, language){
+      if (!arranger || !(pref.schema+"about" in arranger)) return "";
+      const name = arranger [pref.schema+"about"][pref.schema+"name"];
+      if ( Array.isArray(name) && name.length > 1 ){
+        return name.find(x => x["@language"] === language)["@value"];
+      } else if ( Array.isArray(name)){
+        return name[0]["@value"];
+      } else {
+        console.log("the ARRANGER data is not what we expected", name);
+        return "";
+      }
+    }
 
 	transformArrangement(vivoScore){
     // Take graph of arrangement and make more intuitive local object
@@ -153,12 +165,16 @@ class App extends Component {
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
 //		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-//    obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
-    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
+    obj.genre = this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en");
+//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
+
+//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
+
+    obj.arranger = this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en");
 
 		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 
-		obj.arranger = vivoScore[pref.gndo+"arranger"]; // Change so we have name, not URL
+
 
 		obj.date = vivoScore[pref.gndo+"dateOfPublication"];
 		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
@@ -166,7 +182,9 @@ class App extends Component {
 //    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"]['@id'] : false;
     obj.catNumber = vivoScore[pref.wdt+"P217"];
 		obj.work = vivoScore[pref.rdau+"P60242"];
+
 		console.log("Processed a ", vivoScore, " into a ", obj);
+
 		return obj;
 	}
 	// methods called during initialisation and graph loading
