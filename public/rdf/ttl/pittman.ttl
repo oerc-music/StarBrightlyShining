@@ -25,12 +25,12 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
 	wdt:P217 "D-BNba, C92_48";
-	dce:publisher dnb:1072942461;
+	dce:publisher wd:Q20311223;
 	rdau:P60163 wd:Q84;
 	gndo:dateOfPublication "1859";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
 
-dnb:1072942461 rdfs:label "Augener & Co." .
+wd:Q20311223 rdfs:label "Augener & Co." .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
 	rdau:P60426 dnb:118508288 ;
