@@ -493,9 +493,9 @@ class App extends Component {
 										 width={ this.state.width }
 										 uri={ upper.MEI }
                      shortTitle={ upper.shortTitle}
-                     arranger="Josiah Pittman"
+                     arranger={ upper.arranger }
                      genre={ upper.genre}
-                     publisher={"Augener & Co."}
+                     publisher={ upper.publisher }
                      date={ upper.date}
                      place={ upper.place}
                      catNumber={ upper.catNumber}
@@ -511,9 +511,9 @@ class App extends Component {
 										 width={ this.state.width }
 										 id="pane1"
                      shortTitle={lower.shortTitle}
-                     arranger="Friedrich Silcher"
+                     arranger={ lower.arranger }
                      genre={ lower.genre}
-                     publisher="Hallberger"
+                     publisher={ lower.publisher }
                      date={ lower.date}
                      place={ lower.place}
                      catNumber={ lower.catNumber}
@@ -551,9 +551,9 @@ class App extends Component {
 										 width={ this.state.width }
 										 uri={ upper.MEI }
                      shortTitle={ upper.shortTitle}
-                     arranger="Josiah Pittman"
+                     arranger={ upper.arranger }
                      genre={ upper.genre}
-                     publisher={"Augener & Co."}
+                     publisher={ upper.publisher }
                      date={ upper.date}
                      place={ upper.place}
                      catNumber={ upper.catNumber}

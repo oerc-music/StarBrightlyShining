@@ -265,6 +265,10 @@ dd{
   	font-weight: normal;
     float: left;
 }
+.addPane {
+  font-size: 135%;
+  display:inline-block;
+}
 .loadingIndicator {
     display:inline-block;
     vertical-align: middle;
