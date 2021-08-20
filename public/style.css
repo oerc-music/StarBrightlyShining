@@ -126,6 +126,9 @@ button.logout {
 	font-size: 80%;
 	margin-left: 8px;
 }
+button.addPane {
+  background-color: #e4e4e4;
+}
 .pane aside{
 	display: inline-block;
 	height: 100%;
@@ -266,9 +269,10 @@ dd{
     float: left;
 }
 .addPane {
-  font-size: 135%;
   display:inline-block;
+  margin-left: 8px;
 }
+
 .loadingIndicator {
     display:inline-block;
     vertical-align: middle;

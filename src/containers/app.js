@@ -374,16 +374,13 @@ class App extends Component {
         return this.renderTiledScores();
 			case 'work':
 			default:
-        if (this.state.worklist.length > 0) {
-          console.log('going to work(s)')
-				  return this.renderWorks();
-        } else {
-          console.log('going to load')
-/*          return this.renderLoadingIndicator(); */
+          if (this.state.worklist.length > 0) {
+            return this.renderWorks();
+          } else {
             return <LoadingIndicator/>
-        }
-		  }
-	 }
+          }
+	     }
+  }
 	// renderWorkInList(work){
 	// 	// Each work is drawn separately to the works list
 	// 	return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
@@ -565,20 +562,12 @@ class App extends Component {
 										 selectedAnnotation={this.state.selectedAnnotation}
 										 handleScoreUpdate={ this.handleScoreUpdate }
                      handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
-          { /*
-          <SelectableScore
-            uri={ this.state.versions[0].MEI }
-            options={ this.props.vrvOptions }
-            onSelectionChange={ this.handleSelectionChange }
-            selectorString = { selectorStrings[this.state.targetting] }
-            onScoreUpdate = { this.handleScoreUpdate }
-          />
-          */ }
-          <div><h3>Choose version to compare</h3></div>
+
+          <div><h4 className="addMessage">Choose version to compare</h4>
    				<button className="addPane" onClick={this.handleAddVersionPane}>
    					+
    				</button>
-
+        </div>
       </div>
     )
   }
