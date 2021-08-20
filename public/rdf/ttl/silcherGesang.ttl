@@ -1,7 +1,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dce: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdau: <http://rdaregistry.info/Elements/u/> .
 @prefix example: <http://example.org/> .
@@ -17,7 +17,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
-	dc:title "Gesang des Peri's";
+	dce:title "Gesang des Peri's";
 	bibo:shortTitle "Gesang des Peri's";
 	dcterms:alternative "Silcher vocal arrangement";
   rdau:P60242 dnb:300016417;
@@ -25,7 +25,7 @@ example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015791;
 	dbpedia:genre wd:Q7190079;
 	wdt:P217 "C SILCH / 5";
-	dc:publisher dnb:1064327222;
+	dce:publisher dnb:1064327222;
 	rdau:P60163 wd:Q1022;
 	gndo:dateOfPublication "1871";
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvZumsteeg%20-%20D-BNba%20C%20SILCH_5/D-BNbaC_SILCH_5.mei> .

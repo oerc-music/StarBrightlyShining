@@ -1,7 +1,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix bibo: <http://purl.org/ontology/bibo/> .
 @prefix vivo: <http://vivoweb.org/ontology/core#> .
-@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix dce: <http://purl.org/dc/elements/1.1/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdau: <http://rdaregistry.info/Elements/u/> .
 @prefix example: <http://example.org/> .
@@ -17,7 +17,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 
 example:TrioArrOp93 a vivo:Score;
-dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Violonzello eingerichtet";
+  dce:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Violonzello eingerichtet";
 	bibo:shortTitle "8th Symphony for Piano Trio";
 	dcterms:alternative "Steiner Piano Trio version, op. 93";
 	rdau:P60242 dnb:300016425;
@@ -25,7 +25,7 @@ dc:title "Achte Grosse Sinfonie in F dur / Für das Piano-Forte, Violin und Viol
 	gndo:mediumOfPerformance loc:mp2013015550, loc:mp2013015782, loc:mp2013015120;
 	dbpedia:genre wd:Q1414262;
 	wdt:P217 "D-BNba C93/23";
-	dc:publisher dnb:1123836310;
+	dce:publisher dnb:1123836310;
 	rdau:P60163 wd:Q1741;
 	gndo:dateOfPublication "1817" ;
 	frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.188-197.mei> .
