@@ -177,18 +177,19 @@ class App extends Component {
                 this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
 
 // not all the publishers listed on wikidata. So stick to dnb for now
-//		obj.publisher = vivoScore[pref.dce+"publisher"]; // Change so we have name, not URL
 
     obj.publisher = pref.dce+"publisher" in vivoScore ?
                 vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
 
+		obj.date = pref.gndo+"dateOfPublication" in vivoScore ?
+                vivoScore[pref.gndo+"dateOfPublication"] : false;
 
-		obj.date = pref.gndo+"dateOfPublication" in vivoScore ? vivoScore[pref.gndo+"dateOfPublication"] : false;
-
-		obj.MEI = pref.frbr+"embodiment" in vivoScore ? vivoScore[pref.frbr+"embodiment"]['@id'] : false;
+		obj.MEI = pref.frbr+"embodiment" in vivoScore ?
+                vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 
     obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
 
+//		obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 		obj.work = vivoScore[pref.rdau+"P60242"];
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
@@ -339,11 +340,6 @@ class App extends Component {
 	}
 	handleReplaceVersion(version, replacePos){
 
-    console.log('HELLO From the outside')
-    console.log('version: ' + version + ', replacePos: ' + replacePos)
-    console.log('this in app:')
-    console.log(this)
-    console.log(this.state)
 
 		// Swap out one of the versions
 		let versions = this.state.versions.slice();
@@ -366,10 +362,6 @@ class App extends Component {
     }
   }
 	render(){
-
-    console.log('\n\nCALLING FOR RENDER: ' + this.state.mode)
-    console.log(this.state)
-    console.log('\n\n\n')
 
 		switch(this.state.mode){
 			case 'version':
@@ -422,14 +414,6 @@ class App extends Component {
 			</div>
 		);
 	}
-
-  // renderLoadingIndicator(){
-  //   return (
-  //   <div>
-  //     <div className="loadingIndicator">Loading</div>
-  //   </div>
-  //   )
-  // }
 
 	renderWorkAsHeader(work){
 		if(!work){
