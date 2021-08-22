@@ -16,7 +16,7 @@
 			"ldp:Container"
 		],
 		"ldp:contains": [
-			{"@id": "http://localhost:8080/rdf/pittman.nq"} ,
+
 			{"@id": "http://localhost:8080/rdf/silcherGesang.nq"} ,
 			{"@id": "http://localhost:8080/rdf/silcherNachtgesang.nq"},
 			{"@id": "http://localhost:8080/rdf/haslingerTrio93.nq"},

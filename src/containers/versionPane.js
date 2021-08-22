@@ -81,28 +81,16 @@ export default class VersionPane extends Component {
 
 	replaceVersion() {
 		const position = (this.props.extraClasses === 'upper') ? 0 : 1
-
-		console.log('\n\n\n---------got here--------- ' + position)
-
-
-		console.log('I need to switch position ' + position)
-		try {
-			this.props.handleReplaceVersion(false, position)
-		} catch(err) {
-			console.log('screw, we broke it: ' + err)
-			console.log('this in versionPane:')
-			console.log(this)
-			console.log(this.props.handleReplaceVersion)
-		}
-
 	}
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
+console.log("versionPane.js :  dnbArr --> ", this.props.dnbArr)
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
-
+				<div className="arr">Arrangement title: {this.props.shortTitle}</div>
+				<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
 
 
 					<div className="controllbar">
@@ -119,8 +107,6 @@ export default class VersionPane extends Component {
 						</div>
 					</div>
 
-    			<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
-
 					<div className="scrollableScore" ref={this.scrollPane}>
 						<SelectableScore uri={this.props.uri}
 														 vrvOptions = { vrvOptions }
@@ -135,13 +121,14 @@ export default class VersionPane extends Component {
 				</div>
 				<aside className={this.state.showDetails}>
 					<dl>
-						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
+
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
 						<div><dt>Arranger:</dt><dd>{this.props.arranger}</dd></div>
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
             <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
+	          <div><dt>GND id:</dt><dd>{this.props.dnbArr}</dd></div>
 					</dl>
 				</aside>
 			</div>

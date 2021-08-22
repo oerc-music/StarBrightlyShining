@@ -29,6 +29,9 @@ pref.dce = "http://purl.org/dc/elements/1.1/";
 pref.dbpedia = "https://dbpedia.org/ontology/";
 pref.rdau = "http://rdaregistry.info/Elements/u/";
 pref.wdt = "https://www.wikidata.org/prop/direct/";
+pref.wdp = "http://www.wikidata.org/prop/";
+pref.wdps = "http://www.wikidata.org/prop/statement/"
+pref.wdpn = "http://www.wikidata.org/prop/statement/value-normalized/";
 pref.schema = "http://schema.org/";
 pref.locn = "http://id.loc.gov/authorities/names/";
 
@@ -155,7 +158,25 @@ class App extends Component {
       }
     }
 
+    dnbForArranger(arranger){
+      if (!arranger || !(pref.schema+"about" in arranger)) return "No Arranger/About";
+
+      const dnbnum = arranger [pref.schema+"about"][pref.schema+"name"][pref.wdp+"P227"];
+
+      if ( Array.isArray(dnbnum) && dnbnum.length > 1 ){
+        return dnbnum;
+      } else if ( Array.isArray(dnbnum)){
+        return dnbnum;
+      } else {
+        return dnbnum;
+      }
+    }
+
+/* http://www.wikidata.org/prop/statement/value-normalized/P227 */
+
+
 	transformArrangement(vivoScore){
+
     // Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
@@ -169,6 +190,13 @@ class App extends Component {
 
     obj.arranger = pref.gndo+"arranger" in vivoScore ?
                 this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
+
+//    obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
+//                this.dnbForArranger(vivoScore[pref.gndo+"arranger"]) : "FalseReturned";
+
+//  find url of dnb record in wikidata
+    obj.dnbArr = "http://www.wikidata.org/prop/statement/P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ?
+              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : false;
 
     obj.place = pref.rdau+"P60163" in vivoScore ?
                 this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
@@ -417,7 +445,7 @@ class App extends Component {
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
-                  <h2>Title of Work: {work[pref.rdfs+"label"]}</h2>
+                  <div>Title of Work: <h4>{work[pref.rdfs+"label"]}</h4></div>
                 </div>
              </div>;
 		}
@@ -529,7 +557,6 @@ class App extends Component {
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
 /*         return name.find(x => x["@language"] === language)["@value"]; */
-    console.log("------- renderSingleScore just Upper: -->", this.state.versions[0]);
 
     return(
       <div>
