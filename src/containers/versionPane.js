@@ -79,17 +79,49 @@ export default class VersionPane extends Component {
 		return Math.max(20, 45 - ((1000-targetWidth) / 20));
 	}
 
+/* -------------------------------------------------------------
+
+
+	renderArranger() {
+		if(this.props.dnbArr && this.props.dnbArr !== '') {
+			return
+				<div><dt>GND:</dt><dd><a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>{"d-nb.info/gnd/"+this.props.dnbArr}</a></dd></div>
+
+		} else {
+			return
+				<div>Bullshit, can't find the info for arranger</div>
+		}
+	}
+
+ ------------------------------------------------------------- */
 	replaceVersion() {
 		const position = (this.props.extraClasses === 'upper') ? 0 : 1
+
+		console.log('\n\n\n---------got here to replaceVersion()--------- ' + position)
+
+
+		console.log('Need to Switch position ' + position)
+
+		try {
+			this.props.handleReplaceVersion(false, position)
+		} catch(err) {
+			console.log('ERRoR: ' + err)
+			console.log('this in versionPane:')
+			console.log(this)
+			console.log(this.props.handleReplaceVersion)
+		}
+
 	}
+
+
+
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
-				<div className="arr">Arrangement title: {this.props.shortTitle}</div>
-				<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
+
 
 
 					<div className="controllbar">
@@ -106,6 +138,8 @@ export default class VersionPane extends Component {
 						</div>
 					</div>
 
+    			<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
+
 					<div className="scrollableScore" ref={this.scrollPane}>
 						<SelectableScore uri={this.props.uri}
 														 vrvOptions = { vrvOptions }
@@ -116,21 +150,27 @@ export default class VersionPane extends Component {
 															 toDraw={this.props.annotations.map(this.xRanges)}
 															 selectedAnnotation={this.props.selectedAnnotation}
 															 handleSelectAnnotation={this.props.handleSelectAnnotation} />
+
+
 					</div>
 				</div>
 				<aside className={this.state.showDetails}>
 					<dl>
-
-
-
+						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
 						<div><dt>Arranger:</dt><dd>{this.props.arranger}</dd></div>
+
+
+						{
+							console.log('versionPane.js side panel')
+						}
+
+						<div><dt>GND:</dt><dd><a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>{"d-nb.info/gnd/"+this.props.dnbArr}</a></dd></div>
+
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
             <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
-	          <div><dt>GND id:</dt><dd><a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target="_blank">{this.props.dnbArr}</a></dd></div>
-						<div><dt></dt></div>
 					</dl>
 				</aside>
 			</div>

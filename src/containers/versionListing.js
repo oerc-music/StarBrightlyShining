@@ -25,9 +25,6 @@ export default class VersionListing extends Component {
 					<div><dt>Arranger:</dt><dd>{typeof(this.props.arranger)==='string' ?
 									 this.props.arranger : ''}</dd></div>
 
-         <div><dt>GND id:</dt><dd>{typeof(this.props.dnbArr)==='string' ?
-                   this.props.dnbArr : ''}</dd></div>
-
 					<div><dt>Publisher:</dt><dd>{typeof(this.props.publisher==='string') ?
                    this.props.publisher : ''}</dd></div>
 

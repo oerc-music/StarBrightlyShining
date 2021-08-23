@@ -174,6 +174,50 @@ class App extends Component {
 
 /* http://www.wikidata.org/prop/statement/value-normalized/P227 */
 
+  getNumber(vivoScore) {
+
+    let arranger;
+    let about;
+    let p227;
+    let p227statement;
+
+const notFound = "N/A"
+
+//      console.log( 'getNumber levels 4' + vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"])
+
+    if(pref.gndo+"arranger" in vivoScore) {
+      arranger = vivoScore[pref.gndo+"arranger"]
+    } else {
+      return notFound
+    }
+    if(pref.schema+"about" in arranger) {
+      about = arranger[pref.schema+"about"]
+    } else {
+      return notFound
+    }
+    if(pref.wdp+"P227" in about) {
+      p227 = about[pref.wdp+"P227"]
+    } else {
+      return notFound
+    }
+    if(pref.wdps+"P227" in p227) {
+      p227statement = p227[pref.wdp+"P227"]
+    return p227statement
+    } else {
+      return notFound
+    }
+  }
+/*
+    let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
+    let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
+    let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
+
+    console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
+
+    obj.dnbArr = step4 ?
+              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
+  }
+*/
 
 	transformArrangement(vivoScore){
 
@@ -181,22 +225,25 @@ class App extends Component {
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
-//		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
-//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
-
     obj.genre = pref.dbpedia+"genre" in vivoScore ?
                 this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
 
     obj.arranger = pref.gndo+"arranger" in vivoScore ?
                 this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
 
-//    obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
-//                this.dnbForArranger(vivoScore[pref.gndo+"arranger"]) : "FalseReturned";
-
 //  find url of dnb record in wikidata
-    obj.dnbArr = "http://www.wikidata.org/prop/statement/P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ?
-              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : false;
+
+    let step1 = pref.gndo+"arranger" in vivoScore ? true : false
+    let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
+    let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
+    let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
+
+    console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
+
+//    obj.dnbArr = step4 ?
+//              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
+    obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
+                 this.getNumber(vivoScore) : "transformArrangement return: false"
 
     obj.place = pref.rdau+"P60163" in vivoScore ?
                 this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
@@ -213,8 +260,13 @@ class App extends Component {
 
     obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
 
-//	obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 		obj.work = vivoScore[pref.rdau+"P60242"];
+
+//		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
+//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
+//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
+//    obj.dnbArr = this.getNumber(vivoScore);
+//    obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
 
