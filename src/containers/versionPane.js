@@ -85,9 +85,6 @@ export default class VersionPane extends Component {
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
-console.log("obj in versionPane :  this.props --> ", this.props)
-console.log("arr in versionPane :  dnbArr --> ", this.props.dnbArr)
-
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
@@ -124,13 +121,16 @@ console.log("arr in versionPane :  dnbArr --> ", this.props.dnbArr)
 				<aside className={this.state.showDetails}>
 					<dl>
 
+
+
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
 						<div><dt>Arranger:</dt><dd>{this.props.arranger}</dd></div>
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
             <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
-	          <div><dt>GND id:</dt><dd>{this.props.dnbArr}</dd></div>
+	          <div><dt>GND id:</dt><dd><a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target="_blank">{this.props.dnbArr}</a></dd></div>
+						<div><dt></dt></div>
 					</dl>
 				</aside>
 			</div>
