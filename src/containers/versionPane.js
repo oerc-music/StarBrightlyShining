@@ -85,7 +85,9 @@ export default class VersionPane extends Component {
 	render(){
 		let vrvOptions = {...this.props.vrvOptions, adjustPageHeight: 0, breaks: 'none',
 											pageWidth: 60000};
-console.log("versionPane.js :  dnbArr --> ", this.props.dnbArr)
+console.log("obj in versionPane :  this.props --> ", this.props)
+console.log("arr in versionPane :  dnbArr --> ", this.props.dnbArr)
+
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>

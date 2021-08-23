@@ -519,6 +519,7 @@ class App extends Component {
                      date={ upper.date}
                      place={ upper.place}
                      catNumber={ upper.catNumber}
+                     dnbArr={ upper.dnbArr }
 										 vrvOptions={ basicVrvOptions }
 										 annotations= {this.state.annotations}
 										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
@@ -537,6 +538,7 @@ class App extends Component {
                      date={ lower.date}
                      place={ lower.place}
                      catNumber={ lower.catNumber}
+                     dnbArr={ lower.dnbArr }
 										 uri={ lower.MEI }
 										 annotations= {this.state.annotations}
 										 vrvOptions={ basicVrvOptions }
@@ -578,6 +580,7 @@ class App extends Component {
                      date={ upper.date}
                      place={ upper.place}
                      catNumber={ upper.catNumber}
+                     dnbArr={ upper.dnbArr }
 										 vrvOptions={ basicVrvOptions }
 										 annotations= {this.state.annotations}
 										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
