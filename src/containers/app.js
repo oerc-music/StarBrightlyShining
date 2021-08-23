@@ -201,7 +201,7 @@ const notFound = "N/A"
       return notFound
     }
     if(pref.wdps+"P227" in p227) {
-      p227statement = p227[pref.wdp+"P227"]
+      p227statement = p227[pref.wdps+"P227"]
     return p227statement
     } else {
       return notFound
