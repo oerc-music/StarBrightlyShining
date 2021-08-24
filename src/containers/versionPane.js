@@ -113,6 +113,9 @@ export default class VersionPane extends Component {
 
 	}
 
+	test(number) {
+		return number
+}
 
 
 	render(){
@@ -158,15 +161,8 @@ export default class VersionPane extends Component {
 					<dl>
 						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
-						<div><dt>Arranger:</dt><dd>{this.props.arranger}</dd></div>
-
-
-						{
-							console.log('versionPane.js side panel')
-						}
-
-						<div><dt>GND:</dt><dd><a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>{"d-nb.info/gnd/"+this.props.dnbArr}</a></dd></div>
-
+						<div><dt>Arranger:</dt><dd>{this.props.arranger}<a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>
+								<img className="authButton" src="img/dnb.jpg"/></a></dd></div>
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
@@ -177,3 +173,10 @@ export default class VersionPane extends Component {
 		);
 	}
 }
+/*
+						{
+							console.log('versionPane.js side panel')
+							console.log(this.props.dnbArr)
+						}
+
+*/

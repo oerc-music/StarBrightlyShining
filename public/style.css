@@ -264,14 +264,16 @@ dd{
   display:inline-block;
   margin-left: 8px;
 }
-
 .workHeader {
 
 }
-
 .loadingIndicator {
     display:inline-block;
     vertical-align: middle;
     padding: 8px;
-
+}
+.authButton  {
+  display:inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
 }
