@@ -183,8 +183,6 @@ class App extends Component {
 
 const notFound = ""
 
-//      console.log( 'getNumber levels 4' + vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"])
-
     if(pref.gndo+"arranger" in vivoScore) {
       arranger = vivoScore[pref.gndo+"arranger"]
     } else {

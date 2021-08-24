@@ -170,7 +170,17 @@ try {
 }
 
 
-		obj.arranger = vivoScore[pref.gndo+"arranger"]; // Change so we have name, not URL
+	  obj.arranger = vivoScore[pref.gndo+"arranger"]; // Change so we have name, not URL
+
+
+      //  find url of dnb record in wikidata
+
+          let step1 = pref.gndo+"arranger" in vivoScore ? true : false
+          let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
+          let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
+          let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
+
+          console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
 
     obj.place = this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en");
 
