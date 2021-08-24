@@ -113,8 +113,9 @@ export default class VersionPane extends Component {
 
 	}
 
-	test(number) {
-		return number
+	addGnd(number) {
+		return <a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>
+										<img className="authButton" src="img/dnb.jpg"/></a>
 }
 
 
@@ -153,16 +154,19 @@ export default class VersionPane extends Component {
 															 toDraw={this.props.annotations.map(this.xRanges)}
 															 selectedAnnotation={this.props.selectedAnnotation}
 															 handleSelectAnnotation={this.props.handleSelectAnnotation} />
-
-
 					</div>
 				</div>
 				<aside className={this.state.showDetails}>
 					<dl>
 						<div><dt>Title:</dt><dd>{this.props.shortTitle}</dd></div>
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
-						<div><dt>Arranger:</dt><dd>{this.props.arranger}<a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>
-								<img className="authButton" src="img/dnb.jpg"/></a></dd></div>
+
+						<div><dt>Arranger:</dt><dd>{this.props.arranger}
+
+						 { this.props.dnbArr ? this.addGnd(this.props.dnbArr) : false } 
+
+
+									</dd></div>
 						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>

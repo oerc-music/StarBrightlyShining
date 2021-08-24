@@ -181,7 +181,7 @@ class App extends Component {
     let p227;
     let p227statement;
 
-const notFound = "N/A"
+const notFound = ""
 
 //      console.log( 'getNumber levels 4' + vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"])
 
