@@ -104,7 +104,7 @@ class App extends Component {
 																pref.frbr+"embodiment", pref.rdau+"P60163", pref.rdau+"O60242",
 																pref.wdt+"P217",pref.rdfs+"label"
 						],
-						ignoreObjectPrefix: ["http://d-nb.info/gnd/", "http://rdaregistry.info/"]});
+						ignoreObjectPrefix: ["http://rdaregistry.info/"]});
     }
 		window.addEventListener("resize", this.updateDimensions.bind(this));
   }
@@ -222,6 +222,8 @@ const notFound = ""
     // Take graph of arrangement and make more intuitive local object
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
+
+
 
     obj.genre = pref.dbpedia+"genre" in vivoScore ?
                 this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
