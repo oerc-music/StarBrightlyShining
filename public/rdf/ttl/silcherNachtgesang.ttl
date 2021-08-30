@@ -33,6 +33,7 @@ example:SilcherChoralArrOfAllegrettoOp92 a vivo:Score;
 dnb:1073019942 rdfs:label "Eduard Hallberger" .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
+	bibo:shortTitle "7th Symphony"
 	rdau:P60426 dnb:118508288 ;
 	gndo:opusNumericDesignationOfMusicalWork "92" ;
 	gndo:dateOfProduction "1811-1812"

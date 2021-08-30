@@ -497,7 +497,7 @@ const notFound = ""
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
-                  <div>Title of Work: <h4>{work[pref.rdfs+"label"]}</h4></div>
+                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4></div>
                 </div>
              </div>;
 		}

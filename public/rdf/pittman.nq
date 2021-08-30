@@ -14,6 +14,7 @@
 <http://example.org/PittmanArrOfAllegrettoOp92> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2092/StimKlvAugener%20-%20D-BNba%20C92_48/D-BNbaC92_48.mei> .
 <https://www.wikidata.org/wiki/Special:EntityData/Q20311223> <http://www.w3.org/2000/01/rdf-schema#label> "Augener & Co." .
 <http://d-nb.info/gnd/300016417> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 7, op. 92 (A-Dur)" .
+<http://d-nb.info/gnd/300016417> <http://purl.org/ontology/bibo/shortTitle> "7th Symphony" .
 <http://d-nb.info/gnd/300016417> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
 <http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "92" .
 <http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfProduction> "1811-1812" .

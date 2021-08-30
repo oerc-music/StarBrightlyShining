@@ -111,6 +111,10 @@ export default class VersionPane extends Component {
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
+
+				<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
+
+
 					<div className="controllbar">
 						<div className="leftControls">
 							<div className="scoreScrollButton" onClick={this.scrollBackward}><span>⇦</span></div>
@@ -124,7 +128,6 @@ export default class VersionPane extends Component {
 						</div>
 					</div>
 
-    			<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
 
 					<div className="scrollableScore" ref={this.scrollPane}>
 						<SelectableScore uri={this.props.uri}

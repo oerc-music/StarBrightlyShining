@@ -35,6 +35,7 @@ example:HaslingerPianoArrOp93 a vivo:Score;
 dnb:1123836310 rdfs:label "S.A. Steiner & Comp." .
 
 dnb:300016425 rdfs:label "Sinfonien, Nr. 8, op. 93 (F-Dur)" ;
+	bibo:shortTitle "8th Symphony"
 	rdau:P60426 dnb:118508288 ;
 	gndo:opusNumericDesignationOfMusicalWork "93" ;
 	gndo:dateOfProduction "1812"

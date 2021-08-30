@@ -33,6 +33,7 @@ example:PittmanArrOfAllegrettoOp92 a vivo:Score;
 wd:Q20311223 rdfs:label "Augener & Co." .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
+	bibo:shortTitle "7th Symphony"
 	rdau:P60426 dnb:118508288 ;
 	gndo:opusNumericDesignationOfMusicalWork "92" ;
 	gndo:dateOfProduction "1811-1812"

@@ -13,7 +13,7 @@
 <http://example.org/HaslingerPianoArrOp93> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlvauszSteiner%20-%20D-BNba%20C93_3/D-BNbaC93_3.1st.188-197.mei> .
 <http://d-nb.info/gnd/1123836310> <http://www.w3.org/2000/01/rdf-schema#label> "S.A. Steiner & Comp." .
 <http://d-nb.info/gnd/300016425> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 8, op. 93 (F-Dur)" .
-<http://d-nb.info/gnd/300016425> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
+<http://d-nb.info/gnd/300016425> <http://purl.org/ontology/bibo/shortTitle> "8th Symphony" .
 <http://d-nb.info/gnd/300016425> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "93" .
 <http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfProduction> "1812" .
 <http://d-nb.info/gnd/300016425> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
