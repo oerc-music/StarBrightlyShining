@@ -20,7 +20,7 @@ const vrvOptions = {
   unit: 6
 }
 
-const BitHCollection = "http://localhost:8080/rdf/BitHCollection.jsonld"
+const BitHCollection = "http://localhost:8081/rdf/BitHCollection.jsonld"
 
 ReactDOM.render(
   <div>

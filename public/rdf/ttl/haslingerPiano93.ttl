@@ -28,7 +28,8 @@ example:HaslingerPianoArrOp93 a vivo:Score;
 	wdt:P217 "D-BNba C93/3";
 	dce:publisher dnb:1123836310;
 	rdau:P60163 wd:Q1741;
-	gndo:dateOfPublication "1817" ;
+	gndo:dateOfProduction "1812"
+	gndo:dateOfPublication "1816" ;
   frbr:embodiment <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlvauszSteiner%20-%20D-BNba%20C93_3/D-BNbaC93_3.1st.188-197.mei> .
 
 dnb:1123836310 rdfs:label "S.A. Steiner & Comp." .
@@ -36,7 +37,8 @@ dnb:1123836310 rdfs:label "S.A. Steiner & Comp." .
 dnb:300016425 rdfs:label "Sinfonien, Nr. 8, op. 93 (F-Dur)" ;
 	rdau:P60426 dnb:118508288 ;
 	gndo:opusNumericDesignationOfMusicalWork "93" ;
-	gndo:dateOfPublication "1812" .
+	gndo:dateOfProduction "1812"
+	gndo:dateOfPublication "1816" .
 
 
 dnb:118508288 rdfs:label "Ludwig van Beethoven" .
