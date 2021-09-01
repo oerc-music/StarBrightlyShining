@@ -16,11 +16,11 @@
 			"ldp:Container"
 		],
 		"ldp:contains": [
-			{"@id": "http://localhost:8080/exist/apps/bith-api/lod/me61a6d60-8fa4-4e5b-bcf0-b201a04c73a1.nq"} ,
-			{"@id": "http://localhost:8081/rdf/silcherGesang.nq"} ,
-			{"@id": "http://localhost:8081/rdf/silcherNachtgesang.nq"},
-			{"@id": "http://localhost:8081/rdf/haslingerTrio93.nq"},
-			{"@id": "http://localhost:8081/rdf/haslingerPianoArrOp93.nq"}
+			{"@id": "http://localhost:8080/pittman.nq"} ,
+			{"@id": "http://localhost:8080/rdf/silcherGesang.nq"} ,
+			{"@id": "http://localhost:8080/rdf/silcherNachtgesang.nq"},
+			{"@id": "http://localhost:8080/rdf/haslingerTrio93.nq"},
+			{"@id": "http://localhost:8080/rdf/haslingerPianoArrOp93.nq"}
 		]
 	}
 }
