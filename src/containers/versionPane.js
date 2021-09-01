@@ -98,10 +98,18 @@ export default class VersionPane extends Component {
 
 	}
 
+
+// Combine dnb button functions?
+
 // For entities with GND number provided in wikidata rdf:
 // Creates a small button with link to DNB '/about' page.
 	addGnd(number) {
 		return <a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>
+			<img className="authButton" src="img/dnb.jpg"/></a>
+	}
+
+	addPubGndLink(number) {
+		return <a href={"http://d-nb.info/gnd/"+this.props.dnbPub} target='_blank'>
 			<img className="authButton" src="img/dnb.jpg"/></a>
 	}
 
@@ -147,7 +155,8 @@ export default class VersionPane extends Component {
 						<div><dt>Genre:</dt><dd> {this.props.genre}</dd></div>
 						<div><dt>Arranger:</dt><dd>{this.props.arranger}
 				 			{ this.props.dnbArr ? this.addGnd(this.props.dnbArr) : false }</dd></div>
-						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
+						<div><dt>Publisher:</dt><dd>{this.props.publisher}
+				 			{ this.props.dnbPub ? this.addGnd(this.props.dnbPub) : false }</dd></div>
 						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
 						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
 		            <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>

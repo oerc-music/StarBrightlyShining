@@ -81,6 +81,7 @@ class App extends Component {
 		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
     this.handleChangeWork = this.handleChangeWork.bind(this);
     this.transformArrangement = this.transformArrangement.bind(this);
+    this.shortWorkTitle = this.shortWorkTitle.bind(this);
 		this.props.setTraversalObjectives([
 			{
 				"@embed": "@always",
@@ -158,6 +159,26 @@ class App extends Component {
       }
     }
 
+   shortWorkTitle(work){
+      if (!work) return "";
+         else if (pref.bibo+"shortTitle" in work){
+            return work[pref.bibo+"shortTitle"];
+            } else {
+            return work[pref.rdfs+"label"];
+            }
+         }
+
+// to use, need to grab number at end of URL
+/*
+   dnbPublisher(work){
+      if (!work) return "";
+         else if (pref.dce+"publisher" in work){
+            return work[pref.dce+"publisher"];
+            } else {
+            return "no dnb number";
+            }
+         }
+*/
     dnbForArranger(arranger){
       if (!arranger || !(pref.schema+"about" in arranger)) return "No Arranger/About";
 
@@ -174,7 +195,7 @@ class App extends Component {
 
 /* http://www.wikidata.org/prop/statement/value-normalized/P227 */
 
-  getNumber(vivoScore) {
+  getGndNumber(vivoScore) {
 
     let arranger;
     let about;
@@ -205,6 +226,8 @@ const notFound = ""
       return notFound
     }
   }
+
+//  find url of dnb record in wikidata
 /*
     let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
     let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
@@ -217,56 +240,48 @@ const notFound = ""
   }
 */
 
-	transformArrangement(vivoScore){
-
-    // Take graph of arrangement and make more intuitive local object
-		let obj = {};
-		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
-
-
-
-    obj.genre = pref.dbpedia+"genre" in vivoScore ?
-                this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
-
-    obj.arranger = pref.gndo+"arranger" in vivoScore ?
-                this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
-
-//  find url of dnb record in wikidata
-
-    let step1 = pref.gndo+"arranger" in vivoScore ? true : false
-    let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
-    let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
-    let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
-
-    console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
-
-//    obj.dnbArr = step4 ?
-//              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
-    obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
-                 this.getNumber(vivoScore) : "transformArrangement return: false"
-
-    obj.place = pref.rdau+"P60163" in vivoScore ?
-                this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
-
-// not all the publishers listed on wikidata. So stick to dnb for now
-    obj.publisher = pref.dce+"publisher" in vivoScore ?
-                vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
-
-		obj.date = pref.gndo+"dateOfPublication" in vivoScore ?
-                vivoScore[pref.gndo+"dateOfPublication"] : false;
-
-		obj.MEI = pref.frbr+"embodiment" in vivoScore ?
-                vivoScore[pref.frbr+"embodiment"]['@id'] : false;
-
-    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
-
-		obj.work = vivoScore[pref.rdau+"P60242"];
+/*
+obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
+           this.getGndNumber(vivoScore) : "transformArrangement return: false"
+*/
 
 //		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
 //		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
 //    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
-//    obj.dnbArr = this.getNumber(vivoScore);
+//    obj.dnbArr = this.getGndNumber(vivoScore);
 //    obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
+
+	transformArrangement(vivoScore){
+
+    // Take graph of arrangement and make more intuitive local object
+   let obj = {};
+      obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
+
+      obj.genre = pref.dbpedia+"genre" in vivoScore ?
+                this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
+
+      obj.arranger = pref.gndo+"arranger" in vivoScore ?
+                this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
+
+      obj.dnbPub = pref.gndo+"publisher" in vivoScore ?
+                this.dnbPublisher(vivoScore) : "transformArrangement return: false"
+
+      obj.place = pref.rdau+"P60163" in vivoScore ?
+                this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
+
+// not all the publishers listed on wikidata. So stick to dnb for now
+      obj.publisher = pref.dce+"publisher" in vivoScore ?
+                vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
+
+      obj.date = pref.gndo+"dateOfPublication" in vivoScore ?
+                vivoScore[pref.gndo+"dateOfPublication"] : false;
+
+      obj.MEI = pref.frbr+"embodiment" in vivoScore ?
+                vivoScore[pref.frbr+"embodiment"]['@id'] : false;
+
+      obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
+
+      obj.work = vivoScore[pref.rdau+"P60242"];
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
 
@@ -488,18 +503,33 @@ const notFound = ""
 		);
 	}
 
-	renderWorkAsHeader(work){
+
+	// renderWorkAsHeader(work){
+	// 	if(!work){
+	// 		return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
+	// 	} else if(this.state.mode==="version"){
+   //    return <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+   //  } else {
+	// 		return <div className="workHeader">
+   //              <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+   //              <div className="workTitle">
+   //                <div>Title of Work: <h4>{shortWorkTitle(this.work)}</h4></div>
+   //              </div>
+   //           </div>;
+	// 	}
+	// }
+   renderWorkAsHeader(work){
 		if(!work){
 			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else if(this.state.mode==="version"){
       return <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
     } else {
-			return <div className="workHeader">
-                <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
-                <div className="workTitle">
-                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4></div>
-                </div>
-             </div>;
+      return <div className="workHeader">
+             <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+             <div className="workTitle">
+                <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4></div>
+             </div>
+          </div>;
 		}
 	}
 	renderVersions(){
@@ -560,51 +590,53 @@ const notFound = ""
 				{this.annotationButtons()}
 
 				<VersionPane extraClasses="upper"
-										 id="pane1"
-										 narrowPane={ narrowWindow }
-										 width={ this.state.width }
-										 uri={ upper.MEI }
-                     shortTitle={ upper.shortTitle}
-                     arranger={ upper.arranger }
-                     genre={ upper.genre}
-                     publisher={ upper.publisher }
-                     date={ upper.date}
-                     place={ upper.place}
-                     catNumber={ upper.catNumber}
-                     dnbArr={ upper.dnbArr }
-										 vrvOptions={ basicVrvOptions }
-										 annotations= {this.state.annotations}
-										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+               id="pane1"
+               narrowPane={ narrowWindow }
+               width={ this.state.width }
+               uri={ upper.MEI }
+               shortTitle={ upper.shortTitle}
+               arranger={ upper.arranger }
+               genre={ upper.genre}
+               publisher={ upper.publisher }
+               date={ upper.date}
+               place={ upper.place}
+               catNumber={ upper.catNumber}
+               dnbArr={ upper.dnbArr }
+               dnbPub={ upper.dnbPub }
+               vrvOptions={ basicVrvOptions }
+               annotations= {this.state.annotations}
+               selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+               selectorString={ selectorStrings[this.state.targetting] }
+               handleSelectAnnotation={ this.handleSelectAnnotation }
+               selectedAnnotation={this.state.selectedAnnotation}
+               handleScoreUpdate={ this.handleScoreUpdate }
+               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 				<VersionPane extraClasses="lower"
-										 width={ this.state.width }
-										 id="pane1"
-                     shortTitle={lower.shortTitle}
-                     arranger={ lower.arranger }
-                     genre={ lower.genre}
-                     publisher={ lower.publisher }
-                     date={ lower.date}
-                     place={ lower.place}
-                     catNumber={ lower.catNumber}
-                     dnbArr={ lower.dnbArr }
-										 uri={ lower.MEI }
-										 annotations= {this.state.annotations}
-										 vrvOptions={ basicVrvOptions }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 selectionHandler={ selectionHandler.bind(this, lower.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
-			</main>
+               width={ this.state.width }
+               id="pane1"
+               shortTitle={lower.shortTitle}
+               arranger={ lower.arranger }
+               genre={ lower.genre}
+               publisher={ lower.publisher }
+               date={ lower.date}
+               place={ lower.place}
+               catNumber={ lower.catNumber}
+               dnbArr={ lower.dnbArr }
+               dnbPub={ lower.dnbPub }
+               uri={ lower.MEI }
+               annotations= {this.state.annotations}
+               vrvOptions={ basicVrvOptions }
+               handleSelectAnnotation={ this.handleSelectAnnotation }
+               selectedAnnotation={this.state.selectedAnnotation}
+               selectionHandler={ selectionHandler.bind(this, lower.MEI) }
+               selectorString={ selectorStrings[this.state.targetting] }
+               handleScoreUpdate={ this.handleScoreUpdate }
+               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+         </main>
 		);
 	}
   renderSingleScore() {
-    const upper = this.state.versions[0];
+      const upper = this.state.versions[0];
 		const lower = this.state.versions[1];
 		const selectionHandler = this.state.targetting==='note' ?
 					this.handleNoteSelectionChange :
@@ -621,26 +653,27 @@ const notFound = ""
         }</p>
 
         <VersionPane extraClasses="upper"
-										 id="pane1"
-										 narrowPane={ narrowWindow }
-										 width={ this.state.width }
-										 uri={ upper.MEI }
-                     shortTitle={ upper.shortTitle}
-                     arranger={ upper.arranger }
-                     genre={ upper.genre}
-                     publisher={ upper.publisher }
-                     date={ upper.date}
-                     place={ upper.place}
-                     catNumber={ upper.catNumber}
-                     dnbArr={ upper.dnbArr }
-										 vrvOptions={ basicVrvOptions }
-										 annotations= {this.state.annotations}
-										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+            id="pane1"
+            narrowPane={ narrowWindow }
+            width={ this.state.width }
+            uri={ upper.MEI }
+            shortTitle={ upper.shortTitle}
+            arranger={ upper.arranger }
+            genre={ upper.genre}
+            publisher={ upper.publisher }
+            date={ upper.date}
+            place={ upper.place}
+            catNumber={ upper.catNumber}
+            dnbArr={ upper.dnbArr }
+            dnbPub={ upper.dnbPub }
+            vrvOptions={ basicVrvOptions }
+            annotations= {this.state.annotations}
+            selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+            selectorString={ selectorStrings[this.state.targetting] }
+            handleSelectAnnotation={ this.handleSelectAnnotation }
+            selectedAnnotation={this.state.selectedAnnotation}
+            handleScoreUpdate={ this.handleScoreUpdate }
+            handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 
           <div><h4 className="addMessage">Choose version to compare</h4>
    				<button className="addPane" onClick={this.handleAddVersionPane}>

@@ -33,10 +33,10 @@ example:SilcherVocalArrOfAllegrettoOp92 a vivo:Score;
 dnb:1064327222 rdfs:label "G. A. Zumsteeg" .
 
 dnb:300016417 rdfs:label "Sinfonien, Nr. 7, op. 92 (A-Dur)" ;
-	bibo:shortTitle "7th Symphony"
+	bibo:shortTitle "7th Symphony" ;
 	rdau:P60426 dnb:118508288 ;
 	gndo:opusNumericDesignationOfMusicalWork "92" ;
-	gndo:dateOfProduction "1811-1812"
+	gndo:dateOfProduction "1811-1812" ;
 	gndo:dateOfPublication "1816" .
 
 dnb:118508288 rdfs:label "Ludwig van Beethoven" .

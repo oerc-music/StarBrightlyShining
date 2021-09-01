@@ -20,6 +20,7 @@ const vrvOptions = {
   unit: 6
 }
 
+// changed to port 8081 to accomodate eXist db at 8080
 const BitHCollection = "http://localhost:8081/rdf/BitHCollection.jsonld"
 
 ReactDOM.render(

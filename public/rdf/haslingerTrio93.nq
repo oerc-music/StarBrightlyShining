@@ -18,6 +18,6 @@
 <http://d-nb.info/gnd/300016425> <http://purl.org/ontology/bibo/shortTitle> "8th Symphony" .
 <http://d-nb.info/gnd/300016425> <http://rdaregistry.info/Elements/u/P60426> <http://d-nb.info/gnd/118508288> .
 <http://d-nb.info/gnd/300016425> <https://d-nb.info/standards/elementset/gnd#opusNumericDesignationOfMusicalWork> "93" .
-<http://d-nb.info/gnd/300016417> <https://d-nb.info/standards/elementset/gnd#dateOfProduction> "1812" .
+<http://d-nb.info/gnd/300016425> <https://d-nb.info/standards/elementset/gnd#dateOfProduction> "1812" .
 <http://d-nb.info/gnd/300016425> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1816" .
 <http://d-nb.info/gnd/118508288> <http://www.w3.org/2000/01/rdf-schema#label> "Ludwig van Beethoven" .
