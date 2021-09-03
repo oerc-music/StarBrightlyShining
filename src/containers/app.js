@@ -489,8 +489,18 @@ const notFound = ""
                 <div className="workTitle">
                   <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4>
                   <Popup className="workInfo" trigger={<button className="workInfo"> Work Info </button>} modal >
-                    <span> Work Metadata Here </span>
                       {this.renderWorkInfo(this.state.work)}
+                      <div>
+                      <button
+                        className="button"
+                        onClick={() => {
+                          console.log('modal closed ');
+                          close();
+                        }}
+                      >
+                        close
+                      </button>
+                      </div>
                   </Popup>
                   </div>
                 </div>
@@ -503,10 +513,10 @@ const notFound = ""
       return ""
     } else {
       return <div className="workPopup">
-        <div><dt>Full Title:</dt><dd>{work[pref.rdfs+"label"]}</dd></div>
-        <div><dt>Composer:</dt><dd>{work[pref.rdau+"P60426"][pref.rdfs+"label"]}</dd></div>
-        <div><dt>Opus:</dt><dd>{work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}</dd></div>
-        <div><dt>Publication Date:</dt><dd>{work[pref.gndo+"dateOfPublication"]}</dd></div>
+        <div>Full Title:<dd>{work[pref.rdfs+"label"]}</dd></div>
+        <div>Composer:<dd>{work[pref.rdau+"P60426"][pref.rdfs+"label"]}</dd></div>
+        <div>Opus:<dd>{work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}</dd></div>
+        <div>Publication Date:<dd>{work[pref.gndo+"dateOfPublication"]}</dd></div>
         </div>
     }
   }
