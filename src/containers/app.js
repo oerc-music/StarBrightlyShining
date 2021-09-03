@@ -14,6 +14,9 @@ import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 import LoadingIndicator from './loadingIndicator.js';
 
+import Popup from 'reactjs-popup';
+import 'reactjs-popup/dist/index.css';
+
 const MAX_TRAVERSERS = 5;
 
 // selectionString: CSS selector for all elements to be selectable (e.g. ".measure", ".note")
@@ -44,7 +47,6 @@ const basicVrvOptions = {
   footer: "none",
   unit: 6
 };
-
 
 class App extends Component {
   constructor(props) {
@@ -172,8 +174,6 @@ class App extends Component {
       }
     }
 
-/* http://www.wikidata.org/prop/statement/value-normalized/P227 */
-
   getNumber(vivoScore) {
 
     let arranger;
@@ -205,17 +205,25 @@ const notFound = ""
       return notFound
     }
   }
-/*
-    let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
-    let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
-    let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
+// dnb auth also available as an object with @id and url
+// http://www.wikidata.org/prop/statement/value-normalized/P227
 
-    console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
+// console.log for dnb record in wikidata
+// let step1 = pref.gndo+"arranger" in vivoScore ? true : false
+// let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
+// let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
+// let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
+//
+// console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
+//    obj.dnbArr = step4 ?
+//              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
 
-    obj.dnbArr = step4 ?
-              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
-  }
-*/
+// other paths to through the data:
+//		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
+//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
+//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
+//    obj.dnbArr = this.getNumber(vivoScore);
+//    obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 
 	transformArrangement(vivoScore){
 
@@ -223,25 +231,13 @@ const notFound = ""
 		let obj = {};
 		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
-
-
     obj.genre = pref.dbpedia+"genre" in vivoScore ?
                 this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
 
     obj.arranger = pref.gndo+"arranger" in vivoScore ?
                 this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
 
-//  find url of dnb record in wikidata
 
-    let step1 = pref.gndo+"arranger" in vivoScore ? true : false
-    let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
-    let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
-    let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
-
-    console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
-
-//    obj.dnbArr = step4 ?
-//              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
     obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
                  this.getNumber(vivoScore) : "transformArrangement return: false"
 
@@ -261,12 +257,6 @@ const notFound = ""
     obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
 
 		obj.work = vivoScore[pref.rdau+"P60242"];
-
-//		obj.genre = pref.dbpedia+"genre" in vivoScore ? vivoScore[pref.dbpedia+"genre"]['@id'] : false;
-//		obj.arranger = vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.rdfs+"label"][0]; // Change so we have name, not URL
-//    obj.genre = vivoScore[pref.dbpedia+"genre"][pref.schema+"about"][pref.schema+"name"];
-//    obj.dnbArr = this.getNumber(vivoScore);
-//    obj.work = pref.rdau+"P60424" in vivoScore ? vivoScore[pref.rdau+"P60242"] : false;
 
 		console.log("Processed a ", vivoScore, " into a ", obj);
 
@@ -417,7 +407,7 @@ const notFound = ""
 	handleReplaceVersion(version, replacePos){
 
 
-		// Swap out one of the versions
+// Swap out one of the versions
 		let versions = this.state.versions.slice();
 		versions[replacePos] = version;
 
@@ -457,10 +447,10 @@ const notFound = ""
           }
 	     }
   }
-	// renderWorkInList(work){
-	// 	// Each work is drawn separately to the works list
-	// 	return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
-	// }
+// renderWorkInList(work){
+// 	// Each work is drawn separately to the works list
+// 	return <div className="workListing" onClick={ this.handleChooseWork.bind(this, work) }>{ work.title}</div> ;
+// }
 
   renderWorkInList(work){
       const handler = this.handleChooseWork.bind(this, work) ;
@@ -497,11 +487,30 @@ const notFound = ""
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
-                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4></div>
+                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4>
+                  <Popup className="workInfo" trigger={<button className="workInfo"> Work Info </button>} modal >
+                    <span> Work Metadata Here </span>
+                      {this.renderWorkInfo(this.state.work)}
+                  </Popup>
+                  </div>
                 </div>
              </div>;
 		}
 	}
+
+  renderWorkInfo(work){
+    if(!work){
+      return ""
+    } else {
+      return <div className="workPopup">
+        <div><dt>Full Title:</dt><dd>{work[pref.rdfs+"label"]}</dd></div>
+        <div><dt>Composer:</dt><dd>{work[pref.rdau+"P60426"][pref.rdfs+"label"]}</dd></div>
+        <div><dt>Opus:</dt><dd>{work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}</dd></div>
+        <div><dt>Publication Date:</dt><dd>{work[pref.gndo+"dateOfPublication"]}</dd></div>
+        </div>
+    }
+  }
+
 	renderVersions(){
 		if(!this.state.arrangements.length) return <div>Loading...</div>;
 		return (
@@ -546,7 +555,7 @@ const notFound = ""
 
 			<main>
 
-				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
+				<div className="workHeader">{this.renderWorkAsHeader(this.state.work)}</div>
 
 				<h4>Select:</h4>
 				<div className="target switch-field">
@@ -612,13 +621,17 @@ const notFound = ""
 		const narrowWindow = this.state.width < 800;
 /*         return name.find(x => x["@language"] === language)["@value"]; */
 
-    return(
-      <div>
-				<div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
-        <p>Current selection: { this.state.selection.length > 0
-          ? <span> { this.state.selection.map( (elem) => elem.getAttribute("id") ).join(", ") } </span>
-          : <span>Nothing selected</span>
-        }</p>
+// <div>
+//   <div className="workInfo">{this.renderWorkAsHeader(this.state.work)}</div>
+//   <p>Current selection: { this.state.selection.length > 0
+//     ? <span> { this.state.selection.map( (elem) => elem.getAttribute("id") ).join(", ") } </span>
+//     : <span>Nothing selected</span>
+//   }</p>
+return(
+
+  <div>
+    <div className="workHeader">{this.renderWorkAsHeader(this.state.work)}</div>
+    <p></p>
 
         <VersionPane extraClasses="upper"
 										 id="pane1"
