@@ -144,6 +144,7 @@ button.workInfo {
   float: left;
 }
 
+
 .pane aside{
 	display: inline-block;
 	height: 100%;
@@ -353,4 +354,31 @@ dd{
   background: #ffffff;
   border-radius: 18px;
   border: 1px solid #cfcece;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.2);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-inner {
+    position: relative;
+    padding: 32px;
+    width: 100%;
+    max-width: 640px;
+    background-color: #fff;
+}
+
+.popup-inner .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
 }
