@@ -14,7 +14,8 @@ import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 import LoadingIndicator from './loadingIndicator.js';
 
-import Popup from 'reactjs-popup';
+//import Popup from 'reactjs-popup';
+import CustomPopup from './popup.js';
 import 'reactjs-popup/dist/index.css';
 
 const MAX_TRAVERSERS = 5;
@@ -480,28 +481,22 @@ const notFound = ""
 
 	renderWorkAsHeader(work){
 		if(!work){
-			return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
+		return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
 		} else if(this.state.mode==="version"){
       return <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
-    } else {
+      } else {
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
                   <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4>
-                  <Popup className="workInfo" trigger={<button className="workInfo"> Work Info </button>} modal >
-                      {this.renderWorkInfo(this.state.work)}
-                      <div>
-                      <button
-                        className="button"
-                        onClick={() => {
-                          console.log('modal closed ');
-                          close();
-                        }}
-                      >
-                        close
-                      </button>
-                      </div>
-                  </Popup>
+                  <CustomPopup
+                     className="workInfo"
+                     title={this.state.work[pref.rdfs+"label"]}
+                     content={this.renderWorkInfo(this.state.work)}
+                     openButtonLabel={'Work Info'}
+                  >
+
+                  </CustomPopup>
                   </div>
                 </div>
              </div>;
@@ -513,7 +508,7 @@ const notFound = ""
       return ""
     } else {
       return <div className="workPopup">
-        <div>Full Title:<dd>{work[pref.rdfs+"label"]}</dd></div>
+        <div>GND Title:<dd>{work[pref.rdfs+"label"]}</dd></div>
         <div>Composer:<dd>{work[pref.rdau+"P60426"][pref.rdfs+"label"]}</dd></div>
         <div>Opus:<dd>{work[pref.gndo+"opusNumericDesignationOfMusicalWork"]}</dd></div>
         <div>Publication Date:<dd>{work[pref.gndo+"dateOfPublication"]}</dd></div>
