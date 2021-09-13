@@ -57,6 +57,7 @@ class App extends Component {
 			//			mode: 'compare',
 			// mode: 'version',
 			versions: [false, false],
+			position: false,
 			work: false,
 			worklist: [],
 			targetting: 'note',
@@ -403,14 +404,16 @@ const notFound = ""
 	handleChooseVersion(version){
 		this.setState({mode: 'score', versions: [version, false]});
 	}
+	handleChooseReplacementVersion(position){
+		this.setState({mode: 'replaceVersion', position: position});
+	}
 	handleReplaceVersion(version, replacePos){
 
 
 // Swap out one of the versions
-		let versions = this.state.versions.slice();
-		versions[replacePos] = version;
-
-		this.setState({mode: 'compare', versions});
+		let newVersions = this.state.versions.slice();
+		newVersions[replacePos] = version;
+		this.setState({mode: (newVersions[1] ? 'compare' : 'score'), versions: newVersions});
 	}
 
 	handleAddVersionPane(){
@@ -432,6 +435,8 @@ const notFound = ""
 			case 'version':
 				return this.renderVersions();
 			case 'addVersion':
+				return this.renderVersions();
+			case 'replaceVersion':
 				return this.renderVersions();
 			case 'score':
 				return this.renderSingleScore();
@@ -464,7 +469,8 @@ const notFound = ""
 	renderVersionInList(version){
 		// Each verison is drawn separately to the versions list
 		const handler = this.state.mode==="version" ? this.handleChooseVersion.bind(this, version)
-					: this.handleReplaceVersion.bind(this, version, 1)
+					: (this.state.mode==="replaceVersion" ? this.handleReplaceVersion.bind(this, version, this.state.position)
+						 : this.handleReplaceVersion.bind(this, version, 1));
 		return <VersionListing key={version.shortTitle}
 													 clickHandler={ handler }
                            {...version}/>;
@@ -589,7 +595,7 @@ const notFound = ""
                handleSelectAnnotation={ this.handleSelectAnnotation }
                selectedAnnotation={this.state.selectedAnnotation}
                handleScoreUpdate={ this.handleScoreUpdate }
-               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+										 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)}/>
 				<VersionPane extraClasses="lower"
                width={ this.state.width }
                id="pane1"
@@ -609,7 +615,7 @@ const notFound = ""
                selectionHandler={ selectionHandler.bind(this, lower.MEI) }
                selectorString={ selectorStrings[this.state.targetting] }
                handleScoreUpdate={ this.handleScoreUpdate }
-               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+										 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 1)}/>
 			</main>
 		);
 	}
@@ -654,7 +660,7 @@ return(
             handleSelectAnnotation={ this.handleSelectAnnotation }
             selectedAnnotation={this.state.selectedAnnotation}
             handleScoreUpdate={ this.handleScoreUpdate }
-            handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+										 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)}/>
 
           <div><h4 className="addMessage">Choose version to compare</h4>
    				<button className="addPane" onClick={this.handleAddVersionPane}>

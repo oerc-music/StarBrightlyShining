@@ -88,7 +88,8 @@ export default class VersionPane extends Component {
 		console.log('Need to Switch position ' + position)
 
 		try {
-			this.props.handleReplaceVersion(false, position)
+			this.props.handleReplaceVersion();
+//			this.props.handleReplaceVersion(false, position)
 		} catch(err) {
 			console.log('ERRoR: ' + err)
 			console.log('this in versionPane:')
