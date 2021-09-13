@@ -113,13 +113,11 @@ export default class VersionPane extends Component {
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
 				<div className={"main "+this.state.showDetails}>
 
-				<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
-
-
 					<div className="controllbar">
 						<div className="leftControls">
 							<div className="scoreScrollButton" onClick={this.scrollBackward}><span>⇦</span></div>
 							<div className="scoreScrollButton" onClick={this.scrollForward}><span>⇨</span></div>
+							<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
 						</div>
 						<div className="middle"/>
 						<div className="rightControls">

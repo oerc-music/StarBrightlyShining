@@ -467,7 +467,7 @@ const notFound = ""
   }
 
 	renderVersionInList(version){
-		// Each verison is drawn separately to the versions list
+		// Each version is drawn separately to the versions list
 		const handler = this.state.mode==="version" ? this.handleChooseVersion.bind(this, version)
 					: (this.state.mode==="replaceVersion" ? this.handleReplaceVersion.bind(this, version, this.state.position)
 						 : this.handleReplaceVersion.bind(this, version, 1));

@@ -49,7 +49,7 @@ export default class ExtractVisualiser extends Component {
 			// const toDraw = this.props.musicalMaterial.map(this.xRanges);
 			// console.log("!!!!", toDraw);
 			return (
-				<svg width="6000" height="50">
+				<svg width="6000" height="50" className="extractVisualiser">
 					{this.props.toDraw.map(this.simpleLine)}
 				</svg>
 			);

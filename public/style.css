@@ -268,11 +268,8 @@ dd{
     white-space: nowrap;
     padding: 1px 6px;
 
-    margin-right: 2px;
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin: 6px;
     font-weight: normal;
-    float: left;
 }
 .addPane {
   display:inline-block;
