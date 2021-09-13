@@ -14,11 +14,7 @@ import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 import LoadingIndicator from './loadingIndicator.js';
 
-<<<<<<< HEAD
-//import Popup from 'reactjs-popup';
-=======
 // CustomPopup based on 'reactjs-popup' node module ;
->>>>>>> mark
 import CustomPopup from './popup.js';
 import 'reactjs-popup/dist/index.css';
 
@@ -490,22 +486,12 @@ const notFound = ""
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
-<<<<<<< HEAD
-                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4>
-=======
                   <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}&nbsp;</h4>
->>>>>>> mark
                   <CustomPopup
                      className="workInfo"
                      title={this.state.work[pref.rdfs+"label"]}
                      content={this.renderWorkInfo(this.state.work)}
-<<<<<<< HEAD
-                     openButtonLabel={'Work Info'}
-                  >
-
-=======
                      openButtonLabel={'Work Info'} >
->>>>>>> mark
                   </CustomPopup>
                   </div>
                 </div>
