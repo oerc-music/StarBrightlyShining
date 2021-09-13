@@ -14,7 +14,11 @@ import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 import LoadingIndicator from './loadingIndicator.js';
 
+<<<<<<< HEAD
 //import Popup from 'reactjs-popup';
+=======
+// CustomPopup based on 'reactjs-popup' node module ;
+>>>>>>> mark
 import CustomPopup from './popup.js';
 import 'reactjs-popup/dist/index.css';
 
@@ -66,25 +70,25 @@ class App extends Component {
 			width: 1200,
 			height: 800,
 			annotations: [],
-      uri: this.props.uri,
+         uri: this.props.uri,
 			selectedAnnotation: false,
       arrangements: false
     };
-    this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-		this.selectMeasures = this.selectMeasures.bind(this);
-		this.selectNotes = this.selectNotes.bind(this);
-		this.usefulIdForChildElement = this.usefulIdForChildElement.bind(this);
-		this.makeMusicalMaterialFromSelection = this.makeMusicalMaterialFromSelection.bind(this);
-		this.makeSelectionJSONLDFromSelection = this.makeSelectionJSONLDFromSelection.bind(this);
-		this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
-		this.renderVersionInList = this.renderVersionInList.bind(this);
-		this.renderWorkInList = this.renderWorkInList.bind(this);
-		this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
-		this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
-    this.handleChangeWork = this.handleChangeWork.bind(this);
-    this.transformArrangement = this.transformArrangement.bind(this);
-		this.props.setTraversalObjectives([
+      this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.selectMeasures = this.selectMeasures.bind(this);
+      this.selectNotes = this.selectNotes.bind(this);
+      this.usefulIdForChildElement = this.usefulIdForChildElement.bind(this);
+      this.makeMusicalMaterialFromSelection = this.makeMusicalMaterialFromSelection.bind(this);
+      this.makeSelectionJSONLDFromSelection = this.makeSelectionJSONLDFromSelection.bind(this);
+      this.makeExtractFromSelection = this.makeExtractFromSelection.bind(this);
+      this.renderVersionInList = this.renderVersionInList.bind(this);
+      this.renderWorkInList = this.renderWorkInList.bind(this);
+      this.handleAddVersionPane = this.handleAddVersionPane.bind(this);
+      this.handleSelectAnnotation = this.handleSelectAnnotation.bind(this);
+      this.handleChangeWork = this.handleChangeWork.bind(this);
+      this.transformArrangement = this.transformArrangement.bind(this);
+      this.props.setTraversalObjectives([
 			{
 				"@embed": "@always",
 				"http://rdaregistry.info/Elements/u/P60242": {}
@@ -163,9 +167,7 @@ class App extends Component {
 
     dnbForArranger(arranger){
       if (!arranger || !(pref.schema+"about" in arranger)) return "No Arranger/About";
-
       const dnbnum = arranger [pref.schema+"about"][pref.schema+"name"][pref.wdp+"P227"];
-
       if ( Array.isArray(dnbnum) && dnbnum.length > 1 ){
         return dnbnum;
       } else if ( Array.isArray(dnbnum)){
@@ -175,6 +177,7 @@ class App extends Component {
       }
     }
 
+// dnb number hidden deep in Wikidata ...
   getNumber(vivoScore) {
 
     let arranger;
@@ -230,36 +233,35 @@ const notFound = ""
 
     // Take graph of arrangement and make more intuitive local object
 		let obj = {};
-		obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
+         obj.shortTitle = vivoScore[pref.bibo+"shortTitle"];
 
-    obj.genre = pref.dbpedia+"genre" in vivoScore ?
-                this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
+         obj.genre = pref.dbpedia+"genre" in vivoScore ?
+               this.labelForGenre(vivoScore[pref.dbpedia+"genre"], "en") : false;
 
-    obj.arranger = pref.gndo+"arranger" in vivoScore ?
-                this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
+         obj.arranger = pref.gndo+"arranger" in vivoScore ?
+               this.labelForArranger(vivoScore[pref.gndo+"arranger"], "en") : false;
 
+         obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
+               this.getNumber(vivoScore) : "transformArrangement return: false"
 
-    obj.dnbArr = pref.gndo+"arranger" in vivoScore ?
-                 this.getNumber(vivoScore) : "transformArrangement return: false"
-
-    obj.place = pref.rdau+"P60163" in vivoScore ?
-                this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
+         obj.place = pref.rdau+"P60163" in vivoScore ?
+               this.labelForPlace(vivoScore[pref.rdau+"P60163"], "en") : false;
 
 // not all the publishers listed on wikidata. So stick to dnb for now
-    obj.publisher = pref.dce+"publisher" in vivoScore ?
-                vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
+         obj.publisher = pref.dce+"publisher" in vivoScore ?
+               vivoScore[pref.dce+"publisher"][pref.rdfs+"label"] : false;
 
-		obj.date = pref.gndo+"dateOfPublication" in vivoScore ?
-                vivoScore[pref.gndo+"dateOfPublication"] : false;
+         obj.date = pref.gndo+"dateOfPublication" in vivoScore ?
+               vivoScore[pref.gndo+"dateOfPublication"] : false;
 
-		obj.MEI = pref.frbr+"embodiment" in vivoScore ?
-                vivoScore[pref.frbr+"embodiment"]['@id'] : false;
+         obj.MEI = pref.frbr+"embodiment" in vivoScore ?
+               vivoScore[pref.frbr+"embodiment"]['@id'] : false;
 
-    obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
+         obj.catNumber = pref.wdt+"P217" in vivoScore ? vivoScore[pref.wdt+"P217"] : false;
 
-		obj.work = vivoScore[pref.rdau+"P60242"];
+         obj.work = vivoScore[pref.rdau+"P60242"];
 
-		console.log("Processed a ", vivoScore, " into a ", obj);
+         console.log("Processed a ", vivoScore, " into a ", obj);
 
 		return obj;
 	}
@@ -488,14 +490,22 @@ const notFound = ""
 			return <div className="workHeader">
                 <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
                 <div className="workTitle">
+<<<<<<< HEAD
                   <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}</h4>
+=======
+                  <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}&nbsp;</h4>
+>>>>>>> mark
                   <CustomPopup
                      className="workInfo"
                      title={this.state.work[pref.rdfs+"label"]}
                      content={this.renderWorkInfo(this.state.work)}
+<<<<<<< HEAD
                      openButtonLabel={'Work Info'}
                   >
 
+=======
+                     openButtonLabel={'Work Info'} >
+>>>>>>> mark
                   </CustomPopup>
                   </div>
                 </div>
@@ -574,46 +584,46 @@ const notFound = ""
 				{this.annotationButtons()}
 
 				<VersionPane extraClasses="upper"
-										 id="pane1"
-										 narrowPane={ narrowWindow }
-										 width={ this.state.width }
-										 uri={ upper.MEI }
-                     shortTitle={ upper.shortTitle}
-                     arranger={ upper.arranger }
-                     genre={ upper.genre}
-                     publisher={ upper.publisher }
-                     date={ upper.date}
-                     place={ upper.place}
-                     catNumber={ upper.catNumber}
-                     dnbArr={ upper.dnbArr }
-										 vrvOptions={ basicVrvOptions }
-										 annotations= {this.state.annotations}
-										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+               id="pane1"
+               narrowPane={ narrowWindow }
+               width={ this.state.width }
+               uri={ upper.MEI }
+               shortTitle={ upper.shortTitle}
+               arranger={ upper.arranger }
+               genre={ upper.genre}
+               publisher={ upper.publisher }
+               date={ upper.date}
+               place={ upper.place}
+               catNumber={ upper.catNumber}
+               dnbArr={ upper.dnbArr }
+               vrvOptions={ basicVrvOptions }
+               annotations= {this.state.annotations}
+               selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+               selectorString={ selectorStrings[this.state.targetting] }
+               handleSelectAnnotation={ this.handleSelectAnnotation }
+               selectedAnnotation={this.state.selectedAnnotation}
+               handleScoreUpdate={ this.handleScoreUpdate }
+               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 				<VersionPane extraClasses="lower"
-										 width={ this.state.width }
-										 id="pane1"
-                     shortTitle={lower.shortTitle}
-                     arranger={ lower.arranger }
-                     genre={ lower.genre}
-                     publisher={ lower.publisher }
-                     date={ lower.date}
-                     place={ lower.place}
-                     catNumber={ lower.catNumber}
-                     dnbArr={ lower.dnbArr }
-										 uri={ lower.MEI }
-										 annotations= {this.state.annotations}
-										 vrvOptions={ basicVrvOptions }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 selectionHandler={ selectionHandler.bind(this, lower.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+               width={ this.state.width }
+               id="pane1"
+               shortTitle={lower.shortTitle}
+               arranger={ lower.arranger }
+               genre={ lower.genre}
+               publisher={ lower.publisher }
+               date={ lower.date}
+               place={ lower.place}
+               catNumber={ lower.catNumber}
+               dnbArr={ lower.dnbArr }
+               uri={ lower.MEI }
+               annotations= {this.state.annotations}
+               vrvOptions={ basicVrvOptions }
+               handleSelectAnnotation={ this.handleSelectAnnotation }
+               selectedAnnotation={this.state.selectedAnnotation}
+               selectionHandler={ selectionHandler.bind(this, lower.MEI) }
+               selectorString={ selectorStrings[this.state.targetting] }
+               handleScoreUpdate={ this.handleScoreUpdate }
+               handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 			</main>
 		);
 	}
@@ -639,26 +649,26 @@ return(
     <p></p>
 
         <VersionPane extraClasses="upper"
-										 id="pane1"
-										 narrowPane={ narrowWindow }
-										 width={ this.state.width }
-										 uri={ upper.MEI }
-                     shortTitle={ upper.shortTitle}
-                     arranger={ upper.arranger }
-                     genre={ upper.genre}
-                     publisher={ upper.publisher }
-                     date={ upper.date}
-                     place={ upper.place}
-                     catNumber={ upper.catNumber}
-                     dnbArr={ upper.dnbArr }
-										 vrvOptions={ basicVrvOptions }
-										 annotations= {this.state.annotations}
-										 selectionHandler={ selectionHandler.bind(this, upper.MEI) }
-										 selectorString={ selectorStrings[this.state.targetting] }
-										 handleSelectAnnotation={ this.handleSelectAnnotation }
-										 selectedAnnotation={this.state.selectedAnnotation}
-										 handleScoreUpdate={ this.handleScoreUpdate }
-                     handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
+            id="pane1"
+            narrowPane={ narrowWindow }
+            width={ this.state.width }
+            uri={ upper.MEI }
+            shortTitle={ upper.shortTitle}
+            arranger={ upper.arranger }
+            genre={ upper.genre}
+            publisher={ upper.publisher }
+            date={ upper.date}
+            place={ upper.place}
+            catNumber={ upper.catNumber}
+            dnbArr={ upper.dnbArr }
+            vrvOptions={ basicVrvOptions }
+            annotations= {this.state.annotations}
+            selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+            selectorString={ selectorStrings[this.state.targetting] }
+            handleSelectAnnotation={ this.handleSelectAnnotation }
+            selectedAnnotation={this.state.selectedAnnotation}
+            handleScoreUpdate={ this.handleScoreUpdate }
+            handleReplaceVersion={ this.handleReplaceVersion.bind(this)}/>
 
           <div><h4 className="addMessage">Choose version to compare</h4>
    				<button className="addPane" onClick={this.handleAddVersionPane}>
