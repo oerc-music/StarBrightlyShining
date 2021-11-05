@@ -12,7 +12,7 @@
 <http://example.org/TrioArrOp93> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1123836310> .
 <http://example.org/TrioArrOp93> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1741> .
 <http://example.org/TrioArrOp93> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1817" .
-<http://example.org/TrioArrOp93> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.188-197.mei> .
+<http://example.org/TrioArrOp93> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/all/mei/D-BNbaC93_23.1st.188-197.mei> .
 <http://d-nb.info/gnd/1123836310> <http://www.w3.org/2000/01/rdf-schema#label> "S.A. Steiner & Comp." .
 <http://d-nb.info/gnd/300016425> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 8, op. 93 (F-Dur)" .
 <http://d-nb.info/gnd/300016425> <http://purl.org/ontology/bibo/shortTitle> "8th Symphony" .
