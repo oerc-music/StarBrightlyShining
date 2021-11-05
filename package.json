@@ -15,7 +15,7 @@
     "axios": "^0.21.1",
     "immutability-helper": "^3.1.1",
     "jsum": "^0.1.4",
-    "meld-clients-core": "oerc-music/meld-clients-core",
+    "meld-clients-core": "oerc-music/meld-clients-core#convert-coords",
     "painless-ui": "0.0.47",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
