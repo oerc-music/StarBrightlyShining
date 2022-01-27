@@ -11,7 +11,7 @@
 <http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/dc/elements/1.1/publisher> <http://d-nb.info/gnd/1064327222> .
 <http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://rdaregistry.info/Elements/u/P60163> <https://www.wikidata.org/wiki/Special:EntityData/Q1022> .
 <http://example.org/SilcherVocalArrOfAllegrettoOp92> <https://d-nb.info/standards/elementset/gnd#dateOfPublication> "1871" .
-<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/all/mei/D-BNbaC_SILCH_5.mei> .
+<http://example.org/SilcherVocalArrOfAllegrettoOp92> <http://purl.org/vocab/frbr/core#embodiment> <https://raw.githubusercontent.com/DomesticBeethoven/data/main/mei/op.%2092/StimKlvZumsteeg%20-%20D-BNba%20C%20SILCH_5/D-BNbaC_SILCH_5.mei> .
 <http://d-nb.info/gnd/1064327222> <http://www.w3.org/2000/01/rdf-schema#label> "G. A. Zumsteeg" .
 <http://d-nb.info/gnd/300016417> <http://www.w3.org/2000/01/rdf-schema#label> "Sinfonien, Nr. 7, op. 92 (A-Dur)" .
 <http://d-nb.info/gnd/300016417> <http://purl.org/ontology/bibo/shortTitle> "7th Symphony" .
