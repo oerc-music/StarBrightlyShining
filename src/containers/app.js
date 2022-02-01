@@ -485,12 +485,12 @@ const notFound = ""
 
 	renderWorkAsHeader(work){
 		if(!work){
-		return <div className="backButton" onClick={this.handleChangeWork}>Go Back - Change Work</div>;
+		return <div className="backButton" onClick={this.handleChangeWork}>Back - Change Work</div>;
 		} else if(this.state.mode==="version"){
-      return <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+      return <div className="backButton1" onClick={this.handleChangeWork}>Back - Change Work</div>
       } else {
 			return <div className="workHeader">
-                <div className="backButton1" onClick={this.handleChangeWork}>Go Back - Change Work</div>
+                <div className="backButton1" onClick={this.handleChangeWork}>Back - Change Work</div>
                 <div className="workTitle">
                   <div>Title of Work: <h4>{work[pref.bibo+"shortTitle"]}&nbsp;</h4>
                   <CustomPopup
