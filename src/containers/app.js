@@ -14,6 +14,8 @@ import PrevPageButton from 'selectable-score/lib/prev-page-button.js';
 import SubmitButton from 'selectable-score/lib/submit-button.js';
 import LoadingIndicator from './loadingIndicator.js';
 
+import Sidebar from './sidebar';
+
 // CustomPopup based on 'reactjs-popup' node module ;
 import CustomPopup from './popup.js';
 import 'reactjs-popup/dist/index.css';
@@ -209,13 +211,13 @@ const notFound = ""
 // dnb auth also available as an object with @id and url
 // http://www.wikidata.org/prop/statement/value-normalized/P227
 
-// console.log for dnb record in wikidata
+//  for dnb record in wikidata
 // let step1 = pref.gndo+"arranger" in vivoScore ? true : false
 // let step2 = step1 && pref.schema+"about" in vivoScore[pref.gndo+"arranger"] ? true : false
 // let step3 = step2 && pref.wdp+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"] ? true : false
 // let step4 = step3 && pref.wdpn+"P227" in vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"] ? true : false
 //
-// console.log('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
+// ('\nlevels: ' + step1 + ' - ' + step2 + ' - ' + step3 + ' - ' + step4)
 //    obj.dnbArr = step4 ?
 //              vivoScore[pref.gndo+"arranger"][pref.schema+"about"][pref.wdp+"P227"][pref.wdps+"P227"] : "";
 
@@ -258,7 +260,7 @@ const notFound = ""
 
          obj.work = vivoScore[pref.rdau+"P60242"];
 
-         console.log("Processed a ", vivoScore, " into a ", obj);
+         ("Processed a ", vivoScore, " into a ", obj);
 
 		return obj;
 	}
@@ -352,7 +354,7 @@ const notFound = ""
 	handleSelectionChange(key, selectionIds){
 		const pane = document.getElementById(key);
 		if(!pane){
-			console.log("FAILED TO FIND", key, selectionIds);
+			("FAILED TO FIND", key, selectionIds);
 			return;
 		}
 		const selectedElements = Array.from(pane.getElementsByClassName('selected'));
@@ -389,6 +391,10 @@ const notFound = ""
 		mm[pref.dct+"created"] = now.toISOString();
 		mm[pref.frbr+"embodiment"] = uris.map(this.makeExtractFromSelection);
 		this.setState(update(this.state, {annotations: {$push: [mm]}}));
+
+    console.log("makeMusicalMaterialFromSelection")
+    console.log(mm)
+
 	}
   handleScoreUpdate(scoreElement) {
     console.log("Received updated score DOM element: ", scoreElement)
@@ -422,7 +428,7 @@ const notFound = ""
   handleSubmit(args) {
     /* do any app-specific actions and return the object (e.g. a Web Annotation)
      * to be submitted to the user POD */
-    console.log("Received args: ", args);
+    ("Received args: ", args);
     return {
       "@context": "http://www.w3.org/ns/anno.jsonld",
       "target": this.state.selection.map( (elem) => this.state.uri + "#" + elem.getAttribute("id") ),
@@ -557,7 +563,7 @@ const notFound = ""
 					this.handleNoteSelectionChange :
 					this.handleMeasureSelectionChange ;
 		const narrowWindow = this.state.width < 800;
-		console.log(this.state.versions[0], this.state.versions[1]);
+		(this.state.versions[0], this.state.versions[1]);
 		return(
 
 			<main>
@@ -586,6 +592,7 @@ const notFound = ""
                publisher={ upper.publisher }
                date={ upper.date}
                place={ upper.place}
+//               catNumber={ upper.catNumber}
                catNumber={ upper.catNumber}
                dnbArr={ upper.dnbArr }
                vrvOptions={ basicVrvOptions }
@@ -615,7 +622,10 @@ const notFound = ""
                selectionHandler={ selectionHandler.bind(this, lower.MEI) }
                selectorString={ selectorStrings[this.state.targetting] }
                handleScoreUpdate={ this.handleScoreUpdate }
-										 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 1)}/>
+							 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 1)}/>
+
+        <div>Sidebar</div>
+
 			</main>
 		);
 	}
@@ -666,6 +676,31 @@ return(
    				<button className="addPane" onClick={this.handleAddVersionPane}>
    					+
    				</button>
+        </div>
+        <div>Sidebar
+
+        <Sidebar
+            id="sidebar"
+            narrowPane={ narrowWindow }
+            width={ this.state.width }
+            uri="URI Goes Here"
+            shortTitle={ upper.shortTitle}
+            arranger={ upper.arranger }
+            genre={ upper.genre}
+            publisher={ upper.publisher }
+            date={ upper.date}
+            place={ upper.place}
+            catNumber={ upper.catNumber}
+            dnbArr={ upper.dnbArr }
+            vrvOptions={ basicVrvOptions }
+            annotations= {this.state.annotations}
+            selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+            selectorString={ selectorStrings[this.state.targetting] }
+            handleSelectAnnotation={ this.handleSelectAnnotation }
+            selectedAnnotation={this.state.selectedAnnotation}
+            handleScoreUpdate={ this.handleScoreUpdate }
+						handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)} />
+
         </div>
       </div>
     )
