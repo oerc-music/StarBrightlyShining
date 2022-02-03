@@ -262,6 +262,7 @@ const notFound = ""
 
          ("Processed a ", vivoScore, " into a ", obj);
 
+
 		return obj;
 	}
 
@@ -592,9 +593,8 @@ const notFound = ""
                publisher={ upper.publisher }
                date={ upper.date}
                place={ upper.place}
-//               catNumber={ upper.catNumber}
                catNumber={ upper.catNumber}
-               dnbArr={ upper.dnbArr }
+               upperDnbArr={ upper.dnbArr }
                vrvOptions={ basicVrvOptions }
                annotations= {this.state.annotations}
                selectionHandler={ selectionHandler.bind(this, upper.MEI) }
@@ -613,7 +613,7 @@ const notFound = ""
                date={ lower.date}
                place={ lower.place}
                catNumber={ lower.catNumber}
-               dnbArr={ lower.dnbArr }
+               lowerDnbArr={ lower.dnbArr }
                uri={ lower.MEI }
                annotations= {this.state.annotations}
                vrvOptions={ basicVrvOptions }
@@ -624,7 +624,38 @@ const notFound = ""
                handleScoreUpdate={ this.handleScoreUpdate }
 							 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 1)}/>
 
-        <div>Sidebar</div>
+               <Sidebar
+                   id="sidebar"
+                   narrowPane={ narrowWindow }
+                   width={ this.state.width }
+                   uri="URI Goes Here"
+
+                   upperShortTitle={ upper.shortTitle}
+                   upperArranger={ upper.arranger }
+                   upperPublisher={ upper.publisher }
+                   upperDate={ upper.date }
+                   upperDnbArr={ upper.dnbArr }
+
+                   lowerShortTitle={ lower.shortTitle}
+                   lowerArranger={ lower.arranger }
+                   lowerPublisher={ lower.publisher }
+                   lowerDate={ lower.date }
+                   lowerDnbArr={ lower.dnbArr }
+
+                   genre={ upper.genre}
+                   publisher={ upper.publisher }
+                   date={ upper.date}
+                   place={ upper.place}
+                   catNumber={ upper.catNumber}
+                   dnbArr={ upper.dnbArr }
+                   vrvOptions={ basicVrvOptions }
+                   annotations= {this.state.annotations}
+                   selectionHandler={ selectionHandler.bind(this, upper.MEI) }
+                   selectorString={ selectorStrings[this.state.targetting] }
+                   handleSelectAnnotation={ this.handleSelectAnnotation }
+                   selectedAnnotation={this.state.selectedAnnotation}
+                   handleScoreUpdate={ this.handleScoreUpdate }
+                   handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)} />
 
 			</main>
 		);
@@ -677,15 +708,18 @@ return(
    					+
    				</button>
         </div>
-        <div>Sidebar
+        <div>
 
         <Sidebar
             id="sidebar"
             narrowPane={ narrowWindow }
             width={ this.state.width }
             uri="URI Goes Here"
-            shortTitle={ upper.shortTitle}
-            arranger={ upper.arranger }
+            upperShortTitle={ upper.shortTitle}
+            upperArranger={ upper.arranger }
+            upperPublisher={ upper.publisher }
+            upperDate={ upper.date }
+            upperDnbArr={ upper.dnbArr }
             genre={ upper.genre}
             publisher={ upper.publisher }
             date={ upper.date}

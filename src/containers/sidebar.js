@@ -59,9 +59,9 @@ export default class Sidebar extends Component {
 	}
 	detailsButtonText(){
 		if(this.state.showDetails==="metadata"){
-			return "Hide details";
+			return "Hide SIDEBAR";
 		} else {
-			return "Show details";
+			return "Show SIDEBAR";
 		}
 	}
 	scrollForward(){
@@ -101,8 +101,12 @@ export default class Sidebar extends Component {
 
 // For entities with GND number provided in wikidata rdf:
 // Creates a small button with link to DNB '/about' page.
-	addGnd(number) {
-		return <a href={"http://d-nb.info/gnd/"+this.props.dnbArr} target='_blank'>
+	addGndUpper(number) {
+		return <a href={"http://d-nb.info/gnd/"+this.props.upperDnbArr} target='_blank'>
+			<img className="authButton" src="img/dnb.jpg"/></a>
+	}
+	addGndLower(number) {
+		return <a href={"http://d-nb.info/gnd/"+this.props.lowerDnbArr} target='_blank'>
 			<img className="authButton" src="img/dnb.jpg"/></a>
 	}
 
@@ -111,45 +115,36 @@ export default class Sidebar extends Component {
 											pageWidth: 60000};
 		return (
 			<div className={"music pane "+this.props.extraClasses} id={this.props.id}>
+				<div className="rightControls">
+					<button className="sidebar" onClick={this.toggleDetails}>
+						{ this.detailsButtonText() }
+					</button>
+				</div>
+
+
+
 				<div className={"main "+this.state.showDetails}>
 
 					<div className="controllbar">
-						<div className="leftControls">
-							<div className="scoreScrollButton" onClick={this.scrollBackward}><span>⇦</span></div>
-							<div className="scoreScrollButton" onClick={this.scrollForward}><span>⇨</span></div>
-							<div className="replaceButton" onClick={this.replaceVersion} >Replace version</div>
-						</div>
-						<div className="middle"/>
-						<div className="rightControls">
-							<button className="showDetails" onClick={this.toggleDetails}>
-								{ this.detailsButtonText() }
-							</button>
-						</div>
-					</div>
 
 
-					<div className="scrollableScore" ref={this.scrollPane}>
-						<SelectableScore uri={this.props.uri}
-														 vrvOptions = { vrvOptions }
-														 onSelectionChange = { this.props.selectionHandler }
-														 selectorString = { this.props.selectorString }
-														 onScoreUpdate = { this.props.handleScoreUpdate } />
-						<ExtractVisualiser uri={this.props.uri} musicalMaterial={this.props.annotations}
-															 toDraw={this.props.annotations.map(this.xRanges)}
-															 selectedAnnotation={this.props.selectedAnnotation}
-															 handleSelectAnnotation={this.props.handleSelectAnnotation} />
 					</div>
 				</div>
+
 				<aside className={this.state.showDetails}>
 					<dl>
-						<div><dt>TTTTTTTTTTTTitle:</dt><dd>{this.props.shortTitle}</dd></div>
-						<div><dt>-Genre:</dt><dd> {this.props.genre}</dd></div>
-						<div><dt>Arranger:</dt><dd>{this.props.arranger}
-				 			{ this.props.dnbArr ? this.addGnd(this.props.dnbArr) : false }</dd></div>
-						<div><dt>Publisher:</dt><dd>{this.props.publisher}</dd></div>
-						<div><dt>Date:</dt><dd>{this.props.date}</dd></div>
-						<div><dt>Place:</dt><dd>{this.props.place}</dd></div>
-		            <div><dt>catNumber:</dt><dd>{this.props.catNumber}</dd></div>
+						<div><dt>UPPER Title:</dt><dd>{this.props.upperShortTitle}</dd></div>
+						<div><dt>Arranger:</dt><dd>{this.props.upperArranger}
+				 			{ this.props.upperDnbArr ? this.addGndUpper(this.props.upperDnbArr) : false }</dd></div>
+						<div><dt>Publisher:</dt><dd>{this.props.upperPublisher}</dd></div>
+						<div><dt>Date:</dt><dd>{this.props.upperDate}</dd></div>
+
+						<div><dt>LOWER Title:</dt><dd>{this.props.lowerShortTitle}</dd></div>
+						<div><dt>Arranger:</dt><dd>{this.props.lowerArranger}
+				 			{ this.props.lowerDnbArr ? this.addGndLower(this.props.lowerDnbArr) : false }</dd></div>
+						<div><dt>Publisher:</dt><dd>{this.props.lowerPublisher}</dd></div>
+						<div><dt>Date:</dt><dd>{this.props.lowerDate}</dd></div>
+
 					</dl>
 				</aside>
 			</div>

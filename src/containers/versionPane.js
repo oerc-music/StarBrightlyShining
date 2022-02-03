@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SelectableScore from 'selectable-score/lib/selectable-score';
-import SubmitButton from 'selectable-score/lib/submit-button.js';
+// import SubmitButton from 'selectable-score/lib/submit-button.js';
 import ExtractVisualiser from './extractVisualiser';
 import { prefix as pref } from 'meld-clients-core/lib/library/prefixes';
 import { convertCoords } from 'meld-clients-core/lib/library/boxesForMeasures';

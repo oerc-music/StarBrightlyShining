@@ -216,6 +216,9 @@ dd{
 }
 .showDetails {
 }
+.sidebar {
+  background-color: #fff176;
+}
 .scorepane {
 	margin-top: 0;
 }
