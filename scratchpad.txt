@@ -1,0 +1,70 @@
+Excerpt ID= URI:http://example.org/id#103948103948301948:
+  persischer Nachtgesang mm1-4: xml:ids
+  starBrightlyShining mm3-6: xml:ids
+
+  arr1: https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_23.1st.1-4.mei
+  arr2: https://raw.githubusercontent.com/DomesticBeethoven/data/main/op.%2093/KlaviertrioSteiner%20-%20D-BNba%20C93_23/D-BNbaC93_33.1st.2-6.mei
+
+
+--------
+
+annotation URI:https://109348109348
+
+   target:RI:httls://example.org/id#103948103948301948:
+
+   text: "these are the same measures, but in the 2nd arrangement there is a 1 bar intro"
+
+
+_____________
+annotation32874298347.JSON
+
+excerpt928374923874.JSON
+_____________
+
+
+@prefix frbr: <http://purl.org/vocab/frbr/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+@prefix schema: <http://schema.org/> .
+
+
+example:solidPodDirectoryFile a rdf:Bag;
+   prefix:hasMember URIobject1;
+   prefix:hasMember URIobject2;
+   prefix:hasMember URIobject3;
+
+https://www.w3.org/TR/rdf-schema/#ch_container
+   5.1.6 rdfs:member
+   rdfs:member is an instance of rdf:Property that is a super-property of all the container membership properties i.e. each container membership property has an rdfs:subPropertyOf relationship to the property rdfs:member.
+
+   The rdfs:domain of rdfs:member is rdfs:Resource. The rdfs:range of rdfs:member is rdfs:Resource.
+
+   _:xxx rdf:type rdf:Bag .
+   _:xxx rdf:_1 <ex:a> .
+
+   https://BithUser.inrupt.net/public/bith/82629079-0bee-4172-92fc-6f9a1160 rdf:type rdf:Bag .
+   https://BithUser.inrupt.net/public/bith/82629079-0bee-4172-92fc-6f9a1160
+
+
+
+
+
+   {
+     "@context": ""
+
+   }
+
+
+
+   LDP Basic Container (expressed in Turtle):
+
+   @prefix dcterms: <http://purl.org/dc/terms/>.
+   @prefix ldp: <http://www.w3.org/ns/ldp#>.
+
+   <http://example.org/alice/> a ldp:Container, ldp:BasicContainer;
+     dcterms:title 'Alice’s data storage on the Web' ;
+     ldp:contains <http://example.org/alice/foaf> , <http://example.org/alice/avatar> .
+   The property, ldp:contains, defines a set of triples, maintained by the container, which are documents created by the container. In LDP terminology, these are called containment triples and they always bear the triple form of:
+
+   <LDPC URI> <ldp:contains> <document-URI>
+
+   Basic Containers provide the most straight-forward way to have generic storage in an LDP Server and for creating a containment hierarchy of arbitrary resources.
