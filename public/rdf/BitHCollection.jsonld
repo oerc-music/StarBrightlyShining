@@ -21,7 +21,8 @@
 			{"@id": "http://localhost:8080/rdf/silcherNachtgesang.nq"},
 			{"@id": "http://localhost:8080/rdf/haslingerTrio93.nq"},
 			{"@id": "http://localhost:8080/rdf/haslingerPianoArrOp93.nq"},
-			{"@id": "http://localhost:8080/rdf/steinerQuintet93.nq"}
+			{"@id": "http://localhost:8080/rdf/steinerQuintet93.nq"},
+			{"@id": "http://example.com/public/bith/listing.ttl"}
 		]
 	}
 }
