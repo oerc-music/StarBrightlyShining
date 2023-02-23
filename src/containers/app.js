@@ -25,8 +25,7 @@ const MAX_TRAVERSERS = 5;
 //const selectorString = ".notehead";
 const selectorStrings = { note: ".notehead, .stem, .verse", measure: ".measure" };
 
-pref.bith = "https://example.com/";
-pref.bithTerms = "https://example.com/Terms/";
+pref.bithTerms = "https://domestic-beethoven.eu/Terms/";
 pref.bibo = "http://purl.org/ontology/bibo/";
 pref.gndo = "https://d-nb.info/standards/elementset/gnd#";
 pref.dce = "http://purl.org/dc/elements/1.1/";
@@ -68,7 +67,9 @@ class App extends Component {
 			height: 800,
 			annotations: [],
          uri: this.props.uri,
+      observations: [],
 			selectedAnnotation: false,
+      relevantObservations: false,
       arrangements: false
     };
       this.handleScoreUpdate = this.handleScoreUpdate.bind(this);
@@ -91,8 +92,11 @@ class App extends Component {
 				"http://rdaregistry.info/Elements/u/P60242": {}
 			},
 			{
-				"@type": pref.bith + "MusicalMaterial"
-			}
+				"@type": pref.bithTerms + "MusicalMaterial"
+			},
+      {
+        "@type": pref.oa + "Annotation"
+      }
 		]);
 	}
 	// Life cycle methods
@@ -106,7 +110,9 @@ class App extends Component {
 																pref.gndo+"arranger", pref.gndo+"opusNumericDesignationOfMusicalWork",
 																pref.dce+"publisher", pref.gndo+"dateOfPublication",
 																pref.frbr+"embodiment", pref.rdau+"P60163", pref.rdau+"O60242",
-																pref.wdt+"P217",pref.rdfs+"label"
+																pref.wdt+"P217",pref.rdfs+"label",
+                                "http://www.w3.org/ns/ldp#contains"
+
 						],
 						ignoreObjectPrefix: ["http://rdaregistry.info/"]});
     }
@@ -275,21 +281,31 @@ const notFound = ""
 			return wl2;
 		}
 	}
-	graphHasChanged(){
-		let arrangements = [];
-		let worklist = [];
-		// 0. Get arrangements
-		if(this.props.graph && this.props.graph.outcomes
-			 && this.props.graph.outcomes[0]
-			 && this.props.graph.outcomes[0]['@graph']
-			 && this.props.graph.outcomes[0]['@graph'].length){
-			arrangements = this.props.graph.outcomes[0]['@graph'].map(this.transformArrangement);
-			// Extract all unique works from the arrangements list
-			worklist = arrangements.reduce(this.addWork, []);
-		}
-		// 1. convert this.graph.outcomes[0] into this.state.worklist
-    this.setState({arrangements: arrangements, worklist: worklist});
-	}
+
+  	graphHasChanged(){
+  		let arrangements = [];
+  		let worklist = [];
+  		let musicalMaterials = [];
+      let observations =[];
+  		// 0. Get arrangements
+  		if(this.props.graph && this.props.graph.outcomes
+  			 && this.props.graph.outcomes[0]
+  			 && this.props.graph.outcomes[0]['@graph']
+  			 && this.props.graph.outcomes[0]['@graph'].length){
+  			arrangements = this.props.graph.outcomes[0]['@graph'].map(this.transformArrangement);
+  			// Extract all unique works from the arrangements list
+  			worklist = arrangements.reduce(this.addWork, []);
+  			if(this.props.graph.outcomes[1]) {
+  				musicalMaterials = "@graph" in this.props.graph.outcomes[1] ? this.props.graph.outcomes[1]['@graph'] : [this.props.graph.outcomes[1]];
+  			}
+        if(this.props.graph.outcomes[2]) {
+  				observations = "@graph" in this.props.graph.outcomes[2] ? this.props.graph.outcomes[2]['@graph'] : [this.props.graph.outcomes[2]];
+  			}
+  		}
+  		// 1. convert this.graph.outcomes[0] into this.state.worklist
+      this.setState({arrangements: arrangements, worklist: worklist, annotations: musicalMaterials,
+        observations: observations});
+  	}
 
   graphComponentDidUpdate(props, prevProps, prevState) {
 		// Boiler plate traversal code (should move to m-c-c)
@@ -358,6 +374,7 @@ const notFound = ""
 		const selectedElements = Array.from(pane.getElementsByClassName('selected'));
 		const newSelection = {...this.state.selection};
 		selectedElements.forEach(thing => thing.classList.remove('selected'));
+console.log("selection IDs", selectionIds);
 		selectionIds.forEach(e => document.getElementById(e).classList.add('selected'));
 		newSelection[key] = selectionIds;
     this.setState({ selection: newSelection,
@@ -365,7 +382,13 @@ const notFound = ""
 																	&& Object.values(newSelection).filter(x => x.length).length > 1) });
 	}
 	handleSelectAnnotation(annotation){
-		this.setState({selectedAnnotation: annotation});
+    // Find relevant observations
+  console.log("*****************", this.state.observations, annotation);
+		var relevant = this.state.observations.filter(obs => (Array.isArray(obs[pref.oa+"hasTarget"]) ?
+																													obs[pref.oa+"hasTarget"].some(targ => targ['@id'] == annotation['@id']) :
+																													obs[pref.oa+"hasTarget"]['@id'] == annotation['@id']));
+		console.log(relevant);
+		this.setState({relevantObservations: relevant, selectedAnnotation: annotation});
 	}
 	addElementToSelectionObject(object, resourceURI, element) {
 		if(!((pref.frbr+"part") in object)) object[pref.frbr+"part"] = [];
@@ -547,6 +570,10 @@ const notFound = ""
 			);
 		}
 	}
+
+  drawRelevantObservations(){
+    return this.state.relevantObservations.map(obs => <div>{obs[pref.oa+"bodyValue"]}</div>)
+  }
 	renderTiledScores(){
 
 		if(!this.state.versions[0] && this.state.versions[1]) return <div>Loading...</div>;
@@ -574,6 +601,8 @@ const notFound = ""
 
 
 				{this.annotationButtons()}
+        <div>Annotations for the currently displayed parallel passage:</div>
+        {this.state.relevantObservations ? this.drawRelevantObservations(): false }
 
 				<VersionPane extraClasses="upper"
                id="pane1"
@@ -590,12 +619,13 @@ const notFound = ""
                dnbArr={ upper.dnbArr }
                vrvOptions={ basicVrvOptions }
                annotations= {this.state.annotations}
+               observations= {this.state.observations}
                selectionHandler={ selectionHandler.bind(this, upper.MEI) }
                selectorString={ selectorStrings[this.state.targetting] }
                handleSelectAnnotation={ this.handleSelectAnnotation }
                selectedAnnotation={this.state.selectedAnnotation}
                handleScoreUpdate={ this.handleScoreUpdate }
-										 handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)}/>
+										handleReplaceVersion={ this.handleChooseReplacementVersion.bind(this, 0)}/>
 				<VersionPane extraClasses="lower"
                width={ this.state.width }
                id="pane1"
@@ -609,6 +639,7 @@ const notFound = ""
                dnbArr={ lower.dnbArr }
                uri={ lower.MEI }
                annotations= {this.state.annotations}
+               observations= {this.state.observations}
                vrvOptions={ basicVrvOptions }
                handleSelectAnnotation={ this.handleSelectAnnotation }
                selectedAnnotation={this.state.selectedAnnotation}
@@ -640,6 +671,8 @@ return(
     <div className="workHeader">{this.renderWorkAsHeader(this.state.work)}</div>
     <p></p>
 
+    {this.state.relevantObservations ? this.drawRelevantObservations(): false }
+
         <VersionPane extraClasses="upper"
             id="pane1"
             narrowPane={ narrowWindow }
@@ -655,6 +688,7 @@ return(
             dnbArr={ upper.dnbArr }
             vrvOptions={ basicVrvOptions }
             annotations= {this.state.annotations}
+            observations= {this.state.observations}
             selectionHandler={ selectionHandler.bind(this, upper.MEI) }
             selectorString={ selectorStrings[this.state.targetting] }
             handleSelectAnnotation={ this.handleSelectAnnotation }

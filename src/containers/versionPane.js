@@ -30,13 +30,15 @@ export default class VersionPane extends Component {
 	}
 	xRanges(material) {
 		let xPositions = [];
-		const extracts = material[pref.frbr+"embodiment"];
+		const extracts = material["https://domestic-beethoven.eu/Terms/hasSetting"];
 		const ids = extracts.reduce(
 			(extractNotes, extract) => {
-				return extract[pref.frbr+"member"].reduce(
+				var selections = Array.isArray(extract[pref.frbr+"embodiment"]) ? extract[pref.frbr+"embodiment"] : [extract[pref.frbr+"embodiment"]];
+				return selections.reduce(
+				// return extract[pref.frbr+"embodiment"].reduce(
 					(selectionNotes, selection) => {
 						return selection[pref.frbr+"part"].reduce(
-							(notes, uri) => ((uri.startsWith(this.props.uri + "#")) ? notes.concat([uri]) : notes), selectionNotes);
+							(notes, uri) => ((uri["@id"].startsWith(this.props.uri + "#")) ? notes.concat([uri["@id"]]) : notes), selectionNotes);
 					}, extractNotes);
 			}, []);
 		const frags = ids.map(x => x.split('#')[1]);
